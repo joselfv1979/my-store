@@ -1,0 +1,144 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  font-family: sans-serif;
+}
+
+div.App {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  text-align: center;
+  min-height: 500px;
+  background-color: skyblue;
+}
+
+header, footer {
+  text-align: center;
+  height: 100px;
+  background-color: whitesmoke;
+}
+
+header > ul {
+  display: flex;
+}
+
+h2 {
+  margin-top: 10px;
+}
+
+.form-container {
+  text-align: center;
+}
+
+form {
+  width: 500px;
+  background-color: aqua;
+  margin-top: 20px;
+  margin-left: auto;margin-right: auto;
+  padding-top: 20px;
+}
+fieldset {
+  text-align: justify;
+  width: 400px;
+  margin-left: auto;margin-right: auto;
+  margin-top: 10px;
+  border: none;
+}
+
+label {
+  margin: 10px;
+  display: inline-block;
+  width: 80px
+}
+
+input {
+  width: 200px;
+  height: 25px;
+  margin: 10px;
+  border-style: solid;
+  border-width: 1.5px;
+  background-color: white;
+}
+
+button {
+  width: 70px;
+  height: 25px;
+  margin: 10px;
+}
+
+.username {
+  margin: 10px;
+}
+
+.link {
+  margin: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+#login {
+  margin-left: auto;
+  margin-top: 10px;
+}
+
+.link:hover {
+  color: greenyellow;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.info {
+  width: 150px;
+  height: 250px;
+  margin: 2rem;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  border-color: blue;
+  background-color: white;
+}
+
+div.error {
+  background-color: red;
+  height: 25px;
+  display: flex;
+}
+
+div.error p {
+  flex-grow: 1;
+}
+
+div.success {
+  background-color: greenyellow;
+  height: 25px;
+  display: flex;
+}
+
+div.success p {
+  flex-grow: 1;
+}
+
+div.error button {
+  margin: 0.2rem;
+  padding-left: .1rem;
+  padding-right: .1rem;
+}
+
+div.success button {
+  margin: 0.2rem;
+  padding-left: .1rem;
+  padding-right: .1rem;
+}
