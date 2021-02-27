@@ -4,77 +4,97 @@ const getAllProducts = async () => {
 
     const sql = 'select * from products';
 
-    try {
-        const connection = await database.connection();
-        const [rows] = await connection.execute(sql);
-        return rows;
-    } catch (error) {
-        console.log(error);
-        return {
-            'code': 500,
-            'description': error.toString()
-        }
+    const connection = await database.connection();
+    const [rows] = await connection.execute(sql);
+
+    return rows;
+}
+
+const getFilteredProducts = async (data) => {
+
+    const { name, category } = data;
+
+    let sql = 'select * from products';
+    let parameters = [];
+    let count = 0;
+
+    if (name) {
+        sql += ' where name = ?';
+        parameters.push(name);
+        count++;
     }
+
+    if (category) {
+        if (count === 0)
+            sql += ' where category = ?';
+        else
+            sql += ' and category = ?';
+        parameters.push(category)
+        count++;
+    }
+
+    const connection = await database.connection();
+    const [rows] = await connection.execute(sql, parameters);
+
+    return rows;
 }
 
 const getProduct = async (id) => {
 
-    const sql = 'select * from products where id = ?'
+    const sql = 'select * from products where id = ?';
 
-    try {
-        const connection = await database.connection();
-        const [rows] = await connection.execute(sql, [id]);
-        if(rows.length ===0) return false;
-        return rows[0];
-    } catch (error) {
-        console.log(error);
+    const connection = await database.connection();
+    const [rows] = await connection.execute(sql, [id]);
+    if (rows.length === 0) {
+        const error = new Error('Product not found');
+        error.httpCode = 404;
+        throw error;
+    }
+
+    return rows[0];
+}
+
+const addProduct = async ({ name, description, category, price, stock, image }) => {
+
+    const sql = 'insert into products (name, description, category, price, stock, image) values (?, ?, ?, ?, ?, ?)';
+
+    const connection = await database.connection();
+    const [result] = await connection.execute(sql, [name, description, category, price, stock, image]);
+
+    if (result.affectedRows) {
+        let message = 'Product created successfully';
+        return { message };
     }
 }
 
-const addProduct = async ({ name, description, price, stock }) => {
+const updateProduct = async (id, { name, description, price, stock, image }) => {
 
-    const sql = 'insert into products (name, description, price, stock) values (?, ?, ?, ?)';
+    const sql = 'update products set name = ?, description = ?, price = ?, stock = ?, image = ? where id = ?';
 
-    try {
-        const connection = await database.connection();
-        const newProduct = await connection.execute(sql, [name, description, price, stock]);
-        return newProduct;
-    } catch (error) {
-        console.log(error);
-        return error
-    }
-}
+    const connection = await database.connection();
+    const [result] = await connection.execute(sql, [name, description, price, stock, image, id]);
 
-const updateProduct = async ( id, { name, description, price, stock }) => {
-
-    const sql = 'update products set name = ?, description = ?, price = ?, stock = ? where id = ?';
-
-    try {
-        const connection = await database.connection();
-        const [updatedProduct] = await connection.execute(sql, [name, description, price, stock, id]);
-        return updatedProduct.changedRows;
-    } catch (error) {
-        console.log(error);
-        return error
+    if (result.changedRows) {
+        let message = 'Product updated successfully';
+        return { message };
     }
 }
 
 const deleteProduct = async (id) => {
     const sql = 'delete from products where id = ?';
-    try {
-        const connection = await database.connection();
-        const result = await connection.execute(sql, [id]);
-        console.log('uu', result[0].affectedRows);
-        result[0].affectedRows === 1 ? result = true : false;
-        console.log('res', result);
-        return result;
-    } catch (error) {
-        return error;
+
+    const connection = await database.connection();
+    const [result] = await connection.execute(sql, [id]);
+
+    if (result.affectedRows) {
+        let message = 'Product deleted successfully';
+        return { message };
     }
 }
 
 module.exports = {
     getAllProducts,
+    getFilteredProducts,
     getProduct,
     addProduct,
     deleteProduct,

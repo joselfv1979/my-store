@@ -1,38 +1,42 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import { UserContext } from '../context/UserContext';
-
-const users = [
-    {
-        username: 'admin',
-        password: '1234'
-    },
-    {
-        username: 'user',
-        password: '1234'
-    }
-]
+import axios from "axios";
 
 const LoginPage = () => {
 
-    const {setUsername} = useContext(UserContext);
+    const { setUsername, setRole, setIsAdmin } = useContext(UserContext);
     const [name, setName] = useState(null);
     const [password, setPassword] = useState(null);
     const [error, setError] = useState(null);
 
     const history = useHistory();
 
-    const logging = () => {
-        setUsername(name);
+    const logging = ({username, role, id}) => {
+        setUsername(username);
+        setRole(role);
+        if(role === 'admin') setIsAdmin(true);
+        localStorage.setItem('username', username)
+        localStorage.setItem('role', role);
+        localStorage.setItem('id', id)
         history.push('/');
+    }
+
+    const checkLogging = async (user) => {
+        try {
+            const { data } = await axios.post('/users/sign-in', user);
+            if(data.success) logging(data.user);
+        } catch (error) {
+            setError(error.response.data.message);
+        }
     }
 
     const handleFormSubmit = event => {
         event.preventDefault();
 
-        const [result] = users.filter(item => item.username === name && item.password === password);
+        const user = { username: name, password }
 
-        result ? logging() : setError('Invalid credentials');
+        checkLogging(user);
     }
 
     return (
@@ -43,8 +47,11 @@ const LoginPage = () => {
                     <button onClick={() => setError(null)}>x</button>
                 </div>
             ) : null}
+
             <h2>Login</h2>
+
             <form onSubmit={handleFormSubmit}>
+                
                 <fieldset>
                     <label htmlFor="username">Username</label>
                     <input
@@ -56,6 +63,7 @@ const LoginPage = () => {
                         }
                     />
                 </fieldset>
+
                 <fieldset>
                     <label htmlFor="password">Password</label>
                     <input

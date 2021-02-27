@@ -1,40 +1,55 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
+import { UserContext } from '../context/UserContext';
+import Product from './Product';
+import AdminButtons from './AdminButtons';
+import UserButtons from './UserButtons';
 
 const ProductList = ({
-    products, deleteProduct
+    products, deleteProduct, addToList, substractToList
 }) => {
+
+    const { isAdmin, setIsAdmin } = useContext(UserContext);
 
     const history = useHistory();
 
+    useEffect(() => {
+        localStorage.getItem('role') === 'admin' ?
+            setIsAdmin(true) : setIsAdmin(false);
+    }, []);
+
+    const editProduct = (id) => {
+        history.push(`/edit/${id}`)
+    }
+
+    const list = () => {
+
+        return products.map(product => (
+
+            <li key={product.id}>
+                <Product
+                    product={product}
+                    deleteProduct={deleteProduct}
+                />
+                {isAdmin ?
+                    <AdminButtons
+                        deleteProduct={deleteProduct}
+                        editProduct={editProduct}
+                        id={product.id}
+                    /> :
+                    <UserButtons
+                        addToList={addToList}
+                        substractToList={substractToList}
+                        id={product.id}
+                        quantity={product.quantity}
+                    />}
+            </li>
+        ))
+    }
+
     return (
         <div>
-            <ul>
-                {
-                    products.map(product => (
-                        <li className="info" key={product.id}>
-                            <article>
-                                <h2>{product.name}</h2>
-                                <p>{product.description}</p>
-                                <p>Price: {product.price} €</p>
-                                <p>Stock: {product.stock}</p>
-                                <button
-                                    onClick={() => {
-                                        if (window.confirm('Are you sure to delete?')) {
-                                            deleteProduct(product.id);
-                                        }
-                                    }}
-                                >Delete
-                                </button>
-                                <button
-                                    onClick={() => history.push(`/edit/${product.id}`)}
-                                >Edit
-                                </button>
-                            </article>
-                        </li>
-                    ))
-                }
-            </ul>
+            <ul>{list()}</ul>
         </div>
     )
 }

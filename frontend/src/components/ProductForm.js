@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
-const ProductForm = ({ addProduct, editProduct, id, name, setName, description, setDescription, price, setPrice, stock, setStock }) => {
+const ProductForm = ({ addProduct, editProduct, id, name, setName, category, setCategory, description, setDescription, price, setPrice, stock, setStock, image, setImage }) => {
 
     const history = useHistory();
 
@@ -10,14 +10,17 @@ const ProductForm = ({ addProduct, editProduct, id, name, setName, description, 
 
         id ? editProduct({
             name,
+            category,
             description,
             price,
             stock,
         }) : addProduct({
             name,
+            category,
             description,
             price,
             stock,
+            image
         });
     }
     return (
@@ -29,11 +32,22 @@ const ProductForm = ({ addProduct, editProduct, id, name, setName, description, 
                         type="text"
                         name="name"
                         required
-                        onChange={ event =>
+                        onChange={event =>
                             setName(event.target.value)
                         }
                         defaultValue={name}
                     />
+                </fieldset>
+
+                <fieldset>
+                <label htmlFor="category">Category</label>
+                    <select name="category" id="list" onChange={event => setCategory(event.target.value)}>
+                        <option value="">Choose</option>
+                        <option value="food">Food</option>
+                        <option value="drink">Drink</option>
+                        <option value="clothes">Clothes</option>
+                        <option value="toys">Toys</option>
+                    </select>
                 </fieldset>
 
                 <fieldset>
@@ -42,7 +56,7 @@ const ProductForm = ({ addProduct, editProduct, id, name, setName, description, 
                         type="text"
                         name="description"
                         required
-                        onChange={ event =>
+                        onChange={event =>
                             setDescription(event.target.value)
                         }
                         defaultValue={description}
@@ -55,7 +69,7 @@ const ProductForm = ({ addProduct, editProduct, id, name, setName, description, 
                         type="number"
                         name="price"
                         required
-                        onChange={ event =>
+                        onChange={event =>
                             setPrice(event.target.value)
                         }
                         defaultValue={price}
@@ -68,11 +82,36 @@ const ProductForm = ({ addProduct, editProduct, id, name, setName, description, 
                         type="number"
                         name="stock"
                         required
-                        onChange={ event =>
+                        onChange={event =>
                             setStock(event.target.value)
                         }
                         defaultValue={stock}
                     />
+                </fieldset>
+
+                <fieldset>
+                    <label htmlFor="image">Foto</label>
+
+                    <input
+                        type="file"
+                        id="image"
+                        name="image"
+                        accept=".jpg,.jpeg,.png"
+                        required
+                        onChange={(event) => {
+                            setImage(event.target.files[0]);
+                        }}
+                    />
+                    {/* <p className="help">{`Tamaño máximo ${REACT_APP_MAX_FILE_SIZE / 1024
+                        }Kb`}</p>
+
+                    {image ? (
+                        <img
+                            src={window.URL.createObjectURL(image)}
+                            width="100"
+                            alt="File Preview"
+                        />
+                    ) : null} */}
                 </fieldset>
 
                 <button>Submit</button>

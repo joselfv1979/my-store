@@ -1,4 +1,5 @@
-const { getAllProducts, getProduct, addProduct, deleteProduct, updateProduct } = require('../services/productService');
+const { getAllProducts, getFilteredProducts, getProduct, addProduct, deleteProduct, updateProduct } = require('../services/productService');
+const { processAndSaveImage } = require('../utils/processImage');
 
 const getProducts = async (req, res, next) => {
     const products = await getAllProducts();
@@ -6,16 +7,10 @@ const getProducts = async (req, res, next) => {
 }
 
 const getProductData = async (req, res, next) => {
-    const { id } = req.params;
 
     try {
+        const { id } = req.params;
         const product = await getProduct(id);
-
-        if (!product) {
-            const error = new Error('Product not found');
-            error.httpCode = 404;
-            throw error;
-        }
 
         return res.status(200).send({
             success: 'true',
@@ -26,63 +21,81 @@ const getProductData = async (req, res, next) => {
     }
 }
 
-const addNewProduct = async (req, res, next) => {
-    const product = req.body;
+const getFilteredProductList = async (req, res, next) => {
 
     try {
-        const response = await addProduct(product);
-        product.id = response[0].insertId;
+        const result = await getFilteredProducts(req.query);
+
+        if (!result) {
+            const error = new Error('Products not found');
+            error.httpCode = 404;
+            throw error;
+        }
+
         return res.status(200).send({
             success: 'true',
-            message: 'product created successfully',
-            product
+            result
         });
     } catch (error) {
-        return res.status(500).send({
-            success: 'false',
-            message: "Couldn't create this product"
+        next(error);
+    }
+
+}
+
+const createProduct = async (req, res, next) => {
+
+    try {
+        const { body, files } = req;
+        const savedImage = await processAndSaveImage(files.image);
+        body.image = savedImage;
+        const { message } = await addProduct(body);
+    
+        return res.status(200).send({
+            success: 'true',
+            message
         });
+    } catch (error) {
+        error.message = 'error in creating product';
+        next(error);
     }
 }
 
 const editProduct = async (req, res, next) => {
-    const product = req.body;
-
-    const { id } = req.params;
 
     try {
-        const updatedProduct = await updateProduct(id, product);
+        const { body, files } = req;
+        const { id } = req.params;
+
+        await getProduct(id);
+
+        const savedImage = await processAndSaveImage(files.image);
+        body.image = savedImage;
+
+        const { message } = await updateProduct(id, body);
 
         return res.status(200).send({
             success: 'true',
-            message: 'product updated successfully',
-            product
+            message
         });
     } catch (error) {
-        return res.status(500).send({
-            success: 'false',
-            message: "Couldn't update this product"
-        });
+        // error.message = 'error in updating product';
+        next(error);
     }
 
 }
 
 const removeProduct = async (req, res, next) => {
 
-    const { id } = req.params;
-
     try {
-        const product = await getProduct(id);
+        const { id } = req.params;
 
-        if (!product) {
-            const error = new Error('Product not found');
-            error.httpCode = 404;
-            throw error;
-        }
-        await deleteProduct(id);
+        await getProduct(id);
+
+        const { message } = await deleteProduct(id);
+
         return res.status(200).send({
             success: 'true',
-            message: 'Product deleted successfully',
+            message
         });
     } catch (error) {
         next(error);
@@ -91,8 +104,9 @@ const removeProduct = async (req, res, next) => {
 
 module.exports = {
     getProducts,
+    getFilteredProductList,
     getProductData,
-    addNewProduct,
+    createProduct,
     editProduct,
     removeProduct
 }

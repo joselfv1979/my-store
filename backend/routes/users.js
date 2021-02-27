@@ -1,12 +1,15 @@
 const express = require('express');
+const { getUsers, getUserData, addNewUser, editUser, removeUser } = require('../controllers/userController');
 const router = express.Router(); // creación de la instancia de enrutamiento
 
-const users = [];
+router.get('/', getUsers);
 
-// products.push({id: 1, name: 'apple'}, {id: 2, name: 'banana'}, {id: 3, name: 'orange'})
+router.post('/sign-in', getUserData);
 
-router.get('/users', (req, res) => {
-    res.send(users)
-  });
+router.post('/sign-up', addNewUser);
+
+router.put('/user-edit/:id', editUser);
+
+router.delete('/:id', removeUser)
 
 module.exports = router; // exportación del enrutador
