@@ -1,6 +1,8 @@
 const express = require('express');
-const { getUsers, getUserData, addNewUser, editUser, removeUser } = require('../controllers/userController');
+const { getUsers, getUserById, getUserData, addNewUser, editUser, removeUser } = require('../controllers/userController');
 const router = express.Router(); // creación de la instancia de enrutamiento
+
+router.get('/:id', getUserById);
 
 router.get('/', getUsers);
 

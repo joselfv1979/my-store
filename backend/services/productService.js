@@ -6,7 +6,6 @@ const getAllProducts = async () => {
 
     const connection = await database.connection();
     const [rows] = await connection.execute(sql);
-
     return rows;
 }
 

@@ -7,7 +7,20 @@ const AccountPage = () => {
     useEffect(() => {
         let id = localStorage.getItem('id');
         console.log(id);
-    })
+        const getUser = async (id) => {
+            try {
+                const { data } = await axios.get(`/users/${id}`);
+                if (data.success) {
+                    // setMessage(data.message);
+                    console.log(data.user);
+                };
+            } catch (error) {
+                // setMessage(error.response.data.message)
+                console.log(error);
+            }
+         };
+         getUser(id);
+    }, [])
 
     return (
         <div>

@@ -1,11 +1,11 @@
-const { getAllUsers, getUser, addUser, deleteUser, updateUser } = require('../services/userService');
+const { getAllUsers, getUser, getUserDataById, addUser, deleteUser, updateUser } = require('../services/userService');
 
 const getUsers = async (req, res, next) => {
     try {
         const users = await getAllUsers();
 
         if (!users) {
-            const error = new Error('User not found');
+            const error = new Error('Users not found');
             error.httpCode = 404;
             throw error;
         }
@@ -27,7 +27,7 @@ const getUserData = async (req, res, next) => {
 
         if (!user) {
             const error = new Error('Invalid credentials');
-            error.httpCode = 404;
+            error.httpCode = 403;
             throw error;
         }
 
@@ -35,6 +35,26 @@ const getUserData = async (req, res, next) => {
             success: 'true',
             user
         });
+    } catch (error) {
+        error.message = 'error in logging user';
+        next(error);
+    }
+}
+
+const getUserById = async (req, res, next) => {
+    try {
+        console.log(req);
+        const { id } = req.params;
+        console.log('id',id);
+        const user = await getUserDataById(id);
+
+        if (!user) {
+            const error = new Error('User not found');
+            error.httpCode = 404;
+            throw error;
+        }
+
+        return res.status(200).send({ success: 'true', user });
     } catch (error) {
         next(error);
     }
@@ -46,19 +66,15 @@ const addNewUser = async (req, res, next) => {
         const { body, files } = req;
         // const savedImage = await processAndSaveImage(files.image);
         // body.image = savedImage;
-        const response = await addUser(body);
-        body.id = response[0].insertId;
+        const { message } = await addUser(body);
+
         return res.status(200).send({
             success: 'true',
-            message: 'user created successfully',
-            body
+            message
         });
     } catch (error) {
-        console.log(error);
-        return res.status(500).send({
-            success: 'false',
-            message: "Couldn't create this user"
-        });
+        error.message = 'error in creating user';
+        next(error)
     }
 }
 
@@ -71,19 +87,15 @@ const editUser = async (req, res, next) => {
         // const savedImage = await processAndSaveImage(files.image);
         // body.image = savedImage;
 
-        const updatedUser = await updateUser(id, body);
+        const { message } = await updateUser(id, body);
 
         return res.status(200).send({
             success: 'true',
-            message: 'user updated successfully',
-            body
+            message
         });
     } catch (error) {
-        console.log(error);
-        return res.status(500).send({
-            success: 'false',
-            message: "Couldn't update this user"
-        });
+       // error.message = 'error in updating user';
+       next(error); 
     }
 
 }
@@ -100,10 +112,10 @@ const removeUser = async (req, res, next) => {
             error.httpCode = 404;
             throw error;
         }
-        await deleteUser(id);
+        const { message } = await deleteUser(id);
         return res.status(200).send({
             success: 'true',
-            message: 'User deleted successfully',
+            message
         });
     } catch (error) {
         next(error);
@@ -113,6 +125,7 @@ const removeUser = async (req, res, next) => {
 module.exports = {
     getUsers,
     getUserData,
+    getUserById,
     addNewUser,
     editUser,
     removeUser
