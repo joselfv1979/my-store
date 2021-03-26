@@ -1,32 +1,30 @@
 import React from 'react';
+import '../css/UserButtons.css'
 
 const UserButtons = ({ id, quantity, substractToList, addToList }) => {
 
     return (
-        <div className="add-list">
-                        {quantity ?
-                            <div className="minus-plus">
-                                <div className="minus-content"
-                                    onClick={() => substractToList(id)}>
-                                    <p className="minus">-</p>
-                                </div>
-                                <div className="plus-content"
-                                    onClick={() => addToList(id)}
-                                >
-                                    <p className="text-content">{quantity} ADDED</p>
-                                    <p className="plus">+</p>
-                                </div>
-                            </div>
-                            : <div className="add-to-list"
-                                onClick={() => addToList(id)}
-                            >
-                                <div className="void"></div>
-                                <div className="plus-content">
-                                    <p className="text-content">ADD TO LIST</p>
-                                    <p className="plus">+</p>
-                                </div>
-                            </div>}
+        <div className="user-buttons">
+            {quantity ?
+                <div className="add-remove">
+                    <div className="remove-content"
+                        onClick={() => substractToList(id)}>
+                        <p className="minus">-</p>
                     </div>
+                    <div className="add-content"
+                        onClick={() => addToList(id)}
+                    >
+                        <p className="add-text">{quantity} ADDED</p>
+                        <p className="plus">+</p>
+                    </div>
+                </div>
+                : <div className="add"
+                    onClick={() => addToList(id)}
+                >
+                    <p className="add-text">ADD TO LIST</p>
+                    <p className="plus">+</p>
+                </div>}
+        </div>
     )
 }
 

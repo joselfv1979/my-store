@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from "axios";
+import React, { useState, useContext } from 'react';
+import { AppContext } from "../context/AppContext";
+import { ProductContext } from '../context/ProductContext';
 import ProductList from '../components/ProductList';
 import ProductSearch from '../components/ProductSearch';
 import Cart from '../components/Cart'
@@ -7,43 +8,11 @@ import '../css/ProductListPage.css'
 
 const ProductListPage = () => {
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [message, setMessage] = useState(null);
-    const [error, setError] = useState(false);
-    const [products, setProducts] = useState([]);
-    const [name, setName] = useState(null);
-    const [category, setCategory] = useState();
+    const { setMessage, setError } = useContext(AppContext);
+
+    const { products, setProducts } = useContext(ProductContext);
     const [cart, setCart] = useState([]);
     const [total, setTotal] = useState(0);
-
-    useEffect(() => {
-        getProducts('');
-    }, []);
-
-    const getProducts = async (parameters) => {
-        try {
-            setIsLoading(true);
-            const { data } = await axios.get(`/products${parameters}`);
-            setProducts(data.result);
-            setIsLoading(false);
-        } catch (error) {
-            setIsLoading(false);
-            setError(error.message)
-        }
-    };
-
-    const deleteProduct = async (id) => {
-        try {
-            const { data } = await axios.delete(`/products/${id}`);
-            setProducts(products.filter(product => product.id !== id));
-            setMessage(data.message)
-            clearMessage();
-        } catch (error) {
-            error.response.status === 500 || error.response.status === 404 ?
-                setError("Couldn't delete this product") :
-                setError(error.response.data.message)
-        }
-    }
 
     const addToList = (id) => {
 
@@ -96,43 +65,20 @@ const ProductListPage = () => {
 
     return (
         <>
-            {isLoading && (<div> ...Loading </div>)}
-
-            {error && (<div className="error">{error}
-                <button onClick={() => setError(false)}>x</button>
-            </div>)}
-
-            {message && (<div className="success"> {message}
-                <button onClick={() => setMessage(null)}>x</button>
-            </div>)}
-
-            <ProductSearch
-                name={name}
-                setName={setName}
-                category={category}
-                setCategory={setCategory}
-                getProducts={getProducts}
-            />
-
-            <div className="product-list">
+            <div className="product-container">
 
                 <aside></aside>
 
                 <section>
-
-                    <h2>Products</h2>
-
+                    <ProductSearch
+                    />
                     <ProductList
-                        products={products}
-                        deleteProduct={deleteProduct}
                         addToList={addToList}
                         substractToList={substractToList}
                     />
-
                 </section>
 
                 <aside>
-
                     {cart.length > 0 ? (
                         <>
                             <h3>Your Cart:</h3>
@@ -144,7 +90,6 @@ const ProductListPage = () => {
                             <p>Total: {total} €</p>
                         </>
                     ) : null}
-
                 </aside>
 
             </div>

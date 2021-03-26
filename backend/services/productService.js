@@ -61,8 +61,10 @@ const addProduct = async ({ name, description, category, price, stock, image }) 
     const [result] = await connection.execute(sql, [name, description, category, price, stock, image]);
 
     if (result.affectedRows) {
+        console.log(result);
         let message = 'Product created successfully';
-        return { message };
+        let id = result.insertId
+        return { message, id };
     }
 }
 

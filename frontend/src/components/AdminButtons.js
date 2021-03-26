@@ -1,25 +1,30 @@
-import React from 'react';
-import { Button } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import React , { useContext } from 'react';
+import { useHistory } from "react-router-dom"
+import { ProductContext } from '../context/ProductContext';
+import '../css/AdminButtons.css'
 
-const AdminButtons = ({ deleteProduct, editProduct, id }) => {
+const AdminButtons = ({ id }) => {
+
+    const { deleteProduct } = useContext(ProductContext);
+
+    const history = useHistory();
+
     return (
         <div className="admin-buttons">
 
-            <Button variant="contained" color="primary" size="medium"
-                onClick={() => editProduct(id)}>
-                <EditIcon fontSize="small" />
-            </Button>
+            <button className="edit-product-button"
+                onClick={() => history.push(`/edit/${id}`) }>
+                    <i class="fas fa-pencil-alt"></i>
+            </button>
 
-            <Button variant="contained" color="secondary" size="medium"
+            <button className="remove-product-button"
                 onClick={() => {
                     if (window.confirm('Are you sure to delete?')) {
-                        deleteProduct(id);
+                        deleteProduct(id, history);
                     }
                 }}>
-                <DeleteIcon fontSize="small" />
-            </Button>
+                    <i class="fas fa-trash-alt"></i>
+            </button>
 
         </div>
     )

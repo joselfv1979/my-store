@@ -43,9 +43,7 @@ const getUserData = async (req, res, next) => {
 
 const getUserById = async (req, res, next) => {
     try {
-        console.log(req);
         const { id } = req.params;
-        console.log('id',id);
         const user = await getUserDataById(id);
 
         if (!user) {
@@ -66,6 +64,8 @@ const addNewUser = async (req, res, next) => {
         const { body, files } = req;
         // const savedImage = await processAndSaveImage(files.image);
         // body.image = savedImage;
+        console.log('controller', body);
+        body.role = 'user'
         const { message } = await addUser(body);
 
         return res.status(200).send({
@@ -83,6 +83,8 @@ const editUser = async (req, res, next) => {
     try {
         const { body, files } = req;
         const { id } = req.params;
+        console.log('controller', body);
+        body.role = 'user'
 
         // const savedImage = await processAndSaveImage(files.image);
         // body.image = savedImage;
@@ -94,8 +96,8 @@ const editUser = async (req, res, next) => {
             message
         });
     } catch (error) {
-       // error.message = 'error in updating user';
-       next(error); 
+        error.message = 'error in updating user';
+        next(error);
     }
 
 }
@@ -105,7 +107,7 @@ const removeUser = async (req, res, next) => {
     try {
         const { id } = req.params;
 
-        const user = await getProduct(id);
+        const user = await getUserById(id);
 
         if (!user) {
             const error = new Error('User not found');

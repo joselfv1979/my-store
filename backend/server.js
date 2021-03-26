@@ -4,7 +4,6 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors'); // librería para configurar CORS
 
-const bodyParser = require('body-parser'); // librería de parseo de datos a json
 const fileUpload = require('express-fileupload');
 
 const userRouter = require('./routes/users'); // variables que almacenan los módulos de los endpoint enrutados
@@ -12,8 +11,8 @@ const productRouter = require('./routes/products');
 
 const app = express();
 
-app.use(bodyParser.json()); // middleware de parseo
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json()); // middleware de parseo
+app.use(express.urlencoded({ extended: true }));
 
 // Multipart parsing middleware
 app.use(fileUpload());
@@ -30,12 +29,12 @@ app.use('/users', userRouter);  // middlewares de enrutamiento
 app.use('/products', productRouter);
 
 app.use((error, req, res, next) => {
+    console.log(error);
     
     const statusCode = error.httpCode || 500;
 
     if(statusCode === 500) error.message = 'error in the operation, try it again later';
 
-    console.error(error.message, error.stack);
     res.status(statusCode).json({ message: error.message });
 
     return;

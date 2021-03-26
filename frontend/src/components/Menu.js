@@ -11,7 +11,7 @@ const Menu = () => {
     useEffect(() => {
         setUsername(localStorage.getItem('username'));
         if (localStorage.getItem('role')) setRole(localStorage.getItem('role'));
-    }, []);
+    }, [setRole, setUsername]);
 
     const logout = () => {
         setUsername(null);
@@ -35,7 +35,7 @@ const Menu = () => {
         return (
             <>
                 <NavLink className="link" to="/">Home</NavLink>
-                <NavLink className="link" to="/my-account">My account</NavLink>
+                <NavLink className="link" to="/edit-profile">My account</NavLink>
                 <NavLink className="link" to="/about">About</NavLink>
             </>
         );

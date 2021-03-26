@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
-const Product = ({ product }) => {
+const Product = ({ product, quantity, id, substractToList, addToList }) => {
 
     const history = useHistory();
 
@@ -11,14 +11,17 @@ const Product = ({ product }) => {
 
     return (
         <article className="product-content">
-            <div className="product-detail-link"
-                onClick={() => showProductDetail()} >
-                <h2>{product.name}</h2>
-                <img src={`/files/${product.image}`} alt={product.description} />
-                <p>{product.description}</p>
+
+            <div className="product-image">
+                <img src={`/files/${product.image}`} alt={product.name} />
             </div>
-            <p>Price: {product.price} €</p>
-            <p>Stock: {product.stock}</p>
+
+            <div className="product-data">
+                <h3>{product.name}</h3>
+                <p>Price: {product.price} €</p>
+                <p>Stock: {product.stock}</p>
+            </div>
+
         </article>
     )
 }

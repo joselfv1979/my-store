@@ -46,13 +46,17 @@ const createProduct = async (req, res, next) => {
 
     try {
         const { body, files } = req;
+    
+        console.log(body);
         const savedImage = await processAndSaveImage(files.image);
         body.image = savedImage;
-        const { message } = await addProduct(body);
+        const { message, id } = await addProduct(body);
+        body.id = id;
     
         return res.status(200).send({
             success: 'true',
-            message
+            message,
+            body
         });
     } catch (error) {
         error.message = 'error in creating product';
@@ -64,6 +68,7 @@ const editProduct = async (req, res, next) => {
 
     try {
         const { body, files } = req;
+
         const { id } = req.params;
 
         await getProduct(id);
@@ -73,9 +78,12 @@ const editProduct = async (req, res, next) => {
 
         const { message } = await updateProduct(id, body);
 
+        body.id = Number(id);
+
         return res.status(200).send({
             success: 'true',
-            message
+            message,
+            body
         });
     } catch (error) {
         // error.message = 'error in updating product';

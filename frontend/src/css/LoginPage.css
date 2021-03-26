@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur');
+
+.login-container {
+    align-items: center;
+    color: #3e403f;
+    background-color: #a8edea;
+    display: flex;
+    font-family: 'Vibur', cursive;
+    font-family: 'Abel', sans-serif;
+    min-height: 520px;
+    width: 100%;
+}
+
+.login-form {
+    background-image: linear-gradient(-225deg, #d15849 40%, #00FFFF 80%);
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    height: 480px;
+    min-height: 480px;
+    width: 420px;
+}
+
+.login-form .content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+.login-form .header {
+    margin: 2% auto 4% auto;
+    text-align: center;
+}
+
+.login-form .header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 250%;
+}
+
+.login-form .header p {
+    letter-spacing: 0.05em;
+}
+
+.login-form fieldset {
+    display: flex;
+    background-color: white;
+    border-radius: 5px;
+    width: 285px;
+}
+
+.user, .pwd {
+    background-position: 8px center;
+    background-repeat: no-repeat;
+    background-size: 20px;
+}
+
+.user {
+    background-image: url('./../img/user.svg');
+    padding-left: 40px;
+}
+
+.pwd {
+    background-image: url('./../img/key.svg');
+    padding-left: 40px;
+}
+
+.eye {
+    background-image: url('./../img/eye.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 25px;
+    cursor: pointer;
+    width: 45px;
+}
+
+.login-form input {
+    border: none;
+    border-radius: 0px 5px 5px 0px;
+    background-color: white;
+    font-family: 'Abel', sans-serif;
+    font-size: 16px;
+    height: 40px;
+    transition: 0.2s linear;
+    width: 200px;
+}
+
+.login-form input:focus {
+    outline: none;
+    transform: translateX(-4px);
+}
+
+div.buttons {
+    text-align: center;
+}
+
+.login-form button {
+    color: #252537;
+    padding: 0 20px;
+    background: #0093AF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    height: 50px;
+    letter-spacing: 0.05em;
+    margin: 5% auto;
+    outline: none;
+    text-align: center;
+    transition: all 0.2s linear;
+    width: 280px;
+}
+
+button.sign-up {
+    background: #d15849;
+}
+
+.login-form button:hover {
+    transform: translatey(3px);
+}
+
+.login-form button:hover {
+    animation: ani9 0.4s ease-in-out infinite alternate;
+}
+
+i.fa {
+    margin-left: 10px;
+}
+
+@keyframes ani9 {
+    0% {
+        transform: translateY(3px);
+    }
+
+    100% {
+        transform: translateY(5px);
+    }
+}

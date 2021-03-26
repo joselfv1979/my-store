@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import { ProductContext } from '../context/ProductContext';
 import { Button, Input, Select } from '@material-ui/core';
 
-const ProductSearch = ({ name, setName, category, setCategory, getProducts }) => {
+const ProductSearch = () => {
+
+    const { getProducts } = useContext(ProductContext);
+
+    const [name, setName] = useState(null);
+    const [category, setCategory] = useState();
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -17,7 +23,7 @@ const ProductSearch = ({ name, setName, category, setCategory, getProducts }) =>
             else parameters += `&category=${category}`;
             count++;
         }
-    
+
         getProducts(parameters);
     }
 
@@ -26,29 +32,28 @@ const ProductSearch = ({ name, setName, category, setCategory, getProducts }) =>
             <form className="search-form">
 
                 <fieldset>
-                    <Select native value={category}
+                    <select className="custom-select" value={category}
                         onChange={event => setCategory(event.target.value)}>
                         <option value="">Choose category</option>
                         <option value="food">Food</option>
                         <option value="drink">Drink</option>
                         <option value="clothes">Clothes</option>
                         <option value="toys">Toys</option>
-                    </Select>
+                    </select>
 
                 </fieldset>
 
                 <fieldset>
-                    <Input color="primary"
-                        className="search-control"
+                    <input className="search-input"
                         placeholder="Type your product"
                         onChange={event =>
                             setName(event.target.value)
-                        }></Input>
+                        }></input>
                 </fieldset>
-                
-                <Button variant="contained" onClick={handleFormSubmit}>
+
+                <button className="search-button" onClick={handleFormSubmit}>
                     Search
-                </Button>
+                </button>
 
             </form>
         </div>

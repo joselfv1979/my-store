@@ -47,17 +47,18 @@ const addUser = async ({ username, email, password, role }) => {
     }
 }
 
-const updateUser = async (id, { username, email, password, role }) => {
+const updateUser = async (id, { username, email }) => {
 
-    const sql = 'update products set username = ?, email = ?, password = ?, role = ? where id = ?';
+    console.log('service',username, email);
+    const sql = 'update users set username = ?, email = ? where id = ?';
 
     const connection = await database.connection();
-    const [result] = await connection.execute(sql, [username, email, password, role, id]);
+    const [result] = await connection.execute(sql, [username, email, id]);
 
-    if (result.changedRows) {
+    if (result.affectedRows) {
         let message = 'User updated successfully';
         return { message };
-    }
+    } 
 }
 
 const deleteUser = async (id) => {

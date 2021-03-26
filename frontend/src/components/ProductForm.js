@@ -1,27 +1,51 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
-const ProductForm = ({ addProduct, editProduct, id, name, setName, category, setCategory, description, setDescription, price, setPrice, stock, setStock, image, setImage }) => {
+const ProductForm = ({ sendDataProduct, product, setProduct}) => {
 
     const history = useHistory();
+
+    const categories = [
+        {
+            catId: 1,
+            label: 'Choose',
+            value: ''
+        },
+        {
+            catId: 2,
+            label: 'Food',
+            value: 'food'
+        },
+        {
+            catId: 3,
+            label: 'Drink',
+            value: 'drink'
+        },
+        {
+            catId: 4,
+            label: 'Clothes',
+            value: 'clothes'
+        },
+        {
+            catId: 5,
+            label: 'Toys',
+            value: 'toys'
+        },
+    ];
+
+
+    const handleInputChange = (event) => {
+
+        setProduct({
+            ...product,
+            [event.target.name]: event.target.value
+        })
+    }
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
-        id ? editProduct({
-            name,
-            category,
-            description,
-            price,
-            stock,
-        }) : addProduct({
-            name,
-            category,
-            description,
-            price,
-            stock,
-            image
-        });
+        sendDataProduct(product);
     }
     return (
         <div className="form-container">
@@ -32,22 +56,9 @@ const ProductForm = ({ addProduct, editProduct, id, name, setName, category, set
                         type="text"
                         name="name"
                         required
-                        onChange={event =>
-                            setName(event.target.value)
-                        }
-                        defaultValue={name}
+                        onChange={handleInputChange}
+                        defaultValue={product.name}
                     />
-                </fieldset>
-
-                <fieldset>
-                <label htmlFor="category">Category</label>
-                    <select name="category" id="list" onChange={event => setCategory(event.target.value)}>
-                        <option value="">Choose</option>
-                        <option value="food">Food</option>
-                        <option value="drink">Drink</option>
-                        <option value="clothes">Clothes</option>
-                        <option value="toys">Toys</option>
-                    </select>
                 </fieldset>
 
                 <fieldset>
@@ -56,23 +67,28 @@ const ProductForm = ({ addProduct, editProduct, id, name, setName, category, set
                         type="text"
                         name="description"
                         required
-                        onChange={event =>
-                            setDescription(event.target.value)
-                        }
-                        defaultValue={description}
+                        onChange={handleInputChange}
+                        defaultValue={product.description}
                     />
                 </fieldset>
 
+                <fieldset>
+                    <label htmlFor="category">Category</label>
+                    <select name="category" id="list" value={product.category}
+                     onChange={handleInputChange}>
+                        {categories.map(category =>
+                            <option key={category.catId} value={category.value}>{category.label}</option>)}
+                    </select>
+                </fieldset>
+                
                 <fieldset>
                     <label htmlFor="price">Price</label>
                     <input
                         type="number"
                         name="price"
                         required
-                        onChange={event =>
-                            setPrice(event.target.value)
-                        }
-                        defaultValue={price}
+                        onChange={handleInputChange}
+                        defaultValue={product.price}
                     />
                 </fieldset>
 
@@ -82,10 +98,8 @@ const ProductForm = ({ addProduct, editProduct, id, name, setName, category, set
                         type="number"
                         name="stock"
                         required
-                        onChange={event =>
-                            setStock(event.target.value)
-                        }
-                        defaultValue={stock}
+                        onChange={handleInputChange}
+                        defaultValue={product.stock}
                     />
                 </fieldset>
 
@@ -98,9 +112,13 @@ const ProductForm = ({ addProduct, editProduct, id, name, setName, category, set
                         name="image"
                         accept=".jpg,.jpeg,.png"
                         required
-                        onChange={(event) => {
-                            setImage(event.target.files[0]);
-                        }}
+                        onChange={event =>
+                            setProduct({
+                                ...product,
+                                [event.target.name]: event.target.files[0]
+                            })
+                        }
+                        defaultValue={product.image}
                     />
                     {/* <p className="help">{`Tamaño máximo ${REACT_APP_MAX_FILE_SIZE / 1024
                         }Kb`}</p>

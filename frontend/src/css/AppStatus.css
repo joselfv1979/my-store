@@ -1,0 +1,47 @@
+.error,
+.success {
+    align-items: center;
+    color: white;
+    display: flex;
+    padding: 6px;
+}
+
+.error {
+    background-color: #f44336;
+}
+
+.success {
+    background-color: greenyellow;
+}
+
+.content {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.start {
+    padding: .2rem;
+}
+
+.closebtn {
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: auto;
+    padding: .2rem;
+}
+
+.closebtn:hover {
+    color: black;
+}
+
+.waiting {
+    background-color: blue;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: grid;
+    place-content: center;
+}

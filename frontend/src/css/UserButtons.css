@@ -1,0 +1,71 @@
+.user-buttons {
+    cursor: pointer;
+    font-weight: bolder;
+    height: 20%;
+}
+
+.add {
+    background-color: #4C90AD;
+    border-bottom: 1px solid lightgrey; 
+    border-left: 1px solid lightgrey;  
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-right: 1px solid lightgrey; 
+    padding-left: 16%
+}
+
+.add-remove,
+.add {
+    align-items: center;
+    display: flex;
+    height: 100%;
+}
+
+.add-content {
+    align-items: center;
+    background-color: #4C90AD;
+    border-bottom: 1px solid lightgrey; 
+    border-right: 1px solid lightgrey; 
+    border-bottom-right-radius: 7px;
+    display: flex;
+    height: 100%;
+    width: 84%;
+}
+
+.remove-content,
+.padding {
+    background-color: #4C90AD;
+    width: 16%;
+}
+
+.remove-content {
+    align-items: center;
+    border-bottom-left-radius: 7px;
+    border-bottom: 1px solid lightgrey; 
+    border-left: 1px solid lightgrey; 
+    border-right: 1px solid lightgrey;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+}
+
+.add-text {
+    width: 86%;
+}
+
+.plus,
+.minus {
+    font-size: 1.2em
+}
+
+.add:hover,
+.add-content:hover,
+.remove-content:hover {
+    background-color: #11DC51;
+    color: #ffffff;
+}
+
+.add:hover {
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
