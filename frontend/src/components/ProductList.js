@@ -6,11 +6,11 @@ import AdminButtons from './AdminButtons';
 import UserButtons from './UserButtons';
 
 const ProductList = ({
-    addToList, substractToList
+    addToList, substractToList, products, deleteProduct
 }) => {
 
     const { isAdmin, setIsAdmin } = useContext(UserContext);
-    const { products } = useContext(ProductContext);
+    // const { products } = useContext(ProductContext);
 
     useEffect(() => {
         localStorage.getItem('role') === 'admin' ?
@@ -28,6 +28,7 @@ const ProductList = ({
                 {isAdmin ?
                     <AdminButtons
                         id={product.id}
+                        deleteProduct={deleteProduct}
                     /> :
                     <UserButtons
                         addToList={addToList}

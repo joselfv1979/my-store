@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
-const ProductForm = ({ sendDataProduct, product, setProduct}) => {
+const ProductForm = ({ sendDataProduct, product }) => {
 
     const history = useHistory();
 
@@ -36,10 +36,10 @@ const ProductForm = ({ sendDataProduct, product, setProduct}) => {
 
     const handleInputChange = (event) => {
 
-        setProduct({
+        product = {
             ...product,
             [event.target.name]: event.target.value
-        })
+        }
     }
 
     const handleFormSubmit = (event) => {
@@ -49,6 +49,7 @@ const ProductForm = ({ sendDataProduct, product, setProduct}) => {
     }
     return (
         <div className="form-container">
+        
             <form onSubmit={handleFormSubmit}>
                 <fieldset>
                     <label htmlFor="name">Name</label>
@@ -74,13 +75,14 @@ const ProductForm = ({ sendDataProduct, product, setProduct}) => {
 
                 <fieldset>
                     <label htmlFor="category">Category</label>
-                    <select name="category" id="list" value={product.category}
-                     onChange={handleInputChange}>
+                    <select name="category" id="list" 
+                        value={product.category}
+                        onChange={handleInputChange}>
                         {categories.map(category =>
                             <option key={category.catId} value={category.value}>{category.label}</option>)}
                     </select>
                 </fieldset>
-                
+
                 <fieldset>
                     <label htmlFor="price">Price</label>
                     <input
@@ -113,12 +115,12 @@ const ProductForm = ({ sendDataProduct, product, setProduct}) => {
                         accept=".jpg,.jpeg,.png"
                         required
                         onChange={event =>
-                            setProduct({
+                            product = {
                                 ...product,
                                 [event.target.name]: event.target.files[0]
-                            })
+                            }
                         }
-                        defaultValue={product.image}
+                        // defaultValue={product.image}
                     />
                     {/* <p className="help">{`Tamaño máximo ${REACT_APP_MAX_FILE_SIZE / 1024
                         }Kb`}</p>

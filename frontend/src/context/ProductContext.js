@@ -45,7 +45,7 @@ const ProductContextProvider = ({ children }) => {
         } catch ({ response }) {
             response ?
                 setError(response.data.message) :
-                setError("Couldn't create this product");
+                setError("Couldn't delete this product");
         }
     }
 

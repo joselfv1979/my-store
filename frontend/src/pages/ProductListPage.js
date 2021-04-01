@@ -1,53 +1,62 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { connect } from 'react-redux';
+import { getProductsAction, deleteProductAction } from '../actions/productsActions';
 import { AppContext } from "../context/AppContext";
-import { ProductContext } from '../context/ProductContext';
 import ProductList from '../components/ProductList';
 import ProductSearch from '../components/ProductSearch';
 import Cart from '../components/Cart'
 import '../css/ProductListPage.css'
 
-const ProductListPage = () => {
+const ProductListPage = ({ dispatch, loading, products, error }) => {
 
     const { setMessage, setError } = useContext(AppContext);
 
-    const { products, setProducts } = useContext(ProductContext);
+    // const { products, setProducts } = useContext(ProductContext);
     const [cart, setCart] = useState([]);
     const [total, setTotal] = useState(0);
 
-    const addToList = (id) => {
+    useEffect(() => {
+        dispatch(getProductsAction())
+    }, [dispatch]);
 
-        setProducts(
-            products.map(product => {
-                if (product.id === id) {
-                    product.quantity ? ++product.quantity
-                        : product.quantity = 1
-                }
-                return product;
-            })
-        )
+    const deleteProduct = (id) => {
+        dispatch(deleteProductAction(id))
+    };
 
-        setCart(products.filter(product => product.quantity > 0));
+    // const addToList = (id) => {
 
-        setTotal(calculateTotal());
-    }
+    //     setProducts(
+    //         products.map(product => {
+    //             if (product.id === id) {
+    //                 product.quantity ? ++product.quantity
+    //                     : product.quantity = 1
+    //             }
+    //             return product;
+    //         })
+    //     )
 
-    const substractToList = (id) => {
+    //     setCart(products.filter(product => product.quantity > 0));
 
-        setProducts(
-            products.map(product => {
-                if (product.id === id) {
-                    product.quantity--;
-                }
-                return product;
-            })
-        )
+    //     setTotal(calculateTotal());
+    // }
 
-        setCart(
-            cart.filter(product => product.quantity > 0)
-        )
+    // const substractToList = (id) => {
 
-        setTotal(calculateTotal());
-    }
+    //     setProducts(
+    //         products.map(product => {
+    //             if (product.id === id) {
+    //                 product.quantity--;
+    //             }
+    //             return product;
+    //         })
+    //     )
+
+    //     setCart(
+    //         cart.filter(product => product.quantity > 0)
+    //     )
+
+    //     setTotal(calculateTotal());
+    // }
 
     const calculateTotal = () => {
 
@@ -67,14 +76,18 @@ const ProductListPage = () => {
         <>
             <div className="product-container">
 
+                {console.log('product-redux', products)}
+                {console.log('error', error)}
+
                 <aside></aside>
 
                 <section>
                     <ProductSearch
                     />
-                    <ProductList
-                        addToList={addToList}
-                        substractToList={substractToList}
+                    <ProductList products={products}
+                        deleteProduct={deleteProduct}
+                    // addToList={addToList}
+                    // substractToList={substractToList}
                     />
                 </section>
 
@@ -97,4 +110,10 @@ const ProductListPage = () => {
     )
 }
 
-export default ProductListPage;
+const mapStateToProps = state => ({
+    loading: state.products.loading,
+    products: state.products.products,
+    error: state.products.error,
+})
+
+export default connect(mapStateToProps)(ProductListPage);

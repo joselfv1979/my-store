@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
-import { ProductContext } from '../context/ProductContext';
+import { addProductAction, editProductAction } from '../actions/productsActions';
 import axios from "axios";
 import ProductForm from '../components/ProductForm';
 import '../css/ProductFormPage.css'
 
-const ProductFormPage = ({ match }) => {
+const ProductFormPage = ({ match, dispatch }) => {
 
     const { setMessage, setError, setWaiting } = useContext(AppContext);
-    const { addProduct, editProduct } = useContext(ProductContext);
 
     const { id } = match.params;
 
@@ -23,22 +23,26 @@ const ProductFormPage = ({ match }) => {
             const getProduct = async (id) => {
                 try {
                     const { data } = await axios.get(`/products/${id}`);
-                    console.log('product', data.product);
                     setProduct(data.product);
                 } catch (error) {
                     console.log(error.response);
-                    setError(error.response.data.message);
                 }
             };
             getProduct(id);
         }
-    }, [id, setError]);
+    }, [id]);
+
+    const addProduct = (data) => {
+        dispatch(addProductAction(data))
+    }
+
+    const editProduct = (data, id) => {
+        dispatch(editProductAction(data, id));
+    }
 
     const sendDataProduct = (product) => {
 
         const { name, description, category, price, stock, image } = product;
-
-        console.log('product-send', product);
 
         const data = new FormData();
         data.append('name', name);
@@ -97,10 +101,16 @@ const ProductFormPage = ({ match }) => {
             <ProductForm
                 sendDataProduct={sendDataProduct}
                 product={product}
-                setProduct={setProduct}
             />
         </>
     )
 }
 
-export default ProductFormPage;
+const mapStateToProps = state => ({
+    loading: state.products.loading,
+    products: state.products.products,
+    product: state.products.product,
+    error: state.products.error,
+})
+
+export default connect(mapStateToProps)(ProductFormPage);
