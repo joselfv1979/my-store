@@ -1,44 +1,30 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { connect } from "react-redux";
+import { loginAction } from './../actions/userActions';
 import { useHistory } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
-import { UserContext } from '../context/UserContext';
-import axios from "axios";
-import styles from '../css/LoginPage.css'
+import '../css/LoginPage.css';
 
-const LoginPage = () => {
+const LoginPage = ({ dispatch, logged }) => {
 
-    const { setError } = useContext(AppContext);
-    const { setUsername, setRole, setIsAdmin } = useContext(UserContext);
+    const { setError } = useContext(AppContext)
     const [name, setName] = useState(null);
     const [password, setPassword] = useState(null);
 
-    const history = useHistory();
-
-    const logging = ({ username, role, id }) => {
-        setUsername(username);
-        setRole(role);
-        if (role === 'admin') setIsAdmin(true);
-        localStorage.setItem('username', username)
-        localStorage.setItem('role', role);
-        localStorage.setItem('id', id)
-        history.push('/');
-    }
-
-    const checkLogging = async (user) => {
-        try {
-            const { data } = await axios.post('/users/sign-in', user);
-            if (data.success) logging(data.user);
-        } catch (error) {
-            setError(error.response.data.message);
+    useEffect(() => {
+        if(logged){
+            history.push('/')
         }
-    }
+    }, [logged])
+
+    const history = useHistory();
 
     const handleFormSubmit = event => {
         event.preventDefault();
 
         const user = { username: name, password }
 
-        checkLogging(user);
+        dispatch(loginAction(user));  
     }
 
     const showPassword = () => {
@@ -53,7 +39,6 @@ const LoginPage = () => {
     }
 
     return (
-        <div className="login-container">
 
             <form className="login-form" onSubmit={handleFormSubmit}>
 
@@ -118,8 +103,15 @@ const LoginPage = () => {
                 </div>
 
             </form>
-        </div>
+        
     )
 }
 
-export default LoginPage;
+const mapStateToProps = (state) => ({
+    user: state.user.user,
+    logged: state.user.logged,
+    error: state.message.error,
+    message: state.message.message
+  });
+
+export default connect(mapStateToProps)(LoginPage);

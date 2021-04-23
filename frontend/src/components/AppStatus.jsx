@@ -4,9 +4,7 @@ import '../css/AppStatus.css'
 import loading from "../puff.svg";
 
 
-const AppError = () => {
-
-    const { error, setError } = useContext(AppContext);
+const AppError = ({ error, removeError }) => {
 
     return (
         <>
@@ -14,15 +12,13 @@ const AppError = () => {
                 <div className="start"></div>
                 <div className="content">{error}</div>
                 <div className="closebtn"
-                    onClick={() => setError(null)}>x</div>
+                    onClick={() => {removeError()}}>x</div>
             </div>)}
         </>
     )
 }
 
-const AppMessage = () => {
-
-    const { message, setMessage } = useContext(AppContext);
+const AppMessage = ({ message, removeMessage }) => {
 
     return (
         <>
@@ -30,7 +26,7 @@ const AppMessage = () => {
                 <div className="start"></div>
                 <div className="content">{message}</div>
                 <div className="closebtn"
-                    onClick={() => setMessage(null)}>x</div>
+                    onClick={() => removeMessage()}>x</div>
             </div>)}
         </>
     )
@@ -49,4 +45,4 @@ const AppWaiting = () => {
     )
 }
 
-export { AppError, AppMessage, AppWaiting }
+export { AppError, AppMessage, AppWaiting };

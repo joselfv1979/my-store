@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { AppContext } from "../context/AppContext";
 import { addProductAction, editProductAction } from '../actions/productsActions';
 import axios from "axios";
 import ProductForm from '../components/ProductForm';
 import '../css/ProductFormPage.css'
 
 const ProductFormPage = ({ match, dispatch }) => {
-
-    const { setMessage, setError, setWaiting } = useContext(AppContext);
 
     const { id } = match.params;
 

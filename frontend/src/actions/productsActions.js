@@ -1,21 +1,18 @@
 import axios from 'axios';
+import { setError, setMessage } from './messageActions';
+import { getAuthToken } from '../utils/localStorage';
 
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const GET_PRODUCTS_SUCCESS = 'GET_PRODUCTS_SUCCESS';
-export const GET_PRODUCTS_FAILURE = 'GET_PRODUCTS_FAILURE';
 
 export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS';
-export const ADD_PRODUCT_FAILURE = 'ADD_PRODUCT_FAILURE';
 
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const DELETE_PRODUCT_SUCCESS = 'DELETE_PRODUCT_SUCCESS';
-export const DELETE_PRODUCT_FAILURE = 'DELETE_PRODUCT_FAILURE';
 
 export const EDIT_PRODUCT = 'EDIT_PRODUCT';
 export const EDIT_PRODUCT_SUCCESS = 'EDIT_PRODUCT_SUCCESS';
-export const EDIT_PRODUCT_FAILURE = 'EDIT_PRODUCT_FAILURE';
-
 
 export const getProducts = () => ({
     type: GET_PRODUCTS
@@ -26,24 +23,18 @@ export const getProductsSuccess = (products) => ({
     payload: products,
 })
 
-export const getProductsFailure = (message) => ({
-    type: GET_PRODUCTS_FAILURE,
-    error: message
-})
-
-export function getProductsAction() {
+export function getProductsAction(parameters) {
 
     return async (dispatch) => {
 
-        dispatch(getProducts())
+        dispatch(getProducts());
 
         try {
-            const { data } = await axios.get(`/products`);
-
+            const { data } = await axios.get(`/products${parameters}`);
             dispatch(getProductsSuccess(data.result))
         } catch ({ response }) {
             let message = "Couldn't get products, try it later";
-            dispatch(getProductsFailure(message))
+            dispatch(setError(message));
         }
     }
 }
@@ -57,22 +48,21 @@ export const addProductSuccess = (product) => ({
     payload: product,
 })
 
-export const addProductFailure = () => ({
-    type: ADD_PRODUCT_FAILURE,
-})
-
 export function addProductAction(product) {
     return async (dispatch) => {
 
         dispatch(addProduct())
 
         try {
-            const { data } = await axios.post(`/products/product-add`, product);
-
-            dispatch(addProductSuccess(data.body))
+            let token = getAuthToken();
+            const { data } = await axios.post(`/products/product-add`, product, {
+                headers: { 'Authorization': `${token}` }
+            });
+            dispatch(addProductSuccess(data.body));
+            dispatch(setMessage(data.message));
         } catch ({ response }) {
             let message = "Couldn't create product, try it later";
-            dispatch(getProductsFailure(message))
+            dispatch(dispatch(setError(message)))
         }
     }
 }
@@ -86,23 +76,23 @@ export const deleteProductSuccess = (id) => ({
     payload: id,
 })
 
-export const deleteProductFailure = () => ({
-    type: DELETE_PRODUCT_FAILURE,
-})
-
 export function deleteProductAction(id) {
 
     return async (dispatch) => {
-        
+
         dispatch(deleteProduct())
 
         try {
-            await axios.delete(`/products/${id}`);
-
+            let token = getAuthToken();
+            const response = await axios.delete(`/products/${id}`, {
+                headers: { 'Authorization': `${token}` }
+            });
+            console.log('error',response);
             dispatch(deleteProductSuccess(id))
         } catch (error) {
+            console.log('error',error.response);
             let message = "Couldn't delete this product"
-            dispatch(deleteProductFailure(message))
+            dispatch(setError(error.response.data.message || message))
         }
     }
 }
@@ -116,21 +106,20 @@ export const editProductSuccess = (product) => ({
     payload: product,
 })
 
-export const editProductFailure = () => ({
-    type: EDIT_PRODUCT_FAILURE,
-})
-
 export function editProductAction(product, id) {
     return async (dispatch) => {
 
         dispatch(editProduct())
 
         try {
-            const { data } = await axios.put(`/products/product-edit/${id}`, product);
-
-            dispatch(editProductSuccess(data.body))
+            let token = getAuthToken();
+            const { data } = await axios.put(`/products/product-edit/${id}`, product, {
+                headers: { 'Authorization': `${token}` }
+            });
+            dispatch(editProductSuccess(data.body));
+            dispatch(setMessage(data.message));
         } catch (error) {
-            dispatch(deleteProductFailure())
+            dispatch(setError(error.response.data.message))
         }
     }
 }

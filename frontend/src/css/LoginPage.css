@@ -1,40 +1,27 @@
 @import url('https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur');
 
-.login-container {
-    align-items: center;
-    color: #3e403f;
-    background-color: #a8edea;
-    display: flex;
-    font-family: 'Vibur', cursive;
-    font-family: 'Abel', sans-serif;
-    min-height: 520px;
-    width: 100%;
-}
-
 .login-form {
     background-image: linear-gradient(-225deg, #d15849 40%, #00FFFF 80%);
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-    height: 480px;
-    min-height: 480px;
-    width: 420px;
+    font-family: 'Vibur', cursive;
+    font-family: 'Abel', sans-serif;
+    height: 70vh;
+    width: 60vh;
 }
 
 .login-form .content {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 0 auto;
+    flex-direction: column;
 }
 
 .login-form .header {
-    margin: 2% auto 4% auto;
     text-align: center;
 }
 
 .login-form .header h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 250%;
+    font-size: 200%;
 }
 
 .login-form .header p {
@@ -45,32 +32,33 @@
     display: flex;
     background-color: white;
     border-radius: 5px;
-    width: 285px;
+    margin: 2rem auto;
+    width: 15rem;
 }
 
 .user, .pwd {
-    background-position: 8px center;
+    background-position: 1rem center;
     background-repeat: no-repeat;
-    background-size: 20px;
+    background-size: 2rem;
 }
 
 .user {
     background-image: url('./../img/user.svg');
-    padding-left: 40px;
+    padding-left: 2rem;
 }
 
 .pwd {
     background-image: url('./../img/key.svg');
-    padding-left: 40px;
+    padding-left: 2rem;
+    width: 12rem;
 }
 
 .eye {
     background-image: url('./../img/eye.svg');
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 25px;
+    background-size: 2rem;
     cursor: pointer;
-    width: 45px;
 }
 
 .login-form input {
@@ -79,9 +67,9 @@
     background-color: white;
     font-family: 'Abel', sans-serif;
     font-size: 16px;
-    height: 40px;
+    height: 2.5rem;
     transition: 0.2s linear;
-    width: 200px;
+    width: 8rem;
 }
 
 .login-form input:focus {
@@ -101,13 +89,13 @@ div.buttons {
     border-radius: 5px;
     cursor: pointer;
     display: block;
-    height: 50px;
+    height: 2.5rem;
     letter-spacing: 0.05em;
-    margin: 5% auto;
+    margin: 3% auto;
     outline: none;
     text-align: center;
     transition: all 0.2s linear;
-    width: 280px;
+    width: 15rem;
 }
 
 button.sign-up {
@@ -133,5 +121,12 @@ i.fa {
 
     100% {
         transform: translateY(5px);
+    }
+}
+
+@media screen and (max-width:480px) {
+    .login-form {
+        font-size: .8rem;
+        width: 50vh;
     }
 }

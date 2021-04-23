@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken'); // librería de cifrado de token
+
 const { getAllUsers, getUser, getUserDataById, addUser, deleteUser, updateUser } = require('../services/userService');
 
 const getUsers = async (req, res, next) => {
@@ -31,12 +33,22 @@ const getUserData = async (req, res, next) => {
             throw error;
         }
 
+        const { id, role } = user;
+
+        const tokenPayload = { userId: id };
+
+        const token = jwt.sign(tokenPayload, process.env.SECRET, {
+            expiresIn: '1d'
+        });
+
+        user.token = token;
+
         return res.status(200).send({
             success: 'true',
             user
         });
     } catch (error) {
-        error.message = 'error in logging user';
+        error.message = 'Invalid credentials';
         next(error);
     }
 }

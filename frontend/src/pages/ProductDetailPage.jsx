@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AppContext } from "../context/AppContext";
 import { UserContext } from '../context/UserContext';
-import { ProductContext } from '../context/ProductContext';
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Product from '../components/Product';

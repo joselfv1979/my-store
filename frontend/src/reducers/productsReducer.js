@@ -1,57 +1,59 @@
-import * as actions from '../actions/productsActions'
+import * as productActions from '../actions/productsActions';
 
 export const initialState = {
-    products: [],
+    productList: [],
     loading: false,
-    error: null,
-    // product: {}
 }
 
 const productsReducer = (state = initialState, action) => {
+
     switch (action.type) {
-        case actions.GET_PRODUCTS:
+
+        case productActions.GET_PRODUCTS:
+
             return { ...state, loading: true };
-        case actions.GET_PRODUCTS_SUCCESS:
-            return { products: action.payload, loading: false, error: null };
-        case actions.GET_PRODUCTS_FAILURE:
-            return { ...state, loading: false, error: action.error };
-        case actions.ADD_PRODUCT:
-            return { ...state, error: null };
-        case actions.ADD_PRODUCT_SUCCESS:
+
+        case productActions.GET_PRODUCTS_SUCCESS:
+
+            return { productList: action.payload, loading: false };
+
+        case productActions.ADD_PRODUCT:
+
+            return { ...state };
+
+        case productActions.ADD_PRODUCT_SUCCESS:
+
             return {
                 ...state,
-                products: [action.payload, ...state.products]
+                productList: [action.payload, ...state.productList]
             };
-        case actions.ADD_PRODUCT_FAILURE:
-            return { ...state, error: action.error };
-        case actions.DELETE_PRODUCT:
-            return { ...state, error: null };
-        case actions.DELETE_PRODUCT_SUCCESS:
+
+        case productActions.DELETE_PRODUCT:
+
+            return { ...state };
+
+        case productActions.DELETE_PRODUCT_SUCCESS:
+
             return {
-                products: state.products.filter(product => product.id !== Number(action.payload)),
-                error: null
+                productList: state.productList.filter(product => product.id !== Number(action.payload))
             };
-        case actions.DELETE_PRODUCT_FAILURE:
-            return {
-                ...state, error: action.error
-            };
-        case actions.EDIT_PRODUCT:
-            return {
-                ...state, error: null
-            };
-        case actions.EDIT_PRODUCT_SUCCESS:
+
+        case productActions.EDIT_PRODUCT:
+
+            return { ...state };
+
+        case productActions.EDIT_PRODUCT_SUCCESS:
+
             return {
                 ...state,
-                products: [...state.products.map((product) => product.id === Number(action.payload.id) ?
-                    action.payload : product)]
+                productList: state.productList.map(product => product.id === Number(action.payload.id)
+                    ? action.payload : product)
             };
-        case actions.EDIT_PRODUCT_FAILURE:
-            return {
-                ...state, error: ''
-            };
+
         default:
             return state;
     }
+
 }
 
 export default productsReducer;

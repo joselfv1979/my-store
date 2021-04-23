@@ -1,11 +1,10 @@
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
-  width: 100%;
   font-family: sans-serif;
 }
 
@@ -15,104 +14,125 @@ div.App {
 }
 
 main {
-  text-align: center;
-  min-height: 75vh;
+  /* align-items: center; */
+  color: #3e403f;
+  background-color: #a8edea;
+  display: flex;
+  justify-content: center;
+  min-height: 82vh;
   width: 100%;
 }
 
-.info-cart {
+.menu-container {
+  align-items: center;
+  background-color: #4C90AD;
   display: flex;
-  flex-direction: column;
-  width: 110px;
-  height: 150px;
-  margin: 1.5rem;
-  border: 1px solid lightgrey;
-  border-radius: 8px;
+  height: 9vh;
 }
 
-header {
-  text-align: center;
-  height: 15vh;
-  background-color: #007c83;
+.menu-content{
+  display: flex;
+  margin: auto;
+  width: 80%;
 }
 
 footer {
-  text-align: center;
-  height: 10vh;
+  align-items: center;
   background-color: #4C90AD;
-}
-
-header>ul {
   display: flex;
+  font-weight: bold;
+  height: 9vh;
+  justify-content: center;
 }
 
-h2 {
-  margin-top: 10px;
-}
-
-fieldset {
-  margin: 20px;
-  border: none
-}
-
-option {
-  width: 100px;
-}
-
-label {
-  margin: 10px;
-  display: inline-block;
-  width: 80px
-}
-
-.cart-image {
-  width: 100%;
-  height: auto;
-  margin: auto;
-}
-
-.username {
-  margin: 10px;
-}
-
-#login {
-  margin-left: auto;
-  margin-top: 10px;
-}
-
-.link {
-  margin: 10px;
-  text-decoration: none;
+.menu-content a, span.link {
   color: black;
   font-weight: bold;
 }
 
-.link:hover {
-  color: royalblue;
+.menu-content a:hover, span.link:hover {
+  color: #ffffff;
   cursor: pointer;
 }
 
-ul {
-  list-style: none;
+.menu-ul, .menu-title, .menu-login {
+  align-items: center;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 33%; 
+}
+
+.menu-login {
+  justify-content: flex-end;
+  padding-right: .8rem;
+}
+
+span.link {
+  margin-left: 1rem;
+}
+
+fieldset {
+  border: none;
 }
 
 .modal {
+  background: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  bottom: 0
 }
 
 .modalBox {
   background-color: whitesmoke;
-  position: relative;
-  margin: 2% auto;
-  padding: 3rem;
-  width: 400px;
   border: 4px solid black;
   border-radius: 3px;
+  margin: 2% auto;
+  padding: 3rem;
+  position: relative;
+  width: 400px;
+}
+
+/* Global styles */
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/* media queries */
+
+@media screen and (max-width:480px) {
+
+  body{
+    font-size: .8rem
+  }
+
+  .menu-content {
+    width: 100%
+  }
+
+  .menu-ul, .menu-title, .menu-login {
+    margin-left: .6em;
+    width: auto;
+  }
+
+  .menu-ul > a {
+    margin-left: .5rem
+  }
+
+  .menu-login {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width:480px) {
+
+ 
 }

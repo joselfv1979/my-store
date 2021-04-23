@@ -1,15 +1,19 @@
 const express = require('express');
-const { getProducts, getFilteredProductList, getProductData, createProduct, removeProduct, editProduct } = require('../controllers/productController')
 const router = express.Router(); // creación de la instancia de enrutamiento
+
+const { isAuthenticated } = require('./../middlewares/auth');
+
+const { getProducts, getFilteredProductList, getProductData, createProduct, removeProduct, editProduct } = require('../controllers/productController')
+
 
 router.get('/', getFilteredProductList);
 
 router.get('/:id', getProductData);
 
-router.post('/product-add', createProduct);
+router.post('/product-add', isAuthenticated, createProduct);
 
-router.put('/product-edit/:id', editProduct);
+router.put('/product-edit/:id', isAuthenticated, editProduct);
 
-router.delete('/:id', removeProduct)
+router.delete('/:id', isAuthenticated, removeProduct)
 
 module.exports = router; // exportación del enrutador
