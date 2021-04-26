@@ -1,7 +1,8 @@
 import * as productActions from '../actions/productsActions';
+import * as cartActions from '../actions/cartActions';
 
 export const initialState = {
-    productList: [],
+    productList: JSON.parse(localStorage.getItem('state')) ? JSON.parse(localStorage.getItem('state')).products.productList : [],
     loading: false,
 }
 
@@ -49,6 +50,39 @@ const productsReducer = (state = initialState, action) => {
                 productList: state.productList.map(product => product.id === Number(action.payload.id)
                     ? action.payload : product)
             };
+
+        case cartActions.ADD_TO_LIST:
+
+            action.payload.quantity = 1;
+
+            return {
+                ...state,
+                productList: [...state.productList.map(product =>
+                    product.id === action.payload.id
+                        ? action.payload : product)]
+            }
+
+        case cartActions.ADD_QUANTITY:
+
+            ++action.payload.quantity;
+
+            return {
+                ...state,
+                productList: [...state.productList.map(product =>
+                    product.id === action.payload.id
+                        ? action.payload : product)]
+            }
+
+        case cartActions.SUBTRACT_QUANTITY:
+
+            --action.payload.quantity;
+
+            return {
+                ...state,
+                productList: [...state.productList.map(product =>
+                    product.id === action.payload.id
+                        ? action.payload : product)]
+            }
 
         default:
             return state;

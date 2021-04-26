@@ -1,21 +1,18 @@
 const { getAllProducts, getFilteredProducts, getProduct, addProduct, deleteProduct, updateProduct } = require('../services/productService');
 const { processAndSaveImage } = require('../utils/processImage');
 
-const getProducts = async (req, res, next) => {
-    const products = await getAllProducts();
-    res.status(200).json(products);
-}
-
-const getProductData = async (req, res, next) => {
-
+const getProductList = async (req, res, next) => {
+    
     try {
-        const { id } = req.params;
-        const product = await getProduct(id);
+        const result = await getAllProducts();
 
-        return res.status(200).send({
-            success: 'true',
-            product
-        });
+        if (!result) {
+            const error = new Error('Products not found');
+            error.httpCode = 404;
+            throw error;
+        }
+
+        res.status(200).json(result);
     } catch (error) {
         next(error);
     }
@@ -32,14 +29,26 @@ const getFilteredProductList = async (req, res, next) => {
             throw error;
         }
 
-        return res.status(200).send({
-            success: 'true',
-            result
-        });
+        res.status(200).json(result);
     } catch (error) {
         next(error);
     }
 
+}
+
+const getProductData = async (req, res, next) => {
+
+    try {
+        const { id } = req.params;
+        const product = await getProduct(id);
+
+        return res.status(200).send({
+            success: 'true',
+            product
+        });
+    } catch (error) {
+        next(error);
+    }
 }
 
 const createProduct = async (req, res, next) => {
@@ -111,7 +120,7 @@ const removeProduct = async (req, res, next) => {
 }
 
 module.exports = {
-    getProducts,
+    getProductList,
     getFilteredProductList,
     getProductData,
     createProduct,

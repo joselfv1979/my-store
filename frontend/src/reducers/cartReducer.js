@@ -1,27 +1,26 @@
-import * as actions from '../actions/cartActions';
+import * as cartActions from '../actions/cartActions';
+import * as userActions from '../actions/userActions';
 
 export const initialState = {
     cartList: [],
-    totalPrice: null,
-    error: null
+    totalPrice: null
 }
 
 const cartReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case actions.ADD_TO_LIST:
+        case cartActions.ADD_TO_LIST:
 
-            action.payload.quantity = 1;
+        console.log(action.payload);
 
             return {
                 ...state,
                 cartList: [...state.cartList, action.payload]
             }
 
-        case actions.ADD_QUANTITY:
 
-            ++ action.payload.quantity;
+        case cartActions.ADD_QUANTITY:
 
             return {
                 ...state,
@@ -30,21 +29,24 @@ const cartReducer = (state = initialState, action) => {
                         ? action.payload : product)]
             }
 
-        case actions.SUBTRACT_QUANTITY:
-
-            -- action.payload.quantity;
+        case cartActions.SUBTRACT_QUANTITY:
 
             return {
                 ...state,
                 cartList: [...state.cartList.map(product =>
                     product.id === action.payload.id
-                        ? {...product, quantity: action.payload.quantity}
+                        ? { ...product, quantity: action.payload.quantity }
                         : product
                 ).filter(product => product.quantity > 0)]
             }
 
+        case userActions.LOGOUT:
+
+            return { ...state, cartList: [], totalPrice: null };
+
         default:
             return state;
+            
     }
 }
 

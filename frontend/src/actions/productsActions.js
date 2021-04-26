@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setError, setMessage } from './messageActions';
+import { setError, setMessage, hideMessage } from './messageActions';
 import { getAuthToken } from '../utils/localStorage';
 
 export const GET_PRODUCTS = 'GET_PRODUCTS';
@@ -30,8 +30,11 @@ export function getProductsAction(parameters) {
         dispatch(getProducts());
 
         try {
-            const { data } = await axios.get(`/products${parameters}`);
-            dispatch(getProductsSuccess(data.result))
+            const { data } = parameters ?
+                await axios.get(`/products/filter${parameters}`)
+                : await axios.get(`/products`)
+                console.log(data);
+            dispatch(getProductsSuccess(data));
         } catch ({ response }) {
             let message = "Couldn't get products, try it later";
             dispatch(setError(message));
@@ -87,10 +90,10 @@ export function deleteProductAction(id) {
             const response = await axios.delete(`/products/${id}`, {
                 headers: { 'Authorization': `${token}` }
             });
-            console.log('error',response);
+            console.log('error', response);
             dispatch(deleteProductSuccess(id))
         } catch (error) {
-            console.log('error',error.response);
+            console.log('error', error.response);
             let message = "Couldn't delete this product"
             dispatch(setError(error.response.data.message || message))
         }
@@ -118,6 +121,9 @@ export function editProductAction(product, id) {
             });
             dispatch(editProductSuccess(data.body));
             dispatch(setMessage(data.message));
+            setTimeout(() => {
+                dispatch(hideMessage());
+            }, 3000);
         } catch (error) {
             dispatch(setError(error.response.data.message))
         }

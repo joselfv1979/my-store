@@ -19,9 +19,6 @@ const ProductDetailPage = ({ match }) => {
 
     useEffect(() => {
 
-        localStorage.getItem('role') === 'admin' ?
-            setIsAdmin(true) : setIsAdmin(false);
-
         const getProduct = async () => {
             try {
                 const response = await axios.get(`/products/${id}`);

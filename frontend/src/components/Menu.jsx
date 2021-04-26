@@ -7,7 +7,7 @@ const Menu = ({ logged, user, userLogout}) => {
     const [role, setRole] = useState('guest');
 
     useEffect(() => {
-        console.log('userMenu',logged,user);
+
         if(logged){
             setRole(user.role);
             setUsername(user.username);

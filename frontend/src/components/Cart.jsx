@@ -13,6 +13,7 @@ const Cart = ({ cart }) => {
                 <p>{(product.price * product.quantity).toFixed(2)} €</p>
             </div> */}
             <Product product={product}/>
+            <p>{product.quantity} x {product.price} {(product.price * product.quantity).toFixed(2)} €</p>
         </li>
     ))
 }

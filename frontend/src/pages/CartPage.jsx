@@ -1,13 +1,9 @@
-import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Cart from './../components/Cart';
 import './../css/Cart.css';
 
 const CartPage = ({ cart, total }) => {
 
-    useEffect(() => {
-    
-    }, )
     return (
         <div className="cart-container">
             <h2>My Cart</h2>

@@ -1,23 +1,21 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import { loginAction } from './../actions/userActions';
 import { useHistory } from "react-router-dom";
-import { AppContext } from "../context/AppContext";
 import '../css/LoginPage.css';
 
 const LoginPage = ({ dispatch, logged }) => {
 
-    const { setError } = useContext(AppContext)
     const [name, setName] = useState(null);
     const [password, setPassword] = useState(null);
+
+    const history = useHistory();
 
     useEffect(() => {
         if(logged){
             history.push('/')
         }
-    }, [logged])
-
-    const history = useHistory();
+    }, [history, logged])
 
     const handleFormSubmit = event => {
         event.preventDefault();
@@ -35,7 +33,6 @@ const LoginPage = ({ dispatch, logged }) => {
     const goRegister = event => {
         event.preventDefault();
         history.push('/register');
-        setError(null);
     }
 
     return (
