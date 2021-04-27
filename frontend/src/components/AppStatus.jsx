@@ -1,5 +1,3 @@
-import React, { useContext } from 'react';
-import { AppContext } from "../context/AppContext";
 import '../css/AppStatus.css'
 import loading from "../puff.svg";
 
@@ -34,13 +32,11 @@ const AppMessage = ({ message, removeMessage }) => {
 
 const AppWaiting = () => {
 
-    const { waiting } = useContext(AppContext);
-
     return (
         <>
-            {waiting && (<div className="waiting">
+            {/* {waiting && (<div className="waiting">
                 <img src={loading} alt="Cargando..." />
-            </div>)}
+            </div>)} */}
         </>
     )
 }

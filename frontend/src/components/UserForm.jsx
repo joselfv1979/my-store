@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { AppContext } from "../context/AppContext";
+import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 
 const UserForm = ({ user, id, setUser, validateUserData }) => {
 
     const [showPasswordInput, setShowPasswordInput] = useState(true);
 
-    const { setError } = useContext(AppContext);
     const location = useLocation();
     const history = useHistory();
 
@@ -48,7 +46,7 @@ const UserForm = ({ user, id, setUser, validateUserData }) => {
 
         history.push('/login');
 
-        setError(null);
+        // setError(null);
     }
 
     return (

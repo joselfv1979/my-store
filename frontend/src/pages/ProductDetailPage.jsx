@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { AppContext } from "../context/AppContext";
-import { UserContext } from '../context/UserContext';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Product from '../components/Product';
@@ -9,9 +7,6 @@ import AdminButtons from '../components/AdminButtons';
 const ProductDetailPage = ({ match }) => {
 
     const { id } = match.params;
-
-    const { setMessage, setError, setWaiting } = useContext(AppContext);
-    const { isAdmin, setIsAdmin } = useContext(UserContext);
 
     const [product, setProduct] = useState(null);
 
@@ -47,11 +42,11 @@ const ProductDetailPage = ({ match }) => {
         history.push(`/edit/${id}`)
     }
 
-    const clearMessage = () => {
-        setTimeout(() => {
-            setMessage(null)
-        }, 3000)
-    }
+    // const clearMessage = () => {
+    //     setTimeout(() => {
+    //         setMessage(null)
+    //     }, 3000)
+    // }
 
     return (
 
@@ -61,12 +56,12 @@ const ProductDetailPage = ({ match }) => {
                 <button className="close-button" onClick={() => history.push('/')}>x</button>
                 {product ? <Product product={product} />
                     : <h2>Cargando ...</h2>}
-                {isAdmin ?
+                {/* {isAdmin ?
                     <AdminButtons
                         editProduct={editProduct}
                         id={id}
                     /> :
-                    <button className="add-button">Add to list +</button>}
+                    <button className="add-button">Add to list +</button>} */}
             </div>
         </div>
     )

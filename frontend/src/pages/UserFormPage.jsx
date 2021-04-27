@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { AppContext } from "../context/AppContext";
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
 import UserForm from '../components/UserForm';
@@ -8,8 +7,6 @@ import '../css/UserFormPage.css';
 
 
 const UserFormPage = () => {
-
-    const { setMessage, setError, setWaiting } = useContext(AppContext);
 
     const history = useHistory();
 
@@ -33,18 +30,17 @@ const UserFormPage = () => {
                     };
                 } catch (error) {
                     //console.log(error);
-                    setError(error.response.data.message)
                 }
             };
             getUser(userId);
         }
-    }, [setError]);
+    }, []);
 
-    const validateUserData = (user) => {
-        const { valid, message } = validateUser(user);
-        valid ? sendDataUser(user) : setError(message);
-        return valid;
-    }
+    // const validateUserData = (user) => {
+    //     const { valid, message } = validateUser(user);
+    //     valid ? sendDataUser(user) : setError(message);
+    //     return valid;
+    // }
 
     const sendDataUser = async (user) => {
 
@@ -56,16 +52,16 @@ const UserFormPage = () => {
         try {
             const { data } = await axios.post('/users/sign-up', user);
             if (data.success) {
-                setMessage(data.message);
-                setTimeout(() => {
-                    setMessage(null);
-                    history.push('/login');
-                }, 2000)
+                // setMessage(data.message);
+                // setTimeout(() => {
+                //     setMessage(null);
+                //     history.push('/login');
+                // }, 2000)
             };
         } catch ({ response }) {
-            response.data.message ?
-                setError(response.data.message) :
-                setError("Couldn't create this user");
+            // response.data.message ?
+            //     setError(response.data.message) :
+            //     setError("Couldn't create this user");
         }
     }
 
@@ -74,22 +70,22 @@ const UserFormPage = () => {
         try {
             const { data } = await axios.put(`/users/user-edit/${id}`, user);
             if (data.success) {
-                setMessage(data.message);
-                setTimeout(() => {
-                    setMessage(null);
-                }, 2000)
+                // setMessage(data.message);
+                // setTimeout(() => {
+                //     setMessage(null);
+                // }, 2000)
             };
         } catch ({ response }) {
-            response.data.message ?
-                setError(response.data.message) :
-                setError("Couldn't update this user");
+            // response.data.message ?
+            //     setError(response.data.message) :
+            //     setError("Couldn't update this user");
         }
     }
 
     return (
         <div className="user-container">
             <UserForm
-                validateUserData={validateUserData}
+                // validateUserData={validateUserData}
                 user={user}
                 id={id}
                 setUser={setUser}

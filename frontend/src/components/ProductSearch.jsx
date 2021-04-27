@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from "react-router-dom";
 
-
 const ProductSearch = ({ filterProducts }) => {
 
     const history = useHistory();
