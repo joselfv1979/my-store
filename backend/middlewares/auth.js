@@ -11,7 +11,7 @@ const isAuthenticated = (req, res, next) => {
         req.auth = decodedToken; // verificación del token
         console.log('auth',req.auth);
     } catch(e) {
-        const authError = new Error('invalid token');
+        const authError = new Error('Unauthorized request');
         authError.httpCode = 401;
         // authError.status = 401; 
         // Error por token inválido

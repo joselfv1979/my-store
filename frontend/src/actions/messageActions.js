@@ -1,35 +1,23 @@
-// errorTypes
-export const SET_ERROR = "SET_ERROR";
-export const HIDE_ERROR = "HIDE_ERROR";
-// messageTypes
-export const SET_MESSAGE = 'SET_MESSAGE';
-export const HIDE_MESSAGE = 'HIDE_MESSAGE';
+export const SUCCESS = 'SUCCESS';
+export const ERROR = 'ERROR';
+export const CLEAR = 'CLEAR';
 
-// errorActions
-export function setError(error) {
+export function setError(message) {
     return {
-        type: SET_ERROR,
-        error: error
+        type: ERROR,
+        message
     }
 }
 
-export function hideError() {
+export function clearMessage() {
     return {
-        type: HIDE_ERROR
+        type: CLEAR
     }
 }
 
-//messageActions 
 export function setMessage(message) {
     return {
-        type: SET_MESSAGE,
-        message: message
+        type: SUCCESS,
+        message
     }
 }
-
-export function hideMessage() {
-    return {
-        type: HIDE_MESSAGE
-    }
-}
-

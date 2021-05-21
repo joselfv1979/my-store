@@ -1,44 +1,24 @@
-import '../css/AppStatus.css'
-import loading from "../puff.svg";
-
-
-const AppError = ({ error, removeError }) => {
-
-    return (
-        <>
-            {error && (<div className="error">
-                <div className="start"></div>
-                <div className="content">{error}</div>
-                <div className="closebtn"
-                    onClick={() => {removeError()}}>x</div>
-            </div>)}
-        </>
-    )
-}
+import styles from "../scss/AppStatus.module.scss";
+import spinner from "../puff.svg";
 
 const AppMessage = ({ message, removeMessage }) => {
-
-    return (
-        <>
-            {message && (<div className="success">
-                <div className="start"></div>
-                <div className="content">{message}</div>
-                <div className="closebtn"
-                    onClick={() => removeMessage()}>x</div>
-            </div>)}
-        </>
-    )
-}
+  return (
+    <div className={styles[`${message.type}`]}>
+      <span className={styles.content}>{message.message}</span>
+      <button className={styles.close} onClick={() => removeMessage()}>
+        x
+      </button>
+    </div>
+  );
+};
 
 const AppWaiting = () => {
+  return (
+    <div className="loader">
+      {/* <p>...Loading</p> */}
+      <img src={spinner} alt="Loading..." />
+    </div>
+  );
+};
 
-    return (
-        <>
-            {/* {waiting && (<div className="waiting">
-                <img src={loading} alt="Cargando..." />
-            </div>)} */}
-        </>
-    )
-}
-
-export { AppError, AppMessage, AppWaiting };
+export { AppMessage, AppWaiting };

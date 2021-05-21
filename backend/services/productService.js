@@ -53,15 +53,14 @@ const getProduct = async (id) => {
     return rows[0];
 }
 
-const addProduct = async ({ name, description, category, price, stock, image }) => {
+const addProduct = async ({ name, description, category, price, stock, rating, image }) => {
 
-    const sql = 'insert into products (name, description, category, price, stock, image) values (?, ?, ?, ?, ?, ?)';
+    const sql = 'insert into products (name, description, category, price, stock, rating, image) values (?, ?, ?, ?, ?, ?)';
 
     const connection = await database.connection();
-    const [result] = await connection.execute(sql, [name, description, category, price, stock, image]);
+    const [result] = await connection.execute(sql, [name, description, category, price, stock, rating, image]);
 
     if (result.affectedRows) {
-        console.log(result);
         let message = 'Product created successfully';
         let id = result.insertId
         return { message, id };
@@ -75,10 +74,9 @@ const updateProduct = async (id, { name, description, price, stock, image }) => 
     const connection = await database.connection();
     const [result] = await connection.execute(sql, [name, description, price, stock, image, id]);
 
-    if (result.changedRows) {
-        let message = 'Product updated successfully';
-        return { message };
-    }
+    //result.changedRows
+    let message = 'Product updated successfully';
+    return { message };
 }
 
 const deleteProduct = async (id) => {

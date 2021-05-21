@@ -2,7 +2,8 @@ import * as userActions from '../actions/userActions';
 
 const initialState = {
     user: {},
-    logged: false
+    logged: false,
+    loading: false
 }
 
 const userReducer = (state = initialState, action) => {
@@ -16,6 +17,10 @@ const userReducer = (state = initialState, action) => {
 
             return { ...state, user: action.payload, loading: false };
 
+        case userActions.GET_USER_FAILURE:
+
+            return { ...state, loading: false };
+
         case userActions.REGISTER:
 
             return { ...state, loading: true };
@@ -23,6 +28,10 @@ const userReducer = (state = initialState, action) => {
         case userActions.REGISTER_SUCCESS:
 
             return { ...state, user: action.payload, loading: false };
+
+        case userActions.REGISTER_FAILURE:
+
+            return { ...state };
 
         case userActions.LOGIN:
 
@@ -34,7 +43,7 @@ const userReducer = (state = initialState, action) => {
 
         case userActions.LOGIN_FAILURE:
 
-            return { ...state, logged: false };
+            return { ...state, logged: false, loading: false };
 
         case userActions.LOGOUT:
 
@@ -48,13 +57,21 @@ const userReducer = (state = initialState, action) => {
 
             return { ...state, user: action.payload, loading: false };
 
+        case userActions.UPDATE_USER_FAILURE:
+
+            return { ...state, loading: false };
+
         case userActions.DELETE_USER:
 
             return { ...state, loading: true };
 
         case userActions.DELETE_USER_SUCCESS:
 
-            return { ...state, user: {}, loading: false }
+            return { ...state, user: {}, loading: false };
+
+        case userActions.DELETE_USER_FAILURE:
+
+            return { ...state, loading: false };
 
         default:
             return state;

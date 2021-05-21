@@ -1,4 +1,3 @@
-
 export const validateUser = ({ username, email, password }) => {
 
     let response = {

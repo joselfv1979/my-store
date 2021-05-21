@@ -1,20 +1,20 @@
 import React from 'react';
 import { useHistory } from "react-router-dom"
-import '../css/AdminButtons.css'
+import styles from '../scss/AdminButtons.module.scss'
 
 const AdminButtons = ({ id, deleteProduct }) => {
 
     const history = useHistory();
 
     return (
-        <div className="admin-buttons">
+        <div className={styles.admin}>
 
-            <button className="edit-product-button"
+            <button className={styles.edit}
                 onClick={() => history.push(`/edit/${id}`) }>
                     <i className="fas fa-pencil-alt"></i>
             </button>
 
-            <button className="remove-product-button"
+            <button className={styles.remove}
                 onClick={() => {
                     if (window.confirm('Are you sure to delete?')) {
                         deleteProduct(id);

@@ -1,6 +1,7 @@
 import Product from "./Product";
 import AdminButtons from "./AdminButtons";
 import UserButtons from "./UserButtons";
+import styles from "../scss/ProductListPage.module.scss";
 
 const ProductList = ({
   addToList,
@@ -9,15 +10,14 @@ const ProductList = ({
   products,
   user,
   deleteProduct,
+  showProductDetail,
 }) => {
-  const { role } = user;
+  const List = () => {
+    return products.map((product, i) => (
+      <li className={styles.info} key={i}>
+        <Product product={product} showProductDetail={showProductDetail} />
 
-  const list = () => {
-    return products.map((product) => (
-      <li className="info" key={product.id}>
-        <Product product={product} />
-
-        {role === "admin" ? (
+        {user && user.role === "admin" ? (
           <AdminButtons id={product.id} deleteProduct={deleteProduct} />
         ) : (
           <UserButtons
@@ -32,9 +32,19 @@ const ProductList = ({
   };
 
   return (
-    <div className="product-list">
-      <ul>{products.length ? list() : <p>No products found</p>}</ul>
-    </div>
+    <>
+      {products.length ? (
+        <div className={styles.list}>
+          <ul>
+            <List />
+          </ul>
+        </div>
+      ) : (
+        <div className={styles.notFound}>
+          <p>No products found</p>
+        </div>
+      )}
+    </>
   );
 };
 

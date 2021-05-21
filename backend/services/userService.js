@@ -73,11 +73,47 @@ const deleteUser = async (id) => {
     }
 }
 
+const usernameExist = async (username) => {
+
+    const sql = 'SELECT id FROM users WHERE username = ?';
+
+    try {
+        const connection = await database.connection();
+        const [rows] = await connection.execute(sql, [username]);
+        return rows.length;
+        
+    } catch (error) {
+        return {
+            'code': 500,
+            'description': error.toString()
+        }
+    }
+}
+
+const emailExist = async (email) => {
+
+    const sql = 'SELECT id FROM users WHERE email = ?';
+
+    try {
+        const connection = await database.connection();
+        const [rows] = await connection.execute(sql, [email]);
+        return rows.length;
+        
+    } catch (error) {
+        return {
+            'code': 500,
+            'description': error.toString()
+        }
+    }
+}
+
 module.exports = {
     getAllUsers,
     getUserDataById,
     getUser,
     addUser,
     deleteUser,
-    updateUser
+    updateUser,
+    emailExist,
+    usernameExist
 }

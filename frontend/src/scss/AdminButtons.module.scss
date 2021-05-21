@@ -1,0 +1,49 @@
+.admin {
+    border-bottom: 1px solid lightgrey; 
+    border-left: 1px solid lightgrey; 
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-right: 1px solid lightgrey; 
+    display: flex;
+    height: 25%;
+
+    button {
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    margin: 2% auto;
+    padding: .7rem 1.5rem;
+    text-decoration: none;
+    transition: all 500ms ease;
+}
+}
+
+.edit:hover {
+    background: rgba(0, 0, 0, 0);
+    background-color: #ffffff;
+    color: #4CAF50;
+    box-shadow: 0 0 0 3px #4CAF50;
+}
+
+.remove:hover {
+    background: rgba(0,0,0,0);
+    background-color: #ffffff;
+    color: #f44336;
+    box-shadow: 0 0 0 3px #f44336;
+}
+
+.edit {
+    background-color: #4CAF50;
+}
+
+.remove {
+    background-color: #f44336;
+}
+
+.edit i,
+.remove i {
+    font-size: 14px;
+    margin: auto
+}

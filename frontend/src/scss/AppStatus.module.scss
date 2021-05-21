@@ -1,0 +1,37 @@
+%message-layout {
+    align-items: center;
+    color: white;
+    display: flex;
+    padding: .5rem;
+}
+
+
+
+.error {
+    @extend %message-layout;
+    background-color: #f44336;
+}
+
+.success {
+    @extend %message-layout;
+    background-color: greenyellow;
+}
+
+.content {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.close {
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    margin-left: auto;
+    padding: .2rem;
+    background-color: #f44336;
+
+    &:hover {
+        color: black;
+    }
+}

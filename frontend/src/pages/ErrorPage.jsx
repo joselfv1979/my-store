@@ -1,15 +1,13 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const ErrorPage = () => {
-
-    return (
-        <div>
-            <h1>
-                Error 404
-            </h1>
-        </div>
-    )
-
-}
+  return (
+    <div className="error-container">
+      <h1>Error 404</h1>
+      <Link to="/">Go Home</Link>
+    </div>
+  );
+};
 
 export default ErrorPage;

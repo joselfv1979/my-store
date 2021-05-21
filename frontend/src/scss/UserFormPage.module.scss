@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur');
+
+.userForm {
+    background-color: darkgray;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    margin-top: 2rem;
+    min-height: 480px;
+    text-align: center;
+    width: 65vh;
+
+    h2 {
+        font: {
+            family: 'Playfair Display', serif;
+            size: 200%;
+        }
+
+        margin: 1rem;
+    }
+
+    fieldset {
+        background-color: white;
+        border-radius: 5px;
+        display: flex;
+        margin: 1rem auto;
+        width: 15rem;
+    }
+
+    input {
+        background-color: white;
+        border: none;
+        border-radius: 0px 5px 5px 0px;
+        font-family: 'Abel', sans-serif;
+        font-size: 1rem;
+        height: 2.5rem;
+        transition: 0.2s linear;
+        width: 9rem;
+
+        &:focus {
+            outline: none;
+            transform: translateX(-4px);
+        }
+    }
+
+    button {
+        color: #252537;
+        padding: 0 20px;
+        background: #0093AF;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: block;
+        height: 2.5rem;
+        letter-spacing: 0.05em;
+        margin: 5% auto;
+        outline: none;
+        text-align: center;
+        transition: all 0.2s linear;
+        width: 15rem;
+
+        &.login {
+            background: #0093AF;
+        }
+
+        &.signin {
+            background: #d15849;
+        }
+
+        &:hover {
+            transform: translatey(3px);
+            animation: 0.4s ease-in-out infinite alternate;
+        }
+
+        i {
+            margin-left: 10px;
+        }
+    }
+}
+
+.user, .pwd, .email {
+    background-position: 1rem center;
+    background-repeat: no-repeat;
+    background-size: 1.4rem;
+}
+
+.user {
+    background-image: url('./../img/user.svg');
+    padding-left: 3rem;
+}
+
+.pwd {
+    background-image: url('./../img/key.svg');
+    padding-left: 3rem;
+}
+
+.eye {
+    background-image: url('./../img/eye.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1.7rem;
+    cursor: pointer;
+    width: 3rem;
+}
+
+.email {
+    background-image: url('./../img/envelope.svg');
+    padding-left: 3rem; 
+}
+
+

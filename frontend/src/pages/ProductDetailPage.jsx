@@ -1,70 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
-import Product from '../components/Product';
-import AdminButtons from '../components/AdminButtons';
+import { AppWaiting } from "../components/AppStatus";
+import Product from "../components/Product";
+import { getProductAction } from "../actions/productsActions";
+import styles from "../scss/ProductDetailPage.module.scss";
 
-const ProductDetailPage = ({ match }) => {
+const ProductDetailPage = ({ match, dispatch, product, loading }) => {
+  const id = match.params.id;
 
-    const { id } = match.params;
+  const history = useHistory();
 
-    const [product, setProduct] = useState(null);
+  useEffect(() => {
+    dispatch(getProductAction(id));
+  }, [dispatch, id]);
 
-    const history = useHistory();
-
-    useEffect(() => {
-
-        const getProduct = async () => {
-            try {
-                const response = await axios.get(`/products/${id}`);
-                setProduct(response.data.product);
-            } catch (error) {
-                // setError(error.message)
-                console.log(error);
-            }
-        }
-        getProduct()
-    }, [id]);
-
-    // const deleteProduct = async (id) => {
-    //     try {
-    //         const { data } = await axios.delete(`/products/${id}`);
-    //         setMessage(data.message)
-    //         clearMessage();
-    //     } catch (error) {
-    //         error.response.status === 500 || error.response.status === 404 ?
-    //             setError("Couldn't delete this product") :
-    //             setError(error.response.data.message)
-    //     }
-    // }
-
-    const editProduct = (id) => {
-        history.push(`/edit/${id}`)
-    }
-
-    // const clearMessage = () => {
-    //     setTimeout(() => {
-    //         setMessage(null)
-    //     }, 3000)
-    // }
-
-    return (
-
-        <div className="modal">
-            Product Detail
-            <div className="modalBox">
-                <button className="close-button" onClick={() => history.push('/')}>x</button>
-                {product ? <Product product={product} />
-                    : <h2>Cargando ...</h2>}
-                {/* {isAdmin ?
-                    <AdminButtons
-                        editProduct={editProduct}
-                        id={id}
-                    /> :
-                    <button className="add-button">Add to list +</button>} */}
+  return (
+    <>
+      {loading && <AppWaiting />}
+      {product && (
+        <div className={styles.modal}>
+          <div className={styles.modalBox}>
+            <h1>Product Detail</h1>
+            <div className={styles.container}>
+              <Product product={product} />
             </div>
+            <div className={styles.description}>
+              <h3>Product description:</h3>
+              <p>
+                {product.description}. Lorem ipsum dolor sit, amet consectetur
+                adipisicing elit. Consequuntur a alias quia corporis consequatur
+                facilis magni repellat, ab optio maxime pariatur nemo at eveniet
+                sed, consectetur molestias eligendi, necessitatibus accusamus.
+              </p>
+            </div>
+            <button onClick={() => history.push("/")}>Close</button>
+          </div>
         </div>
-    )
-}
+      )}
+    </>
+  );
+};
 
-export default ProductDetailPage;
+const mapStateToProps = (state) => ({
+  error: state.message.error,
+  product: state.product.product,
+  loading: state.product.loading,
+});
+
+export default connect(mapStateToProps)(ProductDetailPage);

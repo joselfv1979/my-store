@@ -1,30 +1,29 @@
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { getProductsAction, deleteProductAction } from "../actions/productsActions";
-import { addToList, addQuantity, subtractQuantity } from "../actions/cartActions";
+import { useHistory } from "react-router-dom";
+import {
+  getProductsAction,
+  deleteProductAction,
+} from "../actions/productsActions";
+import {
+  addToList,
+  addQuantity,
+  subtractQuantity,
+} from "../actions/cartActions";
 import ProductList from "../components/ProductList";
 import ProductSearch from "../components/ProductSearch";
-import "../css/ProductListPage.css";
+import styles from "../scss/ProductListPage.module.scss";
 
-const ProductListPage = ({
-  dispatch,
-  loading,
-  products,
-  user
-}) => {
-
+const ProductListPage = ({ dispatch, products, user }) => {
   useEffect(() => {
-    let params = localStorage.getItem('parameters');
-
-    // console.log('products',JSON.parse(localStorage.getItem('state')).products.productList);
-
-    // params ? dispatch(getProductsAction(params)) 
-    // : dispatch(getProductsAction());
+    if (localStorage.length === 0) {
+      dispatch(getProductsAction(""));
+    }
   }, [dispatch]);
 
   const filterProducts = (parameters) => {
     dispatch(getProductsAction(parameters));
-    JSON.stringify(localStorage.setItem('parameters',parameters));
+    JSON.stringify(localStorage.setItem("parameters", parameters));
   };
 
   const deleteProduct = (product) => {
@@ -43,29 +42,32 @@ const ProductListPage = ({
     dispatch(subtractQuantity(product));
   };
 
-  return (
-    <div className="product-container">
-      <ProductSearch filterProducts={filterProducts} />
+  const history = useHistory();
 
-      <section>
-        <ProductList
-          products={products}
-          user={user}
-          deleteProduct={deleteProduct}
-          addToList={addToListDispatch}
-          addQuantity={addQuantityDispatch}
-          subtractQuantity={subtractQuantityDispatch}
-        />
-      </section>
+  const showProductDetail = (product) => {
+    history.push(`/product/${product.id}`);
+  };
+
+  return (
+    <div className={styles.container}>
+      <ProductSearch filterProducts={filterProducts} />
+      <ProductList
+        products={products}
+        user={user}
+        deleteProduct={deleteProduct}
+        addToList={addToListDispatch}
+        addQuantity={addQuantityDispatch}
+        subtractQuantity={subtractQuantityDispatch}
+        showProductDetail={showProductDetail}
+      />
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
-  loading: state.products.loading,
   products: state.products.productList,
   user: state.user.user,
-  // cart: state.cart.cartList
+  status: state.products.status,
 });
 
 export default connect(mapStateToProps)(ProductListPage);

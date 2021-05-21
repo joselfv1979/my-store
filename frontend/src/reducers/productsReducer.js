@@ -1,9 +1,10 @@
 import * as productActions from '../actions/productsActions';
 import * as cartActions from '../actions/cartActions';
+import * as userActions from '../actions/userActions';
 
 export const initialState = {
     productList: JSON.parse(localStorage.getItem('state')) ? JSON.parse(localStorage.getItem('state')).products.productList : [],
-    loading: false,
+    loading: false
 }
 
 const productsReducer = (state = initialState, action) => {
@@ -18,6 +19,10 @@ const productsReducer = (state = initialState, action) => {
 
             return { productList: action.payload, loading: false };
 
+        case productActions.GET_PRODUCTS_FAILURE:
+
+            return { ...state, loading: false };
+
         case productActions.ADD_PRODUCT:
 
             return { ...state };
@@ -29,6 +34,10 @@ const productsReducer = (state = initialState, action) => {
                 productList: [action.payload, ...state.productList]
             };
 
+        case productActions.ADD_PRODUCT_FAILURE:
+
+            return { ...state };
+
         case productActions.DELETE_PRODUCT:
 
             return { ...state };
@@ -38,6 +47,10 @@ const productsReducer = (state = initialState, action) => {
             return {
                 productList: state.productList.filter(product => product.id !== Number(action.payload))
             };
+
+        case productActions.DELETE_PRODUCT_FAILURE:
+
+            return { ...state };
 
         case productActions.EDIT_PRODUCT:
 
@@ -50,6 +63,10 @@ const productsReducer = (state = initialState, action) => {
                 productList: state.productList.map(product => product.id === Number(action.payload.id)
                     ? action.payload : product)
             };
+
+        case productActions.EDIT_PRODUCT_FAILURE:
+
+            return { ...state };
 
         case cartActions.ADD_TO_LIST:
 
@@ -82,6 +99,20 @@ const productsReducer = (state = initialState, action) => {
                 productList: [...state.productList.map(product =>
                     product.id === action.payload.id
                         ? action.payload : product)]
+            }
+
+        case cartActions.CLEAR_CART:
+
+            return {
+                ...state,
+                productList: [...state.productList.map(product => product = { ...product, quantity: 0 })]
+            }
+
+        case userActions.LOGOUT:
+
+            return {
+                ...state,
+                productList: [...state.productList.map(product => product = { ...product, quantity: 0 })]
             }
 
         default:

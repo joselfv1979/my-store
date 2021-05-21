@@ -1,127 +1,114 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useLocation, useHistory } from "react-router-dom";
+import  styles from '../scss/UserFormPage.module.scss';
 
-const UserForm = ({ user, id, setUser, validateUserData }) => {
+const UserForm = ({ user, sendDataUser }) => {
+  const [showPasswordInput, setShowPasswordInput] = useState(true);
+  const [userData, setUserData] = useState("");
 
-    const [showPasswordInput, setShowPasswordInput] = useState(true);
+  const location = useLocation();
+  const history = useHistory();
 
-    const location = useLocation();
-    const history = useHistory();
-
-    useEffect(() => {
-        if (location.pathname === '/edit-profile') {
-            setShowPasswordInput(false);
-        }
-    }, [location.pathname])
-
-    const handleInputChange = (event) => {
-
-        setUser({
-            ...user,
-            [event.target.name]: event.target.value
-        })
+  useEffect(() => {
+    if (location.pathname === "/edit-profile") {
+      setShowPasswordInput(false);
     }
+  }, [location.pathname]);
 
-    const handleFormSubmit = (event) => {
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
 
-        event.preventDefault();
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
+  };
 
-        validateUserData(user);
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
 
-        // if(validateUserData(user)) {
-        //     document.getElementById('username').value='';
-        //     document.getElementById('email').value='';
-        //     if(showPasswordInput) document.getElementById('password').value='';
-        // }
-    }
+    user = {
+      ...user,
+      ...userData,
+    };
 
-    const showPassword = () => {
-        let pwdInput = document.querySelector('.pwd-input');
-        pwdInput.type === "password" ? pwdInput.type = "text" : pwdInput.type = "password";
-    }
+    sendDataUser(user);
+  };
 
-    const goLogin = event => {
+  const showPassword = () => {
+    let pwdInput = document.querySelector(".pwd-input");
+    pwdInput.type === "password"
+      ? (pwdInput.type = "text")
+      : (pwdInput.type = "password");
+  };
 
-        event.preventDefault();
+  const goLogin = (event) => {
+    event.preventDefault();
 
-        history.push('/login');
+    history.push("/login");
+  };
 
-        // setError(null);
-    }
+  return (
+    <form className={styles.userForm} onSubmit={handleFormSubmit}>
+      {user.id ? <h2>My Account</h2> : <h2>Register</h2>}
 
-    return (
-        <form className="user-form" onSubmit={handleFormSubmit}>
+      <fieldset>
+        <div className={styles.user}>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Username"
+            required
+            autoFocus
+            onChange={handleInputChange}
+            defaultValue={user.username}
+          />
+        </div>
+      </fieldset>
 
-            <div className="content">
+      <fieldset>
+        <div className={styles.email}>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            placeholder="Email"
+            required
+            onChange={handleInputChange}
+            defaultValue={user.email}
+          />
+        </div>
+      </fieldset>
 
-                <div className="header">
-                    {id ? <h2>My Account</h2> : <h2>Register</h2>}
-                </div>
+      {showPasswordInput ? (
+        <fieldset>
+          <div className={styles.pwd}>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              className="pwd-input"
+              placeholder="Password"
+              required
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className={styles.eye} onClick={showPassword}></div>
+        </fieldset>
+      ) : null}
 
-                <div className="fields">
-                    <fieldset>
-                        <div className="user">
-                            <input type="text"
-                                name="username"
-                                id="username"
-                                className="user-input"
-                                placeholder="Username"
-                                required
-                                autoFocus
-                                onChange={handleInputChange}
-                                defaultValue={user.username}
-                            />
-                        </div>
-                    </fieldset>
+      <div className="buttons">
+        <button className={styles.login}>Save</button>
 
-                    <fieldset>
-                        <div className="email">
-                            <input type="text"
-                                name="email"
-                                id="email"
-                                className="email-input"
-                                placeholder="Email"
-                                required
-                                onChange={handleInputChange}
-                                defaultValue={user.email}
-                            /></div>
-                    </fieldset>
-
-                    {showPasswordInput ? (
-                        <fieldset>
-                            <div className="pwd">
-                                <input type="password"
-                                    name="password"
-                                    id="password"
-                                    className="pwd-input"
-                                    placeholder="Password"
-                                    required
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="eye" onClick={showPassword}>
-                            </div>
-                        </fieldset>
-                    ) : null}
-
-                </div>
-
-                <div className="buttons">
-
-                    <button className="log-in"
-                    >Save</button>
-
-                    <p>Have an account?</p>
-                    <button className="sign-in"
-                        onClick={goLogin}
-                    >
-                        Sign in
-                    <i className="fas fa-user"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-    )
-}
+        <p>Have an account?</p>
+        <button className={styles.signin} onClick={goLogin}>
+          Sign in
+          <i className="fas fa-user"></i>
+        </button>
+      </div>
+    </form>
+  );
+};
 
 export default UserForm;

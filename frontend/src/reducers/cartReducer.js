@@ -2,8 +2,7 @@ import * as cartActions from '../actions/cartActions';
 import * as userActions from '../actions/userActions';
 
 export const initialState = {
-    cartList: [],
-    totalPrice: null
+    cartList: []
 }
 
 const cartReducer = (state = initialState, action) => {
@@ -12,7 +11,7 @@ const cartReducer = (state = initialState, action) => {
 
         case cartActions.ADD_TO_LIST:
 
-        console.log(action.payload);
+            console.log(action.payload);
 
             return {
                 ...state,
@@ -40,13 +39,17 @@ const cartReducer = (state = initialState, action) => {
                 ).filter(product => product.quantity > 0)]
             }
 
+        case cartActions.CLEAR_CART:
+
+            return { ...state, cartList: [], totalPrice: null };
+
         case userActions.LOGOUT:
 
             return { ...state, cartList: [], totalPrice: null };
 
         default:
             return state;
-            
+
     }
 }
 

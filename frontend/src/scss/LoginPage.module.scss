@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur');
+
+.loginForm {
+    background-color: darkgrey;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Vibur', cursive;
+    font-family: 'Abel', sans-serif;
+    height: auto;
+    margin-top: 2rem;
+    text-align: center;
+    width: 65vh;
+
+    header {
+
+        h2 {
+            font: {
+                family: 'Playfair Display', serif;
+                size: 200%;
+            }
+
+            margin-top: 1rem;
+        }
+
+        p {
+            margin: 1rem;
+        }
+    }
+
+    fieldset {
+        background-color: white;
+        border-radius: 5px;
+        display: flex;
+        margin: 1rem auto;
+        width: 15rem;
+    }
+
+    input {
+        border: none;
+
+        font: {
+            family: 'Abel', sans-serif;
+            size: 1rem;
+        }
+
+        height: 2.5rem;
+        transition: 0.2s linear;
+        width: 9rem;
+
+        &:focus {
+            outline: none;
+            transform: translateX(-4px);
+        }
+    }
+
+    button {
+        color: #252537;
+        border: none;
+        border-radius: 5px;
+        height: 2.5rem;
+        letter-spacing: 0.05em;
+        margin: 1rem auto;
+        transition: all 0.2s linear;
+        width: 15rem;
+
+        &.login {
+            background: #0093AF;
+        }
+
+        &.signup {
+            background: #d15849;
+        }
+
+        &:hover {
+            transform: translatey(3px);
+            animation: 0.4s ease-in-out infinite alternate;
+        }
+
+        i {
+            margin-left: 10px;
+        }
+    }
+}
+
+.user,
+.pwd {
+    background-position: 1rem center;
+    background-repeat: no-repeat;
+    background-size: 1.4rem;
+}
+
+.user {
+    background-image: url('./../img/user.svg');
+    padding-left: 3rem;
+}
+
+.pwd {
+    background-image: url('./../img/key.svg');
+    padding-left: 3rem;
+}
+
+.eye {
+    background-image: url('./../img/eye.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1.7rem;
+    cursor: pointer;
+    width: 3rem;
+}
+
+.buttons {
+    margin: 1rem;
+}
+
+@keyframes ani9 {
+    0% {
+        transform: translateY(3px);
+    }
+
+    100% {
+        transform: translateY(5px);
+    }
+}
+
+@media screen and (max-width:480px) {
+    .login-form {
+        font-size: .8rem;
+        width: 50vh;
+    }
+}

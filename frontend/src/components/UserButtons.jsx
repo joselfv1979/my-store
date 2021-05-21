@@ -1,31 +1,31 @@
-import React from 'react';
-import '../css/UserButtons.css'
+import React from "react";
+import { MinusIcon, PlusIcon } from "./Icons";
+import styles from "../scss/UserButtons.module.scss";
 
 const UserButtons = ({ product, subtractQuantity, addToList, addQuantity }) => {
-
-    return (
-        <div className="user-buttons">
-            {product.quantity ?
-                <div className="add-remove">
-                    <div className="remove-content"
-                        onClick={() => subtractQuantity(product)}>
-                        <p className="minus">-</p>
-                    </div>
-                    <div className="add-content"
-                        onClick={() => addQuantity(product)}
-                    >
-                        <p className="add-text">{product.quantity} ADDED</p>
-                        <p className="plus">+</p>
-                    </div>
-                </div>
-                : <div className="add"
-                    onClick={() => addToList(product)}
-                >
-                    <p className="add-text">ADD TO LIST</p>
-                    <p className="plus">+</p>
-                </div>}
+  return (
+    <div className={styles.user}>
+      {product.quantity ? (
+        <div className={styles.addRemove}>
+          <button
+            className={styles.minus}
+            onClick={() => subtractQuantity(product)}
+          >
+            <MinusIcon />
+          </button>
+          <button className={styles.plus} onClick={() => addQuantity(product)}>
+            <span className={styles.text}>{product.quantity} ADDED</span>
+            <PlusIcon />
+          </button>
         </div>
-    )
-}
+      ) : (
+        <button className={styles.add} onClick={() => addToList(product)}>
+          <span className={styles.text}>ADD TO LIST</span>
+          <PlusIcon />
+        </button>
+      )}
+    </div>
+  );
+};
 
 export default UserButtons;

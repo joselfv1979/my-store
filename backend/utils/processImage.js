@@ -29,12 +29,25 @@ async function processAndSaveImage(uploadedImage) {
   // Save image
   await finalImage.toFile(path.join(imageUploadPath, savedFileName));
 
-  console.log('path',imageUploadPath);
+  console.log('path', imageUploadPath);
 
   return savedFileName;
 }
 
+async function deleteOldImage(image) {
+
+  const file = path.join(imageUploadPath, image);
+
+  try {
+    await fs.unlink(file);
+    console.log('deleted');
+  } catch (error) {
+    console.log(error);
+  }  
+}
+
 module.exports = {
-  processAndSaveImage
+  processAndSaveImage,
+  deleteOldImage
 }
 

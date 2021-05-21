@@ -3,11 +3,10 @@ const router = express.Router(); // creación de la instancia de enrutamiento
 
 const { isAuthenticated } = require('./../middlewares/auth');
 
-const { getProductList, getFilteredProductList, getProductData, createProduct, removeProduct, editProduct } = require('../controllers/productController')
+const { getProductList, getProductData, createProduct, removeProduct, editProduct } = require('../controllers/productController')
 
 router.get('/', getProductList);
 
-router.get('/filter', getFilteredProductList);
 
 router.get('/:id', getProductData);
 

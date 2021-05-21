@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken'); // librería de cifrado de token
 
-const { getAllUsers, getUser, getUserDataById, addUser, deleteUser, updateUser } = require('../services/userService');
+const { getAllUsers, getUser, getUserDataById, addUser, deleteUser, updateUser, emailExist, usernameExist  } = require('../services/userService');
 
 const getUsers = async (req, res, next) => {
     try {
@@ -76,7 +76,16 @@ const addNewUser = async (req, res, next) => {
         const { body, files } = req;
         // const savedImage = await processAndSaveImage(files.image);
         // body.image = savedImage;
-        console.log('controller', body);
+        if (await emailExist(body.email) > 0) {
+            const error = new Error('Mail address already exists');
+            error.httpCode = 409;
+            throw error;
+        }
+        if (await usernameExist(body.username) > 0) {
+            const error = new Error('username already exists');
+            error.httpCode = 409;
+            throw error;
+        }
         body.role = 'user'
         const { message } = await addUser(body);
 
@@ -85,7 +94,6 @@ const addNewUser = async (req, res, next) => {
             message
         });
     } catch (error) {
-        error.message = 'error in creating user';
         next(error)
     }
 }
@@ -105,7 +113,8 @@ const editUser = async (req, res, next) => {
 
         return res.status(200).send({
             success: 'true',
-            message
+            message, 
+            body
         });
     } catch (error) {
         error.message = 'error in updating user';

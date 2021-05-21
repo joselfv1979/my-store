@@ -1,114 +1,91 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { loginAction } from './../actions/userActions';
+import { loginAction } from "./../actions/userActions";
 import { useHistory } from "react-router-dom";
-import '../css/LoginPage.css';
+import { AppWaiting } from "../components/AppStatus";
+import styles from '../scss/LoginPage.module.scss';
 
-const LoginPage = ({ dispatch, logged }) => {
+const LoginPage = ({ dispatch, loading }) => {
+  const [name, setName] = useState(null);
+  const [password, setPassword] = useState(null);
 
-    const [name, setName] = useState(null);
-    const [password, setPassword] = useState(null);
+  const history = useHistory();
 
-    const history = useHistory();
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
 
-    useEffect(() => {
-        if(logged){
-            history.push('/')
-        }
-    }, [history, logged])
+    const user = { username: name, password };
 
-    const handleFormSubmit = event => {
-        event.preventDefault();
+    dispatch(loginAction(user));
+  };
 
-        const user = { username: name, password }
+  const showPassword = () => {
+    let pwdInput = document.querySelector(".pwd-input");
+    pwdInput.type === "password"
+      ? (pwdInput.type = "text")
+      : (pwdInput.type = "password");
+  };
 
-        dispatch(loginAction(user));  
-    }
+  const goRegister = (event) => {
+    event.preventDefault();
+    history.push("/register");
+  };
 
-    const showPassword = () => {
-        let pwdInput = document.querySelector('.pwd-input');
-        pwdInput.type === "password" ? pwdInput.type = "text" : pwdInput.type = "password";
-    }
-
-    const goRegister = event => {
-        event.preventDefault();
-        history.push('/register');
-    }
-
+  const loginForm = () => {
     return (
+      <form className={styles.loginForm} onSubmit={handleFormSubmit}>
+        <header>
+          <h2>Log In</h2>
+          <p>login here using your username and password</p>
+        </header>
 
-            <form className="login-form" onSubmit={handleFormSubmit}>
+        <fieldset>
+          <div className={styles.user}>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              required
+              autoFocus
+              onChange={(event) => setName(event.target.value)}
+            />
+          </div>
+        </fieldset>
 
-                <div className="content">
+        <fieldset>
+          <div className={styles.pwd}>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </div>
+          <div className={styles.eye} onClick={showPassword}></div>
+        </fieldset>
 
-                    <div className="header">
-                        <h2>Log In</h2>
-                        <p>login here using your username and password</p>
-                    </div>
+        <div className="login-buttons">
+          <button className={styles.login}>Log in</button>
 
-                    <div className="fields">
-                        <fieldset>
-                            <div className="user">
-                                <input
-                                    type="text"
-                                    name="username"
-                                    className="user-input"
-                                    placeholder="Username"
-                                    required
-                                    autoFocus
-                                    onChange={event =>
-                                        setName(event.target.value)
-                                    }
-                                />
-                            </div>
-                        </fieldset>
+          <p>Have no account?</p>
 
-                        <fieldset>
-                            <div className="pwd">
-                                <input
-                                    type="password"
-                                    name="password"
-                                    className="pwd-input"
-                                    placeholder="Password"
-                                    required
-                                    onChange={event =>
-                                        setPassword(event.target.value)
-                                    }
-                                />
-                            </div>
-                            <div className="eye" onClick={showPassword}>
-                            </div>
-                        </fieldset>
+          <button className={styles.signup} onClick={goRegister}>
+            Sign up
+            <i className="fa fa-user-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </form>
+    );
+  };
 
-                    </div>
-
-                </div>
-
-                <div className="buttons">
-
-                    <button className="log-in">Log in</button>
-
-                    <p>Have no account?</p>
-
-                    <button className="sign-up"
-                        onClick={goRegister}
-                    >
-                        Sign up
-                    <i className="fa fa-user-plus" aria-hidden="true"></i>
-                    </button>
-                    
-                </div>
-
-            </form>
-        
-    )
-}
+  return <>{loading ? <AppWaiting /> : loginForm()}</>;
+};
 
 const mapStateToProps = (state) => ({
-    user: state.user.user,
-    logged: state.user.logged,
-    error: state.message.error,
-    message: state.message.message
-  });
+  user: state.user.user,
+  logged: state.user.logged,
+  loading: state.user.loading,
+});
 
 export default connect(mapStateToProps)(LoginPage);

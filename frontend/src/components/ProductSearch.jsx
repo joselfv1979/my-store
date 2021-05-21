@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useHistory } from "react-router-dom";
+import styles from "../scss/ProductListPage.module.scss";
 
 const ProductSearch = ({ filterProducts }) => {
-
-    const history = useHistory();
 
     const [name, setName] = useState(null);
     const [category, setCategory] = useState();
@@ -28,9 +26,9 @@ const ProductSearch = ({ filterProducts }) => {
 
     return (
 
-        <form className="search-form" onSubmit={handleFormSubmit}>
+        <form className={styles.search} onSubmit={handleFormSubmit}>
 
-            <select className="search-select" value={category}
+            <select value={category}
                 onChange={event => setCategory(event.target.value)}>
                 <option value="">Categories</option>
                 <option value="food">Food</option>
@@ -39,19 +37,19 @@ const ProductSearch = ({ filterProducts }) => {
                 <option value="toys">Toys</option>
             </select>
 
-            <input className="search-input"
+            <input
                 placeholder="Search"
                 onChange={event =>
                     setName(event.target.value)
                 }></input>
 
-            <button className="search-button">
+            <button>
                 <i className="fas fa-search"></i>
             </button>
 
-            <button className="cart-button" onClick={() => history.push('/cart')}>
+            {/* <button className="cart-button" onClick={() => history.push('/cart')}>
                 <i className="fas fa-shopping-cart"></i>
-            </button>
+            </button> */}
 
         </form>
 
