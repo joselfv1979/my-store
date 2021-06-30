@@ -1,11 +1,9 @@
 %message-layout {
     align-items: center;
-    color: white;
+    color: #fff;
     display: flex;
-    padding: .5rem;
+    padding: .6rem;
 }
-
-
 
 .error {
     @extend %message-layout;
@@ -17,21 +15,31 @@
     background-color: greenyellow;
 }
 
-.content {
+.message {
     display: flex;
     flex-grow: 1;
     justify-content: center;
 }
 
 .close {
-    border: none;
-    color: #fff;
+    cursor: pointer;
     font-weight: bold;
-    margin-left: auto;
-    padding: .2rem;
-    background-color: #f44336;
 
     &:hover {
-        color: black;
+        color: #000;
+    }
+}
+
+.loader {
+    align-items: center;
+    background: #252537;
+    display: flex;
+    justify-content: center;
+    height: 84vh;
+    width: 100%;
+
+    img {
+        height: 3rem;
+        width: 3rem;
     }
 }

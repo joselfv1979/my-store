@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { addProductAction, editProductAction } from '../actions/productsActions';
-import { setError } from '../actions/messageActions'
+import { setError } from '../actions/messageActions';
 import axios from "axios";
 import ProductForm from '../components/ProductForm';
 
@@ -39,21 +39,18 @@ const ProductFormPage = ({ match, dispatch }) => {
 
     const handleFormSubmit = (data) => {
     
-        console.log('data',data);
-    
         sendDataProduct(data);
       };
 
     const sendDataProduct = (product) => {
 
-        const { name, description, category, price, stock, image } = product;
+        const { name, description, category, price, image } = product;
 
         const data = new FormData();
         data.append('name', name);
         data.append('description', description);
         data.append('category', category);
         data.append('price', price);
-        data.append('stock', stock);
         data.append('image', image);
 
         id ? editProduct(data, id) : addProduct(data);
@@ -73,10 +70,7 @@ const ProductFormPage = ({ match, dispatch }) => {
 }
 
 const mapStateToProps = state => ({
-    loading: state.products.loading,
-    products: state.products.products,
-    product: state.products.product,
-    error: state.products.error,
+    error: state.product.error,
 })
 
 export default connect(mapStateToProps)(ProductFormPage);

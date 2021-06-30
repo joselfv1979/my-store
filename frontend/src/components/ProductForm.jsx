@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import styles from '../scss/ProductFormPage.module.scss';
+import styles from "../scss/ProductFormPage.module.scss";
 
 const ProductForm = ({
   handleFormSubmit,
@@ -64,7 +64,7 @@ const ProductForm = ({
   };
 
   return (
-    <form className={styles.productForm} onSubmit={handleOnSubmit}>
+    <form className={styles.form} onSubmit={handleOnSubmit}>
       {product.id ? <h2>Edit Product</h2> : <h2>New Product</h2>}
 
       <fieldset>
@@ -106,17 +106,6 @@ const ProductForm = ({
         />
       </fieldset>
 
-      <fieldset>
-        <label htmlFor="stock">Stock</label>
-        <input
-          type="number"
-          name="stock"
-          required
-          onChange={handleInputChange}
-          defaultValue={product.stock}
-        />
-      </fieldset>
-
       <fieldset className={styles.fullColumn}>
         <label htmlFor="description">Description</label>
         <textarea
@@ -130,46 +119,57 @@ const ProductForm = ({
 
       {editingImage ? (
         <>
-          <fieldset>
-            <label htmlFor="image">Image</label>
-            <input
-              className={styles.inputFile}
-              type="file"
-              id="image"
-              name="image"
-              accept=".jpg,.jpeg,.png"
-              required
-              onChange={handleImage}
-            />
+          <fieldset className={styles.imageField}>
+            <div className={styles.loadContainer}>
+              <label htmlFor="image">Image</label>
+              <input
+                className={styles.inputFile}
+                type="file"
+                id="image"
+                name="image"
+                accept=".jpg,.jpeg,.png"
+                required
+                onChange={handleImage}
+              />
+            </div>
+            <div className={styles.imageContainer}>
+              {image ? (
+                <img
+                  src={window.URL.createObjectURL(image)}
+                  alt="File Preview"
+                />
+              ) : (
+                <p>no image selected</p>
+              )}
+            </div>
           </fieldset>
-          <div className={styles.image}>
-            {image ? (
-              <img src={window.URL.createObjectURL(image)} alt="File Preview" />
-            ) : (
-              <p>no image selected</p>
-            )}
-          </div>
         </>
       ) : (
         <>
-          <fieldset>
-            <label htmlFor="image">Image</label>
-            <button
-              className={styles.changeImage}
-              onClick={() => setEditingImage(true)}
-            >
-              Change image
-            </button>
+          <fieldset className={styles.imageField}>
+            <div className={styles.loadContainer}>
+              <label htmlFor="image">Image</label>
+              <button
+                className={styles.editImage}
+                onClick={() => setEditingImage(true)}
+              >
+                Edit image
+              </button>
+            </div>
+            <div className={styles.imageContainer}>
+              <img src={`/files/${product.image}`} alt={product.name} />
+            </div>
           </fieldset>
-          <div className={styles.image}>
-            <img src={`/files/${product.image}`} alt={product.name} />
-          </div>
         </>
       )}
 
-      <button>Submit</button>
+      <div className={styles.buttonsContainer}>
+        <button>Submit</button>
 
-      <button onClick={() => history.push("/")}>Cancel</button>
+        <button onClick={() => history.push("/")} className={styles.cancel}>
+          Cancel
+        </button>
+      </div>
     </form>
   );
 };

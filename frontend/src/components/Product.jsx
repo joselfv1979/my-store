@@ -1,8 +1,8 @@
 import styles from "../scss/ProductListPage.module.scss";
 
-const Product = ({ product, showProductDetail }) => {
+const Product = ({ product, showProductDetail, showEffectDetail }) => {
   const handleOnClick = (product) => {
-    showProductDetail && showProductDetail(product);
+    showProductDetail(product);
   };
 
   const checkRate = (index) => {
@@ -31,7 +31,7 @@ const Product = ({ product, showProductDetail }) => {
       <div className={styles.image}>
         <img src={`/files/${product.image}`} alt={product.name} />
       </div>
-
+      {showEffectDetail && <h2 className={styles.shadow}>DETAIL</h2>}
       <div className={styles.data}>
         <h3>{product.name}</h3>
         <p>Price: {product.price} €</p>

@@ -12,7 +12,7 @@ const ProductDetailPage = ({ match, dispatch, product, loading }) => {
   const history = useHistory();
 
   useEffect(() => {
-    dispatch(getProductAction(id));
+   dispatch(getProductAction(id));
   }, [dispatch, id]);
 
   return (
@@ -28,7 +28,8 @@ const ProductDetailPage = ({ match, dispatch, product, loading }) => {
             <div className={styles.description}>
               <h3>Product description:</h3>
               <p>
-                {product.description}. Lorem ipsum dolor sit, amet consectetur
+                <span>{product.description}. </span>
+                Lorem ipsum dolor sit, amet consectetur
                 adipisicing elit. Consequuntur a alias quia corporis consequatur
                 facilis magni repellat, ab optio maxime pariatur nemo at eveniet
                 sed, consectetur molestias eligendi, necessitatibus accusamus.

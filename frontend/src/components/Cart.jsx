@@ -24,7 +24,7 @@ const Cart = ({ cart, subtractQuantity, addQuantity }) => {
   const PlusButton = ({ product }) => {
     return (
       <button className={styles.plus} onClick={() => addQuantity(product)}>
-        <PlusCircleIcon width={"1rem"} />
+        <PlusCircleIcon />
       </button>
     );
   };
@@ -36,9 +36,9 @@ const Cart = ({ cart, subtractQuantity, addQuantity }) => {
         onClick={() => subtractQuantity(product)}
       >
         {product.quantity > 1 ? (
-          <MinusCircleIcon width={"1rem"} />
+          <MinusCircleIcon />
         ) : (
-          <TrashIcon width={"1rem"} />
+          <TrashIcon />
         )}
       </button>
     );

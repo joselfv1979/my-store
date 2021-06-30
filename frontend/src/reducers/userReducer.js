@@ -1,13 +1,29 @@
 import * as userActions from '../actions/userActions';
 
 const initialState = {
+    userList: [],
     user: {},
     logged: false,
     loading: false
 }
 
 const userReducer = (state = initialState, action) => {
-    switch (action.type) {
+
+    const { type, payload } = action;
+
+    switch (type) {
+
+        case userActions.GET_USERS:
+
+            return { ...state, loading: true };
+
+        case userActions.GET_USERS_SUCCESS:
+
+            return { ...state, userList: payload, loading: false };
+
+        case userActions.GET_USERS_FAILURE:
+
+            return { ...state, loading: false };
 
         case userActions.GET_USER:
 
@@ -15,7 +31,7 @@ const userReducer = (state = initialState, action) => {
 
         case userActions.GET_USER_SUCCESS:
 
-            return { ...state, user: action.payload, loading: false };
+            return { ...state, user: payload, loading: false };
 
         case userActions.GET_USER_FAILURE:
 
@@ -27,7 +43,7 @@ const userReducer = (state = initialState, action) => {
 
         case userActions.REGISTER_SUCCESS:
 
-            return { ...state, user: action.payload, loading: false };
+            return { ...state, user: payload, loading: false };
 
         case userActions.REGISTER_FAILURE:
 
@@ -39,7 +55,7 @@ const userReducer = (state = initialState, action) => {
 
         case userActions.LOGIN_SUCCESS:
 
-            return { ...state, user: action.payload, logged: true, loading: false };
+            return { ...state, user: payload, logged: true, loading: false };
 
         case userActions.LOGIN_FAILURE:
 
@@ -55,7 +71,13 @@ const userReducer = (state = initialState, action) => {
 
         case userActions.UPDATE_USER_SUCCESS:
 
-            return { ...state, user: action.payload, loading: false };
+            return {
+                ...state,
+                user: Number(state.user.id) === Number(payload.id) ? { ...state.user, ...payload } : state.user,
+                userList: state.userList.map(user => Number(user.id) === Number(payload.id) ?
+                    { ...user, ...payload } : user),
+                loading: false
+            };
 
         case userActions.UPDATE_USER_FAILURE:
 

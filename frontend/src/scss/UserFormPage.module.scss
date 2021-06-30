@@ -1,28 +1,33 @@
 @import url('https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur');
 
 .userForm {
-    background-color: darkgray;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    color: #fafbfd;
     display: flex;
+    font-family: 'Abel', sans-serif;
     flex-direction: column;
-    height: auto;
-    margin-top: 2rem;
-    min-height: 480px;
+    height: 32rem;
+    margin-top: 3rem;
     text-align: center;
-    width: 65vh;
+    width: 100%;
 
-    h2 {
-        font: {
-            family: 'Playfair Display', serif;
-            size: 200%;
+    header {
+        h2 {
+            font: {
+                family: 'Playfair Display', serif;
+                size: 200%;
+            }
+
+            margin-top: 1rem;
         }
 
-        margin: 1rem;
+        p {
+            font-size: .8rem;
+            margin: .5rem;
+        }
     }
 
     fieldset {
-        background-color: white;
+        background-color: #fafbfd;
         border-radius: 5px;
         display: flex;
         margin: 1rem auto;
@@ -30,11 +35,13 @@
     }
 
     input {
-        background-color: white;
         border: none;
-        border-radius: 0px 5px 5px 0px;
-        font-family: 'Abel', sans-serif;
-        font-size: 1rem;
+
+        font: {
+            family: 'Abel', sans-serif;
+            size: 1rem;
+        }
+
         height: 2.5rem;
         transition: 0.2s linear;
         width: 9rem;
@@ -48,16 +55,10 @@
     button {
         color: #252537;
         padding: 0 20px;
-        background: #0093AF;
-        border: none;
         border-radius: 5px;
-        cursor: pointer;
-        display: block;
         height: 2.5rem;
         letter-spacing: 0.05em;
-        margin: 5% auto;
-        outline: none;
-        text-align: center;
+        margin: 1rem auto;
         transition: all 0.2s linear;
         width: 15rem;
 
@@ -80,7 +81,9 @@
     }
 }
 
-.user, .pwd, .email {
+.user,
+.pwd,
+.email {
     background-position: 1rem center;
     background-repeat: no-repeat;
     background-size: 1.4rem;
@@ -107,7 +110,40 @@
 
 .email {
     background-image: url('./../img/envelope.svg');
-    padding-left: 3rem; 
+    padding-left: 3rem;
 }
 
+.buttonsContainer {
+    p {
+        font-size: .8rem;
+    }
+}
 
+@media screen and (max-width:480px) {
+    .userForm {
+        margin-top: 1rem;
+        width: 85%;
+
+        fieldset {
+            margin: 1rem 0;
+            width: 100%;
+        }
+
+        input {
+            height: 3rem;
+            width: 95%;
+        }
+
+        button {
+            height: 3rem;
+            width: 100%;
+        }
+
+        .user,
+        .pwd,
+        .email {
+            height: 3rem;
+            width: 100%;
+        }
+    }
+}

@@ -41,7 +41,7 @@ const createProduct = async (req, res, next) => {
 
         const savedImage = await processAndSaveImage(files.image);
         body.image = savedImage;
-        body.rating = getRating(); console.log('rating', body.rating);
+        body.rating = getRating(); 
         const { message, id } = await addProduct(body);
         body.id = id;
 

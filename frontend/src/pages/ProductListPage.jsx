@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
@@ -11,15 +11,30 @@ import {
   subtractQuantity,
 } from "../actions/cartActions";
 import ProductList from "../components/ProductList";
-import ProductSearch from "../components/ProductSearch";
+import SearchForm from "../components/SearchForm";
 import styles from "../scss/ProductListPage.module.scss";
 
-const ProductListPage = ({ dispatch, products, user }) => {
+const ProductListPage = ({ dispatch, products, user, cart }) => {
   useEffect(() => {
     if (localStorage.length === 0) {
       dispatch(getProductsAction(""));
     }
-  }, [dispatch]);
+    user.role === 'admin' ? setShowEffectDetail(false) : setShowEffectDetail(true);
+  }, [dispatch, products, user.role]);
+
+  const [showEffectDetail, setShowEffectDetail] = useState(true);
+
+
+  const getCartProducts = () => {
+    for (let i = 0; i < products.length; i++) {
+      for (let j = 0; j < cart.length; j++) {
+        if (products[i].id === cart[j].id) {
+          products[i].quantity = cart[j].quantity;
+        }
+      }
+    }
+  };
+  getCartProducts();
 
   const filterProducts = (parameters) => {
     dispatch(getProductsAction(parameters));
@@ -50,10 +65,12 @@ const ProductListPage = ({ dispatch, products, user }) => {
 
   return (
     <div className={styles.container}>
-      <ProductSearch filterProducts={filterProducts} />
+      <SearchForm filterProducts={filterProducts} user={user} />
       <ProductList
         products={products}
+        showEffectDetail={showEffectDetail}
         user={user}
+        cart={cart}
         deleteProduct={deleteProduct}
         addToList={addToListDispatch}
         addQuantity={addQuantityDispatch}
@@ -65,9 +82,9 @@ const ProductListPage = ({ dispatch, products, user }) => {
 };
 
 const mapStateToProps = (state) => ({
-  products: state.products.productList,
+  products: state.product.productList,
   user: state.user.user,
-  status: state.products.status,
+  cart: state.cart.cartList,
 });
 
 export default connect(mapStateToProps)(ProductListPage);

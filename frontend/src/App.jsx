@@ -12,10 +12,12 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import ProductFormPage from "./pages/ProductFormPage";
 import LoginPage from "./pages/LoginPage";
 import UserFormPage from "./pages/UserFormPage";
+import UserEdit from './pages/UserEditPage';
+import UserListPage from './pages/UserListPage'
 import CartPage from "./pages/CartPage";
 import ErrorPage from "./pages/ErrorPage";
 import About from "./pages/About";
-import "./App.scss";
+import styles from "./App.module.scss";
 
 function App({ dispatch, user, message, logged, items }) {
   const removeMessage = () => dispatch(clearMessage());
@@ -27,8 +29,13 @@ function App({ dispatch, user, message, logged, items }) {
 
   return (
     <Router history={history}>
-      <div className="App">
-        <Menu logged={logged} user={user} items={items} userLogout={userLogout} />
+      <div className={styles.App}>
+        <Menu
+          logged={logged}
+          user={user}
+          items={items}
+          userLogout={userLogout}
+        />
         {message.message && (
           <AppMessage message={message} removeMessage={removeMessage} />
         )}
@@ -37,11 +44,12 @@ function App({ dispatch, user, message, logged, items }) {
           <Switch>
             <Route exact path="/" component={ProductListPage} />
             <Route path="/product/:id" component={ProductDetailPage} />
-            <Route path="/new" component={ProductFormPage} />
+            <Route path="/new-product" component={ProductFormPage} />
             <Route path="/edit/:id" component={ProductFormPage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={UserFormPage} />
-            <Route path="/edit-profile" component={UserFormPage} />
+            <Route path="/users" component={UserListPage} />
+            <Route path="/edit-profile/:id" component={UserEdit} />
             <Route path="/cart" component={CartPage} />
             <Route path="/about" component={About} />
             <Route path="*" component={ErrorPage} />
@@ -62,7 +70,6 @@ const mapStateToProps = (state) => ({
   message: state.message,
   user: state.user.user,
   logged: state.user.logged,
-  loading: state.product.loading,
   items: totalItems(state),
 });
 

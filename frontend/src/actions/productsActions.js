@@ -44,6 +44,7 @@ export function getProductsAction(parameters) {
 
         try {
             const { data } = await axios.get(`/products${parameters}`)
+            console.log('dataArray',data);
             dispatch(getProductsSuccess(data));
         } catch ({ response }) {
             let message = "Couldn't get products, try it later";
@@ -188,11 +189,12 @@ export function editProductAction(product, id) {
                 headers: { 'Authorization': `${token}` }
             });
             if (data) {
+                console.log('data', data.body.id);
                 dispatch(editProductSuccess(data.body));
                 dispatch(setMessage(data.message));
                 setTimeout(() => {
                     history.push('/');
-                }, 3000);
+                }, 2000);
             }
         } catch (error) {
             let message = "Couldn't update product, try it again later";

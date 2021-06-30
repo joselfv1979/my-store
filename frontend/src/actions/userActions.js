@@ -4,6 +4,10 @@ import { history } from '../utils/history';
 import { getAuthToken } from '../utils/localStorage';
 import { validateUser } from '../utils/ValidateForm';
 
+export const GET_USERS = 'GET_USERS';
+export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
+export const GET_USERS_FAILURE = 'GET_USERS_FAILURE';
+
 export const GET_USER = 'GET_USER';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const GET_USER_FAILURE = 'GET_USER_FAILURE';
@@ -25,6 +29,41 @@ export const UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE';
 export const DELETE_USER = 'UPDATE_USER';
 export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
 export const DELETE_USER_FAILURE = 'DELETE_USER_FAILURE';
+
+export const getUserList = () => ({
+    type: GET_USERS
+})
+
+export const getUserListSuccess = (user) => ({
+    type: GET_USERS_SUCCESS,
+    payload: user
+})
+
+export const getUserListFailure = () => ({
+    type: GET_USERS_FAILURE
+})
+
+export function getUserListAction() {
+
+    return async (dispatch) => {
+
+        dispatch(getUserList());
+        console.log('request');
+
+        try {
+            let token = getAuthToken();
+            const { data } = await axios.get(`/users/`, {
+                headers: { 'Authorization': `${token}` }
+            });
+            console.log('dataUsers,,,,', data);
+            dispatch(getUserListSuccess(data.users))
+        } catch (error) {
+            console.log(error);
+            dispatch(getUserListFailure());
+            dispatch(setMessage(error.response.data.message));
+        }
+    }
+}
 
 export const getUser = () => ({
     type: GET_USER
@@ -123,7 +162,7 @@ export function loginAction(user) {
             setTimeout(() => {
                 dispatch(loginSuccess(data.user));
                 history.push('/');
-            }, 1500)
+            }, 1000)
         } catch (error) {
             let message = "Invalid credentials";
             setTimeout(() => {
@@ -141,7 +180,6 @@ export const logout = () => ({
 export function logoutAction() {
     return (dispatch) => {
         dispatch(logout());
-        console.log('history');
         history.push('/');
     }
 }
@@ -166,10 +204,13 @@ export function updateUserAction(user) {
 
         try {
             let token = getAuthToken();
+            console.log(user);
+            //let isAdmin = sessionUser.role === 'admin' ? true : false
             const { data } = await axios.put(`/users/user-edit/${user.id}`, user, {
                 headers: { 'Authorization': `${token}` }
             })
-            dispatch(updateUserSuccess(data.body));
+            dispatch(updateUserSuccess(data.body))
+            // dispatch(updateUserSuccess(data.body))
             dispatch(setMessage('Update successful'));
             setTimeout(() => {
                 dispatch(clearMessage());
@@ -202,12 +243,11 @@ export function deleteUserAction(id) {
 
         try {
             let token = getAuthToken();
-            const { data } = await axios.delete(`/delete-user/${id}`, {
+            await axios.delete(`/delete-user/${id}`, {
                 headers: { 'Authorization': `${token}` }
             })
             dispatch(deleteUserSuccess(id));
         } catch (error) {
-            console.log(error);
             let message = 'User deleting failure'
             dispatch(deleteUserFailure());
             dispatch(setMessage(error.response.data.message || message));

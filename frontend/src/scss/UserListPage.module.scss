@@ -1,0 +1,107 @@
+.container {
+    align-items: center;
+    color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 100%;
+
+    h1 {
+        margin: 1rem
+    }
+
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        width: 70%;
+    }
+
+    .card {
+        align-items: center;
+        background-color: aliceblue;
+        border-radius: 3px;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        margin: 1rem;
+        width: 12rem;
+
+        .image {
+            background-image: url('./../img/user.svg');
+            background-repeat: no-repeat;
+            padding: 1rem 1rem;
+            margin-top: 1rem;
+        }
+
+        p {
+            margin: 1rem
+        }
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-around;
+        margin: .5rem;
+        width: 100%;
+
+        button {
+            border: none;
+            border-radius: 3px;
+            color: white;
+            outline: none;
+            margin: 4% auto;
+            padding: .6rem 1rem;
+            text-decoration: none;
+            transition: all 500ms ease;
+
+            &.edit {
+                background-color: #4CAF50;
+
+                &:hover {
+                    background: rgba(0, 0, 0, 0);
+                    background-color: #ffffff;
+                    color: #4CAF50;
+                    box-shadow: 0 0 0 3px #4CAF50;
+                }
+            }
+
+            &.remove {
+                background-color: #f44336;
+
+                &:hover {
+                    background: rgba(0, 0, 0, 0);
+                    background-color: #ffffff;
+                    color: #f44336;
+                    box-shadow: 0 0 0 3px #f44336;
+                }
+            }
+        }
+    }
+}
+
+.edit i,
+.remove i {
+    font-size: 14px;
+    margin: auto
+}
+
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modalBox {
+    background-color: whitesmoke;
+    margin: 2% auto;
+    padding: 3rem;
+    width: 400px;
+    border: 4px solid black;
+    border-radius: 3px;
+}

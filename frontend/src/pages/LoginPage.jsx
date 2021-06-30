@@ -36,7 +36,7 @@ const LoginPage = ({ dispatch, loading }) => {
       <form className={styles.loginForm} onSubmit={handleFormSubmit}>
         <header>
           <h2>Log In</h2>
-          <p>login here using your username and password</p>
+          <p>Login here using your username and password</p>
         </header>
 
         <fieldset>
@@ -65,7 +65,7 @@ const LoginPage = ({ dispatch, loading }) => {
           <div className={styles.eye} onClick={showPassword}></div>
         </fieldset>
 
-        <div className="login-buttons">
+        <div className={styles.buttonsContainer}>
           <button className={styles.login}>Log in</button>
 
           <p>Have no account?</p>

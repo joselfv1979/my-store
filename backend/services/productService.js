@@ -53,12 +53,12 @@ const getProduct = async (id) => {
     return rows[0];
 }
 
-const addProduct = async ({ name, description, category, price, stock, rating, image }) => {
+const addProduct = async ({ name, description, category, price, rating, image }) => {
 
-    const sql = 'insert into products (name, description, category, price, stock, rating, image) values (?, ?, ?, ?, ?, ?)';
+    const sql = 'insert into products (name, description, category, price, rating, image) values (?, ?, ?, ?, ?, ?)';
 
     const connection = await database.connection();
-    const [result] = await connection.execute(sql, [name, description, category, price, stock, rating, image]);
+    const [result] = await connection.execute(sql, [name, description, category, price, rating, image]);
 
     if (result.affectedRows) {
         let message = 'Product created successfully';
@@ -67,12 +67,12 @@ const addProduct = async ({ name, description, category, price, stock, rating, i
     }
 }
 
-const updateProduct = async (id, { name, description, price, stock, image }) => {
+const updateProduct = async (id, { name, description, category, price, image }) => {
 
-    const sql = 'update products set name = ?, description = ?, price = ?, stock = ?, image = ? where id = ?';
+    const sql = 'update products set name = ?, description = ?, category = ?, price = ?, image = ? where id = ?';
 
     const connection = await database.connection();
-    const [result] = await connection.execute(sql, [name, description, price, stock, image, id]);
+    const [result] = await connection.execute(sql, [name, description, category, price, image, id]);
 
     //result.changedRows
     let message = 'Product updated successfully';

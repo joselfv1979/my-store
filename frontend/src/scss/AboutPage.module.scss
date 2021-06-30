@@ -1,0 +1,40 @@
+.container {
+    color: #fafafa;
+    display: flex;
+    justify-content: center;
+
+    ul {
+        margin-top: 6rem;
+    }
+
+    li {
+        list-style: none;
+        margin-top: 2rem;
+    }
+
+    span {
+        color: darksalmon;
+    }
+
+    .github {
+        display: flex;
+        justify-content: center;
+        margin-top: 8rem;
+
+        svg {
+            width: 1.3rem;
+        }
+
+        a {
+            color: #fafafa;
+            margin-left: .5rem;
+        }
+    }
+}
+
+@media screen and (max-width:480px) {
+    .container {
+      padding: 1rem;
+      width: 90%
+    }
+  }

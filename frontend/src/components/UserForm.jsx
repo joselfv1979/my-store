@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import  styles from '../scss/UserFormPage.module.scss';
+import styles from "../scss/UserFormPage.module.scss";
 
 const UserForm = ({ user, sendDataUser }) => {
   const [showPasswordInput, setShowPasswordInput] = useState(true);
@@ -50,7 +50,16 @@ const UserForm = ({ user, sendDataUser }) => {
 
   return (
     <form className={styles.userForm} onSubmit={handleFormSubmit}>
-      {user.id ? <h2>My Account</h2> : <h2>Register</h2>}
+      <header>
+        {user.id ? (
+          <h2>Your Account</h2>
+        ) : (
+          <>
+            <h2>Register</h2>
+            <p>Please fill in this form to create an account</p>
+          </>
+        )}
+      </header>
 
       <fieldset>
         <div className={styles.user}>
@@ -98,7 +107,7 @@ const UserForm = ({ user, sendDataUser }) => {
         </fieldset>
       ) : null}
 
-      <div className="buttons">
+      <div className={styles.buttonsContainer}>
         <button className={styles.login}>Save</button>
 
         <p>Have an account?</p>

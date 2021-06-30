@@ -1,0 +1,82 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Roboto, "Ubuntu", Arial, sans-serif;
+}
+
+div.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+header,
+main,
+footer {
+  flex-shrink: 0;
+  background-color: #252537;
+}
+
+main {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  min-height: 84vh;
+  width: 100%;
+}
+
+footer {
+  color: #fafbfd;
+  font-family: 'Abel', sans-serif;
+  height: 7vh;
+  padding: 1rem;
+  text-align: center;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+li{
+  list-style: none;
+}
+
+fieldset {
+  border: none;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+.error-container,
+.about-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.error-container {
+  align-self: center;
+
+  a {
+    margin: 2rem;
+  }
+}
+
+.about {
+  color: #fafbfd;
+  font-family: 'Playfair Display', serif;
+  padding: 2rem;
+}
+
+@media screen and (max-width:480px) {
+  body {
+    font-size: 0.875rem;
+  }
+}

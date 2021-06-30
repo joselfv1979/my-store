@@ -1,40 +1,48 @@
 import * as cartActions from '../actions/cartActions';
 import * as userActions from '../actions/userActions';
 
+const cartList = JSON.parse(localStorage.getItem('state')) ? JSON.parse(localStorage.getItem('state')).cart.cartList : []
+
 export const initialState = {
-    cartList: []
+    cartList
 }
 
 const cartReducer = (state = initialState, action) => {
 
-    switch (action.type) {
+    const { type, payload } = action;
+
+    switch (type) {
 
         case cartActions.ADD_TO_LIST:
 
-            console.log(action.payload);
+            payload.quantity = 1;
 
             return {
                 ...state,
-                cartList: [...state.cartList, action.payload]
+                cartList: [...state.cartList, payload]
             }
 
 
         case cartActions.ADD_QUANTITY:
 
+            ++payload.quantity;
+
             return {
                 ...state,
                 cartList: [...state.cartList.map(product =>
-                    product.id === action.payload.id
-                        ? action.payload : product)]
+                    product.id === payload.id
+                        ? payload : product)]
             }
 
         case cartActions.SUBTRACT_QUANTITY:
 
+            --payload.quantity;
+
             return {
                 ...state,
                 cartList: [...state.cartList.map(product =>
-                    product.id === action.payload.id
-                        ? { ...product, quantity: action.payload.quantity }
+                    product.id === payload.id
+                        ? { ...product, quantity: payload.quantity }
                         : product
                 ).filter(product => product.quantity > 0)]
             }

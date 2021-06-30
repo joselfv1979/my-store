@@ -30,7 +30,7 @@ const CartPage = ({ cart, totalPayment, totalItems, dispatch }) => {
 
   return (
     <div className={styles.container}>
-      <h2>Cart</h2>
+      <h1>Cart</h1>
       {cart.length > 0 ? (
         <div className={styles.content}>
           <Cart
@@ -45,28 +45,29 @@ const CartPage = ({ cart, totalPayment, totalItems, dispatch }) => {
             <p>{totalPayment} €</p>
             <hr />
             <button
-              className={styles.checkout}
-              onClick={() => {
-                setCheckout(true);
-                clearCartDispatch('Chekout successfull')
-              }}
-            >
-              Checkout
-            </button>
-            <button
-              className={styles.clear}
-              onClick={() => clearCartDispatch()}
-            >
-              Clear
-            </button>
+                className={styles.checkout}
+                onClick={() => {
+                  setCheckout(true);
+                  clearCartDispatch("Chekout successfull");
+                }}
+              >
+                Checkout
+              </button>
+              <button
+                className={styles.clear}
+                onClick={() => clearCartDispatch()}
+              >
+                Clear
+              </button>
           </div>
         </div>
       ) : (
         <div className={styles.empty}>Your cart is empty</div>
       )}
       {checkout && (
-        <button className={styles.more}
-        onClick={() => history.push('/')}>BUY MORE</button>
+        <button className={styles.more} onClick={() => history.push("/")}>
+          BUY MORE
+        </button>
       )}
     </div>
   );
@@ -83,8 +84,8 @@ const totalItems = (state) => {
 };
 
 const mapStateToProps = (state) => ({
-  loading: state.products.loading,
-  error: state.products.error,
+  loading: state.product.loading,
+  error: state.product.error,
   cart: state.cart.cartList,
   totalPayment: totalPayment(state),
   totalItems: totalItems(state),

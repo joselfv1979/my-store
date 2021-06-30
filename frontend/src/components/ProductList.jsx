@@ -8,6 +8,7 @@ const ProductList = ({
   subtractQuantity,
   addQuantity,
   products,
+  showEffectDetail,
   user,
   deleteProduct,
   showProductDetail,
@@ -15,7 +16,7 @@ const ProductList = ({
   const List = () => {
     return products.map((product, i) => (
       <li className={styles.info} key={i}>
-        <Product product={product} showProductDetail={showProductDetail} />
+        <Product product={product} showProductDetail={showProductDetail} showEffectDetail={showEffectDetail} />
 
         {user && user.role === "admin" ? (
           <AdminButtons id={product.id} deleteProduct={deleteProduct} />
@@ -35,7 +36,7 @@ const ProductList = ({
     <>
       {products.length ? (
         <div className={styles.list}>
-          <ul>
+          <ul className={styles.ul}>
             <List />
           </ul>
         </div>
