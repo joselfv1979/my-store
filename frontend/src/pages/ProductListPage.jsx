@@ -19,11 +19,12 @@ const ProductListPage = ({ dispatch, products, user, cart }) => {
     if (localStorage.length === 0) {
       dispatch(getProductsAction(""));
     }
-    user.role === 'admin' ? setShowEffectDetail(false) : setShowEffectDetail(true);
+    user.role === "admin"
+      ? setShowEffectDetail(false)
+      : setShowEffectDetail(true);
   }, [dispatch, products, user.role]);
 
   const [showEffectDetail, setShowEffectDetail] = useState(true);
-
 
   const getCartProducts = () => {
     for (let i = 0; i < products.length; i++) {
