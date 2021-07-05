@@ -10,7 +10,6 @@ import Cart from "./../components/Cart";
 import styles from "./../scss/CartPage.module.scss";
 
 const CartPage = ({ cart, totalPayment, totalItems, dispatch }) => {
-  console.log(cart);
 
   const [checkout, setCheckout] = useState(false);
 

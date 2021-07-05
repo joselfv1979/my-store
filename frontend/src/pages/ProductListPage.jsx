@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import {
   getProductsAction,
   deleteProductAction,
-} from "../actions/productsActions";
+} from "../actions/productActions";
 import {
   addToList,
   addQuantity,

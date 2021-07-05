@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { AppWaiting } from "../components/AppStatus";
 import Product from "../components/Product";
-import { getProductAction } from "../actions/productsActions";
+import { getProductAction } from "../actions/productActions";
 import styles from "../scss/ProductDetailPage.module.scss";
 
+// ProductDetail View
 const ProductDetailPage = ({ match, dispatch, product, loading }) => {
   const id = match.params.id;
 

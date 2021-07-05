@@ -133,15 +133,15 @@
 
         input {
             align-self: center;
+            box-shadow: 7px 7px 15px #592A08;
             margin: 1rem;
             order: 1;
-            box-shadow: 7px 7px 15px #592A08;
         }
 
         select {
             align-self: center;
-            margin: 1rem;
             box-shadow: 7px 7px 15px #592A08;
+            margin: 1rem;
             order: 2;
             width: 12rem;
         }
@@ -182,7 +182,8 @@
         width: 12rem;
 
         &:after {
-            content: "Search";
+            content: "SEARCH";
+            font-weight: bold;
         }
 
         i {

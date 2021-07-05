@@ -1,6 +1,6 @@
-const { getAllProducts, getFilteredProducts, getProduct, addProduct, deleteProduct, updateProduct } = require('../services/productService');
+const { getFilteredProducts, getProduct, addProduct, deleteProduct, updateProduct } = require('../services/productService');
 const { processAndSaveImage, deleteOldImage } = require('../utils/processImage');
-const { getRating } = require ('../utils/ProductRating');
+const { getRating } = require ('../utils/productRating');
 
 const getProductList = async (req, res, next) => {
 

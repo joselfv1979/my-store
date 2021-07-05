@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {
   addProductAction,
   editProductAction,
-} from "../actions/productsActions";
+} from "../actions/productActions";
 import { setError } from "../actions/messageActions";
 import axios from "axios";
 import { AppWaiting } from "../components/AppStatus";
@@ -12,12 +12,13 @@ import ProductForm from "../components/ProductForm";
 const ProductFormPage = ({ match, dispatch }) => {
   const { id } = match.params;
 
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState({});
 
   const [editingImage, setEditingImage] = useState(true);
 
   useEffect(() => {
     if (id) {
+      setProduct(null);
       const getProduct = async (id) => {
         try {
           const { data } = await axios.get(`/products/${id}`);

@@ -1,4 +1,4 @@
-import * as productActions from '../actions/productsActions';
+import * as productActions from '../actions/productActions';
 import * as userActions from '../actions/userActions';
 import * as cartActions from '../actions/cartActions';
 

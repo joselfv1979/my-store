@@ -28,5 +28,8 @@ export function clearCartAction(message) {
     return (dispatch) => {
         dispatch(clearCart());
         dispatch(setMessage(message));
+        setTimeout(() => {
+            dispatch(setMessage(''))
+        }, 2000)
     }
 }

@@ -1,5 +1,5 @@
 const getRating = () => {
-    return Math.round(Math.random() * 5)
+    return Math.floor((Math.random() * (6-1))+1);
 }
 
 module.exports = {
