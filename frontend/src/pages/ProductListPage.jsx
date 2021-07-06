@@ -22,31 +22,20 @@ const ProductListPage = ({ dispatch, products, user, cart }) => {
     user.role === "admin"
       ? setShowEffectDetail(false)
       : setShowEffectDetail(true);
-
-    const getCartProducts = () => {
-      for (let i = 0; i < products.length; i++) {
-        for (let j = 0; j < cart.length; j++) {
-          if (products[i].id === cart[j].id) {
-            products[i].quantity = cart[j].quantity;
-          }
-        }
-      }
-    };
-    getCartProducts();
-  }, [cart, dispatch, products, user.role]);
+  }, [dispatch, products, user.role]);
 
   const [showEffectDetail, setShowEffectDetail] = useState(true);
 
-  // const getCartProducts = () => {
-  //   for (let i = 0; i < products.length; i++) {
-  //     for (let j = 0; j < cart.length; j++) {
-  //       if (products[i].id === cart[j].id) {
-  //         products[i].quantity = cart[j].quantity;
-  //       }
-  //     }
-  //   }
-  // };
-  // getCartProducts();
+  const getCartProducts = () => {
+    for (let i = 0; i < products.length; i++) {
+      for (let j = 0; j < cart.length; j++) {
+        if (products[i].id === cart[j].id) {
+          products[i].quantity = cart[j].quantity;
+        }
+      }
+    }
+  };
+  getCartProducts();
 
   const filterProducts = (parameters) => {
     dispatch(getProductsAction(parameters));
