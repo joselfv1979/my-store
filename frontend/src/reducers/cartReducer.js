@@ -42,7 +42,7 @@ const cartReducer = (state = initialState, action) => {
                 ...state,
                 cartList: [...state.cartList.map(product =>
                     product.id === payload.id
-                        ? { ...product, quantity: payload.quantity }
+                        ? payload
                         : product
                 ).filter(product => product.quantity > 0)]
             }
