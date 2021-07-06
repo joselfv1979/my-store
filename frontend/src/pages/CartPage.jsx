@@ -2,6 +2,7 @@ import {
   addQuantity,
   subtractQuantity,
   clearCartAction,
+  checkoutAction,
 } from "../actions/cartActions";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
@@ -9,8 +10,7 @@ import { useState } from "react";
 import Cart from "./../components/Cart";
 import styles from "./../scss/CartPage.module.scss";
 
-const CartPage = ({ cart, totalPayment, totalItems, dispatch }) => {
-
+const CartPage = ({ cart, logged, totalPayment, totalItems, dispatch }) => {
   const [checkout, setCheckout] = useState(false);
 
   const history = useHistory();
@@ -23,8 +23,13 @@ const CartPage = ({ cart, totalPayment, totalItems, dispatch }) => {
     dispatch(subtractQuantity(product));
   };
 
-  const clearCartDispatch = (message) => {
-    dispatch(clearCartAction(message));
+  const clearCartDispatch = () => {
+    dispatch(clearCartAction());
+  };
+
+  const checkoutDispatch = (message) => {
+    setCheckout(true);
+    dispatch(checkoutAction(message));
   };
 
   return (
@@ -44,20 +49,21 @@ const CartPage = ({ cart, totalPayment, totalItems, dispatch }) => {
             <p>{totalPayment} €</p>
             <hr />
             <button
-                className={styles.checkout}
-                onClick={() => {
-                  setCheckout(true);
-                  clearCartDispatch("Chekout successfull");
-                }}
-              >
-                Checkout
-              </button>
-              <button
-                className={styles.clear}
-                onClick={() => clearCartDispatch()}
-              >
-                Clear
-              </button>
+              className={styles.checkout}
+              onClick={() => {
+                logged
+                  ? checkoutDispatch("Chekout successfull")
+                  : history.push("/login");
+              }}
+            >
+              Checkout
+            </button>
+            <button
+              className={styles.clear}
+              onClick={() => clearCartDispatch()}
+            >
+              Clear
+            </button>
           </div>
         </div>
       ) : (
@@ -83,7 +89,7 @@ const totalItems = (state) => {
 };
 
 const mapStateToProps = (state) => ({
-  loading: state.product.loading,
+  logged: state.user.logged,
   error: state.product.error,
   cart: state.cart.cartList,
   totalPayment: totalPayment(state),

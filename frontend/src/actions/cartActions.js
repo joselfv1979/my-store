@@ -24,12 +24,18 @@ export const clearCart = () => ({
     type: CLEAR_CART,
 })
 
-export function clearCartAction(message) {
+export function clearCartAction() {
+    return (dispatch) => {
+        dispatch(clearCart());
+    }
+}
+
+export function checkoutAction(message) {
     return (dispatch) => {
         dispatch(clearCart());
         dispatch(setMessage(message));
         setTimeout(() => {
             dispatch(setMessage(''))
-        }, 2000)
+        }, 2000) 
     }
 }
