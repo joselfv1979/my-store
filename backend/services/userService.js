@@ -49,7 +49,6 @@ const addUser = async ({ username, email, password, role }) => {
 
 const updateUser = async (id, { username, email }) => {
 
-    console.log('service',username, email);
     const sql = 'update users set username = ?, email = ? where id = ?';
 
     const connection = await database.connection();
@@ -67,9 +66,9 @@ const deleteUser = async (id) => {
     const connection = await database.connection();
     const result = await connection.execute(sql, [id]);
 
-    if (result.affectedRows) {
+    if (result[0].affectedRows) {
         let message = 'User deleted successfully';
-        return { message };
+        return message;
     }
 }
 

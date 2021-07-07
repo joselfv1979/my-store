@@ -73,9 +73,8 @@ const getUserById = async (req, res, next) => {
 const addNewUser = async (req, res, next) => {
 
     try {
-        const { body, files } = req;
-        // const savedImage = await processAndSaveImage(files.image);
-        // body.image = savedImage;
+        const { body } = req;
+
         if (await emailExist(body.email) > 0) {
             const error = new Error('Mail address already exists');
             error.httpCode = 409;
@@ -101,13 +100,10 @@ const addNewUser = async (req, res, next) => {
 const editUser = async (req, res, next) => {
 
     try {
-        const { body, files } = req;
+        const { body } = req;
         const { id } = req.params;
-        console.log('controller', body);
-        body.role = 'user'
 
-        // const savedImage = await processAndSaveImage(files.image);
-        // body.image = savedImage;
+        body.role = 'user'
 
         const { message } = await updateUser(id, body);
 
@@ -127,17 +123,9 @@ const removeUser = async (req, res, next) => {
 
     try {
         const { id } = req.params;
-
-        const user = await getUserById(id);
-
-        if (!user) {
-            const error = new Error('User not found');
-            error.httpCode = 404;
-            throw error;
-        }
-        const { message } = await deleteUser(id);
+        const  message  = await deleteUser(id);
         return res.status(200).send({
-            success: 'true',
+            success: true,
             message
         });
     } catch (error) {
