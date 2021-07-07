@@ -35,7 +35,7 @@ const userReducer = (state = initialState, action) => {
 
         case userActions.GET_USER_FAILURE:
 
-            return { ...state, loading: false };
+            return { ...state, user: {}, loading: false };
 
         case userActions.REGISTER:
 
@@ -43,7 +43,7 @@ const userReducer = (state = initialState, action) => {
 
         case userActions.REGISTER_SUCCESS:
 
-            return { ...state, user: payload, loading: false };
+            return { ...state, user: {}, loading: false };
 
         case userActions.REGISTER_FAILURE:
 
@@ -89,7 +89,9 @@ const userReducer = (state = initialState, action) => {
 
         case userActions.DELETE_USER_SUCCESS:
 
-            return { ...state, user: {}, loading: false };
+            return { ...state,
+                 userList: state.userList.filter(user => Number(user.id) !== Number(payload)) ,
+                 loading: false };
 
         case userActions.DELETE_USER_FAILURE:
 

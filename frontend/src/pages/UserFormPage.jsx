@@ -12,10 +12,7 @@ const UserFormPage = ({ dispatch, user }) => {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.user.user,
-  isSuccess: state.user.isSuccess,
-  error: state.message.error,
-  message: state.message.message,
+  user: state.user.user
 });
 
 export default connect(mapStateToProps)(UserFormPage);

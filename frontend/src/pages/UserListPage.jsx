@@ -6,7 +6,6 @@ import styles from "../scss/UserListPage.module.scss";
 
 const UserListPage = ({ dispatch, userList }) => {
   useEffect(() => {
-    // console.log(JSON.parse(localStorage.getItem('state').product));
     dispatch(getUserListAction());
   }, [dispatch]);
   console.log("users...........", userList);

@@ -76,8 +76,6 @@ const ProductFormPage = ({ match, dispatch }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  error: state.product.error,
-});
+const mapStateToProps = (state) => ({});
 
-export default connect(mapStateToProps)(ProductFormPage);
+export default connect(mapStateToProps)(ProductFormPage)

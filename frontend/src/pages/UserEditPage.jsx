@@ -16,7 +16,6 @@ const UserEdit = ({ match, dispatch, user }) => {
     const getUser = async (id) => {
       try {
         let token = getAuthToken();
-        console.log("dispatch");
         const { data } = await axios.get(`/users/${id}`, {
           headers: { Authorization: `${token}` },
         });
@@ -89,9 +88,8 @@ const UserEdit = ({ match, dispatch, user }) => {
 
 const mapStateToProps = (state) => ({
   user: state.user.user,
-  isSuccess: state.user.isSuccess,
-  error: state.message.error,
-  message: state.message.message,
+  // error: state.message.error,
+  // message: state.message.message,
 });
 
 export default connect(mapStateToProps)(UserEdit);

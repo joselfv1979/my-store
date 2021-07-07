@@ -205,13 +205,11 @@ export function updateUserAction(user) {
         try {
             let token = getAuthToken();
             console.log(user);
-            //let isAdmin = sessionUser.role === 'admin' ? true : false
-            const { data } = await axios.put(`/users/user-edit/${user.id}`, user, {
+            const { data } = await axios.put(`/users/edit/${user.id}`, user, {
                 headers: { 'Authorization': `${token}` }
             })
-            dispatch(updateUserSuccess(data.body))
-            // dispatch(updateUserSuccess(data.body))
-            dispatch(setMessage('Update successful'));
+            dispatch(updateUserSuccess(data.body));
+            dispatch(setMessage('Update successful'));;
             setTimeout(() => {
                 dispatch(clearMessage());
             }, 2000)
@@ -243,14 +241,19 @@ export function deleteUserAction(id) {
 
         try {
             let token = getAuthToken();
-            await axios.delete(`/delete-user/${id}`, {
+            let response = await axios.delete(`/users/delete/${id}`, {
                 headers: { 'Authorization': `${token}` }
             })
             dispatch(deleteUserSuccess(id));
+            let message = 'User deleted successfully';
+            dispatch(setMessage(response.data.message || message));
+            setTimeout(() => {
+                dispatch(clearMessage())
+            }, 1500);
         } catch (error) {
             let message = 'User deleting failure'
             dispatch(deleteUserFailure());
-            dispatch(setMessage(error.response.data.message || message));
+            dispatch(setError(error.response.data.message || message));
         }
     }
 }

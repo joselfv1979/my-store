@@ -90,7 +90,6 @@ const totalItems = (state) => {
 
 const mapStateToProps = (state) => ({
   logged: state.user.logged,
-  error: state.product.error,
   cart: state.cart.cartList,
   totalPayment: totalPayment(state),
   totalItems: totalItems(state),
