@@ -100,6 +100,7 @@ const ProductForm = ({
         <input
           type="number"
           name="price"
+          step="0.01"
           required
           onChange={handleInputChange}
           defaultValue={product.price}
