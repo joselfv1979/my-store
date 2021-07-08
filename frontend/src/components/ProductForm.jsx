@@ -72,6 +72,7 @@ const ProductForm = ({
         <input
           type="text"
           name="name"
+          autocomplete="off"
           required
           onChange={handleInputChange}
           defaultValue={product.name}
