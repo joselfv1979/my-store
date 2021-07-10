@@ -43,8 +43,7 @@ export function getProductsAction(parameters) {
         dispatch(getProducts());
 
         try {
-            const { data } = await axios.get(`/products${parameters}`)
-            console.log('dataArray',data);
+            const { data } = await axios.get(`/products${parameters}`);
             dispatch(getProductsSuccess(data));
         } catch ({ response }) {
             let message = "Couldn't get products, try it later";
@@ -77,13 +76,13 @@ export function getProductAction(id) {
             const { data } = await axios.get(`/products/${id}`);
             setTimeout(() => {
                 dispatch(getProductSuccess(data.product));
-            }, 1500)
+            }, 1000)
         } catch ({ response }) {
             let message = "Couldn't get product, try it later";
             setTimeout(() => {
                 dispatch(getProductFailure());
                 dispatch(setError(message));
-            }, 1500);
+            }, 1000);
         }
     }
 }
@@ -116,7 +115,7 @@ export function addProductAction(product) {
                 dispatch(setMessage(data.message));
                 setTimeout(() => {
                     history.push('/');
-                }, 2000);
+                }, 1000);
             }
         } catch ({ response }) {
             let message = "Couldn't create product, try it later";
@@ -155,7 +154,7 @@ export function deleteProductAction(id) {
                 dispatch(setMessage(data.message));
                 setTimeout(() => {
                     history.push('/');
-                }, 2000);
+                }, 1000);
             }
         } catch (error) {
             let message = "Couldn't delete this product"
@@ -189,12 +188,11 @@ export function editProductAction(product, id) {
                 headers: { 'Authorization': `${token}` }
             });
             if (data) {
-                console.log('data', data.body.id);
                 dispatch(editProductSuccess(data.body));
                 dispatch(setMessage(data.message));
                 setTimeout(() => {
                     history.push('/');
-                }, 2000);
+                }, 1000);
             }
         } catch (error) {
             let message = "Couldn't update product, try it again later";

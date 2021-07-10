@@ -25,7 +25,7 @@ const ProductFormPage = ({ match, dispatch }) => {
           setTimeout(() => {
             setProduct(data.product);
             setEditingImage(false);
-          }, 1500);
+          }, 1000);
         } catch (error) {
           dispatch(setError(error.response.data.message));
         }

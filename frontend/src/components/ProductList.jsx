@@ -4,6 +4,7 @@ import UserButtons from "./UserButtons";
 import styles from "../scss/ProductListPage.module.scss";
 
 const ProductList = ({
+  location,
   addToList,
   subtractQuantity,
   addQuantity,
@@ -16,7 +17,7 @@ const ProductList = ({
   const List = () => {
     return products.map((product, i) => (
       <li className={styles.info} key={i}>
-        <Product product={product} showProductDetail={showProductDetail} showEffectDetail={showEffectDetail} />
+        <Product product={product} location={location} showProductDetail={showProductDetail} showEffectDetail={showEffectDetail} />
 
         {user && user.role === "admin" ? (
           <AdminButtons id={product.id} deleteProduct={deleteProduct} />

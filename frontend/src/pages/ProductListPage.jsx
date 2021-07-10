@@ -14,7 +14,8 @@ import ProductList from "../components/ProductList";
 import SearchForm from "../components/SearchForm";
 import styles from "../scss/ProductListPage.module.scss";
 
-const ProductListPage = ({ dispatch, products, user, cart }) => {
+const ProductListPage = ({ location, dispatch, products, user, cart }) => {
+  console.log("location", location);
   useEffect(() => {
     if (localStorage.length === 0) {
       dispatch(getProductsAction(""));
@@ -22,7 +23,7 @@ const ProductListPage = ({ dispatch, products, user, cart }) => {
     user.role === "admin"
       ? setShowEffectDetail(false)
       : setShowEffectDetail(true);
-  }, [dispatch, products, user.role]);
+  }, [dispatch, user.role]);
 
   const [showEffectDetail, setShowEffectDetail] = useState(true);
 
@@ -68,10 +69,10 @@ const ProductListPage = ({ dispatch, products, user, cart }) => {
     <div className={styles.container}>
       <SearchForm filterProducts={filterProducts} user={user} />
       <ProductList
+        location={location}
         products={products}
         showEffectDetail={showEffectDetail}
         user={user}
-        cart={cart}
         deleteProduct={deleteProduct}
         addToList={addToListDispatch}
         addQuantity={addQuantityDispatch}

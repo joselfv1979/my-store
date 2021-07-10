@@ -53,6 +53,7 @@ const UserForm = ({ user, sendDataUser }) => {
             type="text"
             name="username"
             id="username"
+            autoComplete="off"
             placeholder="Username"
             required
             autoFocus
@@ -69,6 +70,7 @@ const UserForm = ({ user, sendDataUser }) => {
             name="email"
             id="email"
             placeholder="Email"
+            autoComplete="off"
             required
             onChange={handleInputChange}
             defaultValue={user.email}

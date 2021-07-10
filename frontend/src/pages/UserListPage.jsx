@@ -8,7 +8,6 @@ const UserListPage = ({ dispatch, userList }) => {
   useEffect(() => {
     dispatch(getUserListAction());
   }, [dispatch]);
-  console.log("users...........", userList);
 
   const history = useHistory();
 

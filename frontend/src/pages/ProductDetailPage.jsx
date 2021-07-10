@@ -7,7 +7,7 @@ import { getProductAction } from "../actions/productActions";
 import styles from "../scss/ProductDetailPage.module.scss";
 
 // ProductDetail View
-const ProductDetailPage = ({ match, dispatch, product, loading }) => {
+const ProductDetailPage = ({ match, location, dispatch, product, loading }) => {
   const id = match.params.id;
 
   const history = useHistory();
@@ -24,7 +24,7 @@ const ProductDetailPage = ({ match, dispatch, product, loading }) => {
           <div className={styles.modalBox}>
             <h1>Product Detail</h1>
             <div className={styles.container}>
-              <Product product={product} />
+              <Product product={product} location={location} />
             </div>
             <div className={styles.description}>
               <h3>Product description:</h3>

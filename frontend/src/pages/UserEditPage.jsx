@@ -58,6 +58,7 @@ const UserEdit = ({ match, dispatch, user }) => {
             name="username"
             id="username"
             placeholder="Username"
+            autoComplete="off"
             required
             onChange={handleInputChange}
             defaultValue={userData.username}
@@ -70,6 +71,7 @@ const UserEdit = ({ match, dispatch, user }) => {
             name="email"
             id="email"
             placeholder="Email"
+            autoComplete="off"
             required
             onChange={handleInputChange}
             defaultValue={userData.email}
@@ -87,9 +89,7 @@ const UserEdit = ({ match, dispatch, user }) => {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.user.user,
-  // error: state.message.error,
-  // message: state.message.message,
+  user: state.user.user
 });
 
 export default connect(mapStateToProps)(UserEdit);

@@ -1,8 +1,9 @@
 import styles from "../scss/ProductListPage.module.scss";
 
-const Product = ({ product, showProductDetail, showEffectDetail }) => {
+const Product = ({ location, product, showProductDetail, showEffectDetail }) => {
+  
   const handleOnClick = (product) => {
-    showProductDetail(product);
+    if(location.pathname === '/')  showProductDetail(product);
   };
 
   const checkRate = (index) => {

@@ -20,7 +20,7 @@ const LoginPage = ({ dispatch, loading }) => {
   };
 
   const showPassword = () => {
-    let pwdInput = document.querySelector(".pwd-input");
+    let pwdInput = document.querySelector(".pwd");
     pwdInput.type === "password"
       ? (pwdInput.type = "text")
       : (pwdInput.type = "password");
@@ -45,6 +45,7 @@ const LoginPage = ({ dispatch, loading }) => {
               type="text"
               name="username"
               placeholder="Username"
+              autoComplete="off"
               required
               autoFocus
               onChange={(event) => setName(event.target.value)}
@@ -57,6 +58,7 @@ const LoginPage = ({ dispatch, loading }) => {
             <input
               type="password"
               name="password"
+              className="pwd"
               placeholder="Password"
               required
               onChange={(event) => setPassword(event.target.value)}

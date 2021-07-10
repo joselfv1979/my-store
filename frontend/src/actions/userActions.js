@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { setMessage, setError, clearMessage } from './messageActions';
+import { getProductsAction } from './productActions';
 import { history } from '../utils/history';
 import { getAuthToken } from '../utils/localStorage';
 import { validateUser } from '../utils/ValidateForm';
@@ -48,14 +49,12 @@ export function getUserListAction() {
     return async (dispatch) => {
 
         dispatch(getUserList());
-        console.log('request');
 
         try {
             let token = getAuthToken();
             const { data } = await axios.get(`/users/`, {
                 headers: { 'Authorization': `${token}` }
             });
-            console.log('dataUsers,,,,', data);
             dispatch(getUserListSuccess(data.users))
         } catch (error) {
             console.log(error);
@@ -91,7 +90,6 @@ export function getUserAction(id) {
             });
             dispatch(getUserSuccess(data.result))
         } catch (error) {
-            console.log(error);
             dispatch(getUserFailure());
             dispatch(setMessage(error.response.data.message));
         }
@@ -161,6 +159,7 @@ export function loginAction(user) {
             const { data } = await axios.post(`/users/sign-in`, user);
             setTimeout(() => {
                 dispatch(loginSuccess(data.user));
+                dispatch(getProductsAction(''));
                 history.push('/');
             }, 1000)
         } catch (error) {
@@ -168,7 +167,7 @@ export function loginAction(user) {
             setTimeout(() => {
                 dispatch(loginFailure());
                 dispatch(setError(error.response.data.message || message));
-            }, 1500);
+            }, 1000);
         }
     }
 }
@@ -204,7 +203,6 @@ export function updateUserAction(user) {
 
         try {
             let token = getAuthToken();
-            console.log(user);
             const { data } = await axios.put(`/users/edit/${user.id}`, user, {
                 headers: { 'Authorization': `${token}` }
             })
@@ -212,7 +210,7 @@ export function updateUserAction(user) {
             dispatch(setMessage('Update successful'));;
             setTimeout(() => {
                 dispatch(clearMessage());
-            }, 2000)
+            }, 1000)
         } catch (error) {
             let message = 'User updating failure';
             dispatch(updateUserFailure());
@@ -249,7 +247,7 @@ export function deleteUserAction(id) {
             dispatch(setMessage(response.data.message || message));
             setTimeout(() => {
                 dispatch(clearMessage())
-            }, 1500);
+            }, 1000);
         } catch (error) {
             let message = 'User deleting failure'
             dispatch(deleteUserFailure());
