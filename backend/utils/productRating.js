@@ -1,7 +1,0 @@
-const getRating = () => {
-    return Math.floor((Math.random() * (6-1))+1);
-}
-
-module.exports = {
-    getRating
-}
