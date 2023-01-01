@@ -4,4 +4,4 @@ E-commerce
 
 -Backend: Typescript, Node.js, Mysql.
 
--Frontend: React, Redux.
+-Frontend: Typescript, React, Redux.
