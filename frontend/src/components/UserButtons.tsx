@@ -2,24 +2,28 @@ import React from "react";
 import { MinusIcon, PlusIcon } from "./Icons";
 import styles from "../scss/UserButtons.module.scss";
 
-const UserButtons = ({ product, subtractQuantity, addToList, addQuantity }) => {
+// { product, subtractQuantity, addToList, addQuantity }
+const UserButtons = () => {
   return (
     <div className={styles.user}>
-      {product.quantity ? (
+      {3 ? (
         <div className={styles.addRemove}>
           <button
             className={styles.minus}
-            onClick={() => subtractQuantity(product)}
+            onClick={() => console.log('substract')
+            }
           >
             <MinusIcon />
           </button>
-          <button className={styles.plus} onClick={() => addQuantity(product)}>
-            <span className={styles.text}>{product.quantity} ADDED</span>
+          <button className={styles.plus} onClick={() => console.log('add')
+          }>
+            <span className={styles.text}>{'quantity'} ADDED</span>
             <PlusIcon />
           </button>
         </div>
       ) : (
-        <button className={styles.add} onClick={() => addToList(product)}>
+        <button className={styles.add} onClick={() => console.log('addtolist')
+        }>
           <span className={styles.text}>ADD TO LIST</span>
           <PlusIcon />
         </button>

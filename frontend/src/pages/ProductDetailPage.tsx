@@ -1,42 +1,43 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AppWaiting } from "../components/AppStatus";
 import Product from "../components/Product";
 import { getProductAction } from "../actions/productActions";
 import styles from "../scss/ProductDetailPage.module.scss";
 
 // ProductDetail View
-const ProductDetailPage = ({ match, location, dispatch, product, loading }) => {
-  const id = match.params.id;
+//{ match, location, dispatch, product, loading }
+const ProductDetailPage = () => {
+  // const id = match.params.id;
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-   dispatch(getProductAction(id));
-  }, [dispatch, id]);
+  // useEffect(() => {
+  //  dispatch(getProductAction(id));
+  // }, [dispatch, id]);
 
   return (
     <>
-      {loading && <AppWaiting />}
-      {product && (
+      {1 && <AppWaiting />}
+      {3 && (
         <div className={styles.modal}>
           <div className={styles.modalBox}>
             <h1>Product Detail</h1>
             <div className={styles.container}>
-              <Product product={product} location={location} />
+              <Product />
             </div>
             <div className={styles.description}>
               <h3>Product description:</h3>
               <p>
-                <span>{product.description}. </span>
+                <span>{'description'}. </span>
                 Lorem ipsum dolor sit, amet consectetur
                 adipisicing elit. Consequuntur a alias quia corporis consequatur
                 facilis magni repellat, ab optio maxime pariatur nemo at eveniet
                 sed, consectetur molestias eligendi, necessitatibus accusamus.
               </p>
             </div>
-            <button onClick={() => history.push("/")}>Close</button>
+            <button onClick={() => navigate("/")}>Close</button>
           </div>
         </div>
       )}
@@ -44,10 +45,11 @@ const ProductDetailPage = ({ match, location, dispatch, product, loading }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  error: state.message.error,
-  product: state.product.product,
-  loading: state.product.loading,
-});
+// const mapStateToProps = (state) => ({
+//   error: state.message.error,
+//   product: state.product.product,
+//   loading: state.product.loading,
+// });
 
-export default connect(mapStateToProps)(ProductDetailPage);
+// export default connect(mapStateToProps)(ProductDetailPage);
+export default ProductDetailPage;

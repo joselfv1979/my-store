@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import styles from "../scss/ProductFormPage.module.scss";
 
-const ProductForm = ({
-  handleFormSubmit,
-  product,
-  setProduct,
-  editingImage,
-  setEditingImage,
-}) => {
-  const history = useHistory();
-
+// {
+//   handleFormSubmit,
+//   product,
+//   setProduct,
+//   editingImage,
+//   setEditingImage,
+// }
+const ProductForm = () => {
   const categories = [
     {
       catId: 1,
@@ -41,31 +39,32 @@ const ProductForm = ({
 
   const [image, setImage] = useState(null);
 
-  const handleInputChange = (event) => {
-    setProduct({
-      ...product,
-      [event.target.name]: event.target.value,
-    });
-  };
+  // const handleInputChange = (event) => {
+  //   setProduct({
+  //     ...product,
+  //     [event.target.name]: event.target.value,
+  //   });
+  // };
 
-  const handleImage = (event) => {
-    setProduct({
-      ...product,
-      [event.target.name]: event.target.files[0],
-    });
+  // const handleImage = (event) => {
+  //   setProduct({
+  //     ...product,
+  //     [event.target.name]: event.target.files[0],
+  //   });
 
-    setImage(event.target.files[0]);
-  };
+  //   setImage(event.target.files[0]);
+  // };
 
-  const handleOnSubmit = (event) => {
-    event.preventDefault();
+  // const handleOnSubmit = (event) => {
+  //   event.preventDefault();
 
-    handleFormSubmit(product);
-  };
+  //   handleFormSubmit(product);
+  // };
 
   return (
-    <form className={styles.form} onSubmit={handleOnSubmit}>
-      {product.id ? <h2>Edit Product</h2> : <h2>New Product</h2>}
+    <form className={styles.form} onSubmit={() => console.log('submit')
+    }>
+      {0 ? <h2>Edit Product</h2> : <h2>New Product</h2>}
 
       <fieldset>
         <label htmlFor="name">Name</label>
@@ -74,8 +73,8 @@ const ProductForm = ({
           name="name"
           autoComplete="off"
           required
-          onChange={handleInputChange}
-          defaultValue={product.name}
+          onChange={() => console.log('submit')}
+          defaultValue={'name'}
         />
       </fieldset>
 
@@ -85,8 +84,8 @@ const ProductForm = ({
           name="category"
           id="list"
           required
-          value={product.category}
-          onChange={handleInputChange}
+          value={'category'}
+          onChange={() => console.log('submit')}
         >
           {categories.map((category) => (
             <option key={category.catId} value={category.value}>
@@ -103,23 +102,23 @@ const ProductForm = ({
           name="price"
           step="0.01"
           required
-          onChange={handleInputChange}
-          defaultValue={product.price}
+          onChange={() => console.log('submit')}
+          defaultValue={'price'}
         />
       </fieldset>
 
       <fieldset className={styles.fullColumn}>
         <label htmlFor="description">Description</label>
         <textarea
-          type="text"
+          // type="text"
           name="description"
           required
-          onChange={handleInputChange}
-          defaultValue={product.description}
+          onChange={() => console.log('submit')}
+          defaultValue={'description'}
         />
       </fieldset>
 
-      {editingImage ? (
+      {0 ? (
         <>
           <fieldset className={styles.imageField}>
             <div className={styles.loadContainer}>
@@ -131,7 +130,7 @@ const ProductForm = ({
                 name="image"
                 accept=".jpg,.jpeg,.png"
                 required
-                onChange={handleImage}
+                onChange={() => console.log('submit')}
               />
             </div>
             <div className={styles.imageContainer}>
@@ -153,14 +152,14 @@ const ProductForm = ({
               <label htmlFor="image">Image</label>
               <button
                 className={styles.editImage}
-                onClick={() => setEditingImage(true)}
+                onClick={() => console.log('submit')}
               >
                 Edit image
               </button>
             </div>
-            <div className={styles.imageContainer}>
+            {/* <div className={styles.imageContainer}>
               <img src={`/files/${product.image}`} alt={product.name} />
-            </div>
+            </div> */}
           </fieldset>
         </>
       )}
@@ -168,7 +167,7 @@ const ProductForm = ({
       <div className={styles.buttonsContainer}>
         <button>Submit</button>
 
-        <button onClick={() => history.push("/")} className={styles.cancel}>
+        <button onClick={() => console.log("lll")} className={styles.cancel}>
           Cancel
         </button>
       </div>
@@ -176,4 +175,5 @@ const ProductForm = ({
   );
 };
 
+//() => history.push("/")
 export default ProductForm;

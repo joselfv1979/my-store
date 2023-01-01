@@ -1,26 +1,28 @@
 import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getUserListAction, deleteUserAction } from "../actions/userActions";
 import { connect } from "react-redux";
 import styles from "../scss/UserListPage.module.scss";
 
-const UserListPage = ({ dispatch, userList }) => {
-  useEffect(() => {
-    dispatch(getUserListAction());
-  }, [dispatch]);
+//{ dispatch, userList }
+const UserListPage = () => {
+  // useEffect(() => {
+  //   dispatch(getUserListAction());
+  // }, [dispatch]);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
+  const userList: string[] = [];
   const UserList = () => {
 
-    return userList.map((user, i) => (
+    return userList.map((i) => (
       <li key={i} className={styles.card}>
         <div className={styles.image}></div>
-        <p>{user.username}</p>
+        <p>{'username'}</p>
         <div className={styles.buttons}>
           <button
             className={styles.edit}
-            onClick={() => history.push(`/edit-profile/${user.id}`)}
+            onClick={() => navigate(`/edit-profile/${'0'}`)}
           >
             <i className="fas fa-pencil-alt"></i>
           </button>
@@ -29,7 +31,7 @@ const UserListPage = ({ dispatch, userList }) => {
             className={styles.remove}
             onClick={() => {
               if (window.confirm("Are you sure to delete?")) {
-                dispatch(deleteUserAction(user.id))
+                console.log('delete')
               }
             }}
           >
@@ -43,14 +45,15 @@ const UserListPage = ({ dispatch, userList }) => {
     <div className={styles.container}>
       <h1>Users</h1>
       <ul>
-        <UserList />
+        {/* <UserList /> */}
       </ul>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  userList: state.user.userList,
-});
+// const mapStateToProps = (state) => ({
+//   userList: state.user.userList,
+// });
 
-export default connect(mapStateToProps)(UserListPage);
+// export default connect(mapStateToProps)(UserListPage);
+export default UserListPage;

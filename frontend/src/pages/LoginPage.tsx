@@ -1,39 +1,41 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { loginAction } from "./../actions/userActions";
-import { useHistory } from "react-router-dom";
+import { loginAction } from "../actions/userActions";
+import { useNavigate } from "react-router-dom";
 import { AppWaiting } from "../components/AppStatus";
 import styles from '../scss/LoginPage.module.scss';
 
-const LoginPage = ({ dispatch, loading }) => {
+//{ dispatch, loading }
+const LoginPage = () => {
   const [name, setName] = useState(null);
   const [password, setPassword] = useState(null);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
+  // const handleFormSubmit = (event) => {
+  //   event.preventDefault();
 
-    const user = { username: name, password };
+  //   const user = { username: name, password };
 
-    dispatch(loginAction(user));
-  };
+  //   dispatch(loginAction(user));
+  // };
 
-  const showPassword = () => {
-    let pwdInput = document.querySelector(".pwd");
-    pwdInput.type === "password"
-      ? (pwdInput.type = "text")
-      : (pwdInput.type = "password");
-  };
+  // const showPassword = () => {
+  //   let pwdInput = document.querySelector(".pwd");
+  //   pwdInput.type === "password"
+  //     ? (pwdInput.type = "text")
+  //     : (pwdInput.type = "password");
+  // };
 
-  const goRegister = (event) => {
-    event.preventDefault();
-    history.push("/register");
-  };
+  // const goRegister = (event) => {
+  //   event.preventDefault();
+  //   navigate("/register");
+  // };
 
   const loginForm = () => {
     return (
-      <form className={styles.loginForm} onSubmit={handleFormSubmit}>
+      <form className={styles.loginForm} onSubmit={() => console.log('submit')
+      }>
         <header>
           <h2>Log In</h2>
           <p>Login here using your username and password</p>
@@ -48,7 +50,7 @@ const LoginPage = ({ dispatch, loading }) => {
               autoComplete="off"
               required
               autoFocus
-              onChange={(event) => setName(event.target.value)}
+              onChange={() => console.log('submit')}
             />
           </div>
         </fieldset>
@@ -61,10 +63,10 @@ const LoginPage = ({ dispatch, loading }) => {
               className="pwd"
               placeholder="Password"
               required
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={() => console.log('submit')}
             />
           </div>
-          <div className={styles.eye} onClick={showPassword}></div>
+          <div className={styles.eye} onClick={() => console.log('submit')}></div>
         </fieldset>
 
         <div className={styles.buttonsContainer}>
@@ -72,7 +74,7 @@ const LoginPage = ({ dispatch, loading }) => {
 
           <p>Have no account?</p>
 
-          <button className={styles.signup} onClick={goRegister}>
+          <button className={styles.signup} onClick={() => console.log('submit')}>
             Sign up
             <i className="fa fa-user-plus" aria-hidden="true"></i>
           </button>
@@ -81,13 +83,14 @@ const LoginPage = ({ dispatch, loading }) => {
     );
   };
 
-  return <>{loading ? <AppWaiting /> : loginForm()}</>;
+  return <>{1 ? <AppWaiting /> : loginForm()}</>;
 };
 
-const mapStateToProps = (state) => ({
-  user: state.user.user,
-  logged: state.user.logged,
-  loading: state.user.loading,
-});
+// const mapStateToProps = (state) => ({
+//   user: state.user.user,
+//   logged: state.user.logged,
+//   loading: state.user.loading,
+// });
 
-export default connect(mapStateToProps)(LoginPage);
+// export default connect(mapStateToProps)(LoginPage);
+export default LoginPage;

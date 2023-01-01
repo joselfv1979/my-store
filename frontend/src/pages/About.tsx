@@ -1,5 +1,5 @@
 import React from "react"
-import { GitHubIcon } from './../components/Icons'
+import { GitHubIcon } from '../components/Icons'
 import styles from "./../scss/AboutPage.module.scss";
 
 const About = () => {
@@ -20,7 +20,7 @@ const About = () => {
           </li>
         </ul>
         <div className={styles.github}>
-            <GitHubIcon />
+            <GitHubIcon width="1.3rem" />
             <a href='https://github.com/joselfv1979/my-store'>https://github.com/joselfv1979/my-store</a>
         </div>
       </div>

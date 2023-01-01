@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { setMessage, setError, clearMessage } from './messageActions';
 import { getProductsAction } from './productActions';
-import { history } from '../utils/history';
 import { getAuthToken } from '../utils/localStorage';
 import { validateUser } from '../utils/ValidateForm';
 
@@ -124,9 +123,6 @@ export function registerAction(user) {
             if (data) {
                 dispatch(registerSuccess());
                 dispatch(setMessage(data.message));
-                setTimeout(() => {
-                    history.push('/login');
-                }, 1500);
             }
         } catch (error) {
             dispatch(registerFailure());
@@ -160,7 +156,6 @@ export function loginAction(user) {
             setTimeout(() => {
                 dispatch(loginSuccess(data.user));
                 dispatch(getProductsAction(''));
-                history.push('/');
             }, 1000)
         } catch (error) {
             let message = "Invalid credentials";
@@ -179,7 +174,6 @@ export const logout = () => ({
 export function logoutAction() {
     return (dispatch) => {
         dispatch(logout());
-        history.push('/');
     }
 }
 

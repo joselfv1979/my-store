@@ -1,42 +1,44 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { CloseIcon, PlusCircleIcon } from "./Icons";
+import { useNavigate } from 'react-router-dom';
 import styles from "../scss/SearchForm.module.scss";
 
-const ProductSearch = ({ filterProducts, user }) => {
+//{ filterProducts, user }
+const ProductSearch = () => {
 
   const [name, setName] = useState(null);
   const [category, setCategory] = useState();
   const [openMobileMenu, setOpenMobileMenu] = useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
-  let isAdmin = user.username === "admin" ? true : false;
+  // let isAdmin = user.username === "admin" ? true : false;
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
+  // const handleFormSubmit = (event) => {
+  //   event.preventDefault();
 
-    let parameters = "";
-    let count = 0;
+  //   let parameters = "";
+  //   let count = 0;
 
-    if (name) {
-      parameters += `?name=${name}`;
-      count++;
-    }
-    if (category) {
-      if (count === 0) parameters += `?category=${category}`;
-      else parameters += `&category=${category}`;
-      count++;
-    }
+  //   if (name) {
+  //     parameters += `?name=${name}`;
+  //     count++;
+  //   }
+  //   if (category) {
+  //     if (count === 0) parameters += `?category=${category}`;
+  //     else parameters += `&category=${category}`;
+  //     count++;
+  //   }
 
-    filterProducts(parameters);
-  };
+  //   filterProducts(parameters);
+  // };
 
   return (
-    <form className={styles.search} onSubmit={handleFormSubmit}>
-      {isAdmin && (
-        <button className={styles.new} onClick={() => history.push('/new-product')}>
-          <PlusCircleIcon />
+    <form className={styles.search} onSubmit={() => console.log('submit')
+    }>
+      {1 && (
+        <button className={styles.new} onClick={() => navigate('/new-product')}>
+          <PlusCircleIcon width="1rem" />
           New Product
         </button>
       )}
@@ -55,7 +57,7 @@ const ProductSearch = ({ filterProducts, user }) => {
           </div>
           <select
             value={category}
-            onChange={(event) => setCategory(event.target.value)}
+            onChange={() => console.log('submit')}
           >
             <option value="">All Categories</option>
             <option value="food">Food</option>
@@ -65,7 +67,7 @@ const ProductSearch = ({ filterProducts, user }) => {
           </select>
           <input
             placeholder="Name"
-            onChange={(event) => setName(event.target.value)}
+            onChange={() => console.log('submit')}
           ></input>
           <button
             className={styles.glass}

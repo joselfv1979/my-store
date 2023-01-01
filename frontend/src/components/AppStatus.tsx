@@ -1,7 +1,13 @@
 import styles from '../scss/AppStatus.module.scss';
-import spinner from "../puff.svg";
+import { Message } from '../types/Message';
+import spinner from "./../puff.svg";
 
-const AppMessage = ({ message, removeMessage }) => {
+type Props = {
+  message: Message,
+  removeMessage: () => void
+}
+
+const AppMessage = ({ message, removeMessage }: Props) => {
   return (
     <div className={styles[`${message.type}`]}>
       <p className={styles.message}>{message.message}</p>

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { setError, setMessage } from './messageActions';
-import { history } from '../utils/history';
 import { getAuthToken } from '../utils/localStorage';
 
 export const GET_PRODUCTS = 'GET_PRODUCTS';
@@ -113,9 +112,6 @@ export function addProductAction(product) {
             if (data) {
                 dispatch(addProductSuccess(data.body));
                 dispatch(setMessage(data.message));
-                setTimeout(() => {
-                    history.push('/');
-                }, 1000);
             }
         } catch ({ response }) {
             let message = "Couldn't create product, try it later";
@@ -152,9 +148,6 @@ export function deleteProductAction(id) {
             if (data) {
                 dispatch(deleteProductSuccess(id));
                 dispatch(setMessage(data.message));
-                setTimeout(() => {
-                    history.push('/');
-                }, 1000);
             }
         } catch (error) {
             let message = "Couldn't delete this product"
@@ -190,9 +183,6 @@ export function editProductAction(product, id) {
             if (data) {
                 dispatch(editProductSuccess(data.body));
                 dispatch(setMessage(data.message));
-                setTimeout(() => {
-                    history.push('/');
-                }, 1000);
             }
         } catch (error) {
             let message = "Couldn't update product, try it again later";
