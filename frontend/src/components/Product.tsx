@@ -1,12 +1,24 @@
 import styles from "../scss/ProductListPage.module.scss";
+import { Product } from "../types/Product";
+import { deleteProduct } from "../store/product/productActions";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../hooks/redux-hooks";
 
 //{ product, showProductDetail, showEffectDetail }
+type Props = {
+  product: Product;
+};
 
-const Product = () => {
+const SingleProduct = ({ product }: Props) => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   
   const handleOnClick = () => {
     //showProductDetail(product);
-    console.log('product');
+    console.log("product");
   };
 
   const checkRate = () => {
@@ -31,20 +43,37 @@ const Product = () => {
   // };
 
   return (
-    <article className={styles.content} onClick={() => console.log('product')}>
-      <div className={styles.image}>
+    <Card
+      className={styles.info}
+      border="success"
+      onClick={() => console.log("product")}
+    >
+      <Card.Img variant="top">
         {/* <img src={`/files/${product.image}`} alt={product.name} /> */}
-      </div>
+      </Card.Img>
       {/* {showEffectDetail && <h2 className={styles.shadow}>DETAIL</h2>} */}
-      <div className={styles.data}>
-        <h3>{'name'}</h3>
-        <p>Price: {'price'} €</p>
+      <Card.Body className={styles.data}>
+        <Card.Title>{product.name}</Card.Title>
+        <Card.Title>Price: {product.price} €</Card.Title>
         {/* <div>
           <StarRating />
         </div> */}
-      </div>
-    </article>
+        <Card.Text>{product.description}</Card.Text>
+      </Card.Body>
+      <Card.Footer className={styles.buttonGroup}>
+        <Button variant="success" onClick={() => navigate(`/edit-product/${product.id}`)}>
+          <i className="fas fa-pencil-alt"></i>
+        </Button>
+        <Button variant="danger" onClick={() => {
+          if(product.id) {
+            dispatch(deleteProduct(product.id))
+          }
+        }}>
+          <i className="fas fa-trash-alt"></i>
+        </Button>
+      </Card.Footer>
+    </Card>
   );
 };
 
-export default Product;
+export default SingleProduct;

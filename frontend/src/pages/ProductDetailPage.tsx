@@ -25,7 +25,7 @@ const ProductDetailPage = () => {
           <div className={styles.modalBox}>
             <h1>Product Detail</h1>
             <div className={styles.container}>
-              <Product />
+              {/* <Product /> */}
             </div>
             <div className={styles.description}>
               <h3>Product description:</h3>

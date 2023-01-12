@@ -22,31 +22,31 @@ export const getUsers = async (req: Request, res: Response, next: NextFunction) 
   }
 };
 
-export const getUserData = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { username, password } = req.body;
-    const user = await getUser(username, password);
+// export const getUserData = async (req: Request, res: Response, next: NextFunction) => {
+//   try {
+//     const { username, password } = req.body;
+//     const user = await getUser(username, password);
 
-    if (!user) {
-      return next(new CustomError(401, "Invalid credentials"));
-    }
+//     if (!user) {
+//       return next(new CustomError(401, "Invalid credentials"));
+//     }
 
-    let id = "";
-    if (user.id) {
-      id = user.id;
-    }
-    const token = generateToken(id, username, JSON.stringify(user.roles));
+//     let id = "";
+//     if (user.id) {
+//       id = user.id;
+//     }
+//     const token = generateToken(id, username, JSON.stringify(user.roles));
 
-    res.status(200).json({
-      id: user.id,
-      username,
-      roles: user.roles,
-      token,
-    });
-  } catch (error) {
-    next(new CustomError(500, "Couldn't login user, try it later"));
-  }
-};
+//     res.status(200).json({
+//       id: user.id,
+//       username,
+//       roles: user.roles,
+//       token,
+//     });
+//   } catch (error) {
+//     next(new CustomError(500, "Couldn't login user, try it later"));
+//   }
+// };
 
 export const getUserById = async (req: Request, res: Response, next: NextFunction) => {
   try {

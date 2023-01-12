@@ -8,10 +8,10 @@ productRouter.get('/', getProductList);
 
 productRouter.get('/:id', getProductData);
 
-productRouter.post('/product-add', authHandler, createProduct);
+productRouter.post('/product-add', createProduct);
 
 productRouter.put('/product-edit/:id', authHandler, editProduct);
 
-productRouter.delete('/:id', authHandler, removeProduct)
+productRouter.delete('/:id', removeProduct)
 
 export default productRouter; // exportación del enrutador

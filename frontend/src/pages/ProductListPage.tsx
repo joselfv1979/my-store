@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -13,6 +13,7 @@ import {
 import ProductList from "../components/ProductList";
 import SearchForm from "../components/SearchForm";
 import styles from "../scss/ProductListPage.module.scss";
+import Container from 'react-bootstrap/Container';
 
 // { dispatch, products, user, cart }
 const ProductListPage = () => {
@@ -66,10 +67,10 @@ const ProductListPage = () => {
   // };
 
   return (
-    <div className={styles.container}>
-      <SearchForm
-      //  filterProducts={filterProducts} user={user}
-        />
+    <Container fluid>
+      {/* <SearchForm
+      filterProducts={filterProducts} user={user}
+        /> */}
       <ProductList
         // products={products}
         // showEffectDetail={showEffectDetail}
@@ -80,7 +81,7 @@ const ProductListPage = () => {
         // subtractQuantity={subtractQuantityDispatch}
         // showProductDetail={showProductDetail}
       />
-    </div>
+    </Container>
   );
 };
 

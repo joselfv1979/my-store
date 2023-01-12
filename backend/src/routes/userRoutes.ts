@@ -5,7 +5,7 @@ const userRouter = Router(); // creación de la instancia de enrutamiento
 
 userRouter.get('/:id', getUserById);
 
-userRouter.get('/', getUsers);
+userRouter.delete('/:id', removeUser);;
 
 userRouter.post('/sign-in', getUserData);
 
@@ -13,6 +13,6 @@ userRouter.post('/sign-up', addNewUser);
 
 userRouter.put('/edit/:id', editUser);
 
-userRouter.delete('/delete/:id', removeUser)
+userRouter.get('/', getUsers);
 
 export default userRouter; // exportación del enrutador

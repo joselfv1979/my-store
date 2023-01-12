@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
+import { useAppDispatch } from "../hooks/redux-hooks";
 import styles from "../scss/ProductFormPage.module.scss";
+import { addProduct } from "../store/product/productActions";
+import { initialProduct, Product } from "../types/Product";
 
 // {
 //   handleFormSubmit,
@@ -38,6 +41,8 @@ const ProductForm = () => {
   ];
 
   const [image, setImage] = useState(null);
+  const [product, setProduct] = useState<Product>(initialProduct);
+  const dispatch = useAppDispatch();
 
   // const handleInputChange = (event) => {
   //   setProduct({
@@ -55,15 +60,31 @@ const ProductForm = () => {
   //   setImage(event.target.files[0]);
   // };
 
-  // const handleOnSubmit = (event) => {
-  //   event.preventDefault();
+  const handleOnSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  //   handleFormSubmit(product);
-  // };
+    dispatch(addProduct(product));
+  };
+
+  const sendDataProduct = (product: Product) => {
+    const { name, description, category, price, image } = product;
+
+    const data = new FormData();
+    data.append("name", name);
+    data.append("description", description);
+    data.append("category", category);
+    data.append("price", String(price));
+    if(image) data.append("image", image);
+
+   // id ? editProduct(data, id) : addProduct(data);
+  };
+
+  const onChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setProduct({ ...product, [event.target.name]: event.target.value });
+};
 
   return (
-    <form className={styles.form} onSubmit={() => console.log('submit')
-    }>
+    <form className={styles.form} onSubmit={handleOnSubmit}>
       {0 ? <h2>Edit Product</h2> : <h2>New Product</h2>}
 
       <fieldset>
@@ -73,8 +94,8 @@ const ProductForm = () => {
           name="name"
           autoComplete="off"
           required
-          onChange={() => console.log('submit')}
-          defaultValue={'name'}
+          onChange={onChange}
+          defaultValue={''}
         />
       </fieldset>
 
@@ -84,8 +105,7 @@ const ProductForm = () => {
           name="category"
           id="list"
           required
-          value={'category'}
-          onChange={() => console.log('submit')}
+          onChange={onChange}
         >
           {categories.map((category) => (
             <option key={category.catId} value={category.value}>
@@ -102,7 +122,7 @@ const ProductForm = () => {
           name="price"
           step="0.01"
           required
-          onChange={() => console.log('submit')}
+          onChange={onChange}
           defaultValue={'price'}
         />
       </fieldset>
@@ -113,8 +133,8 @@ const ProductForm = () => {
           // type="text"
           name="description"
           required
-          onChange={() => console.log('submit')}
-          defaultValue={'description'}
+          onChange={onChange}
+          defaultValue={''}
         />
       </fieldset>
 

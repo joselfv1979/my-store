@@ -8,6 +8,9 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./reducers";
+import { store } from "./store";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 // const initialData = loadState();
 
@@ -24,10 +27,11 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  // <Provider>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-
-  //</Provider>,
+  <React.StrictMode>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
+  </React.StrictMode>
 );

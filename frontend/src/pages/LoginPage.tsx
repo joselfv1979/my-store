@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { loginAction } from "../actions/userActions";
 import { useNavigate } from "react-router-dom";
 import { AppWaiting } from "../components/AppStatus";
-import styles from '../scss/LoginPage.module.scss';
+import styles from "../scss/LoginPage.module.scss";
 
 //{ dispatch, loading }
 const LoginPage = () => {
@@ -34,8 +34,7 @@ const LoginPage = () => {
 
   const loginForm = () => {
     return (
-      <form className={styles.loginForm} onSubmit={() => console.log('submit')
-      }>
+      <form className={styles.loginForm} onSubmit={() => console.log("submit")}>
         <header>
           <h2>Log In</h2>
           <p>Login here using your username and password</p>
@@ -50,7 +49,7 @@ const LoginPage = () => {
               autoComplete="off"
               required
               autoFocus
-              onChange={() => console.log('submit')}
+              onChange={() => console.log("submit")}
             />
           </div>
         </fieldset>
@@ -63,10 +62,13 @@ const LoginPage = () => {
               className="pwd"
               placeholder="Password"
               required
-              onChange={() => console.log('submit')}
+              onChange={() => console.log("submit")}
             />
           </div>
-          <div className={styles.eye} onClick={() => console.log('submit')}></div>
+          <div
+            className={styles.eye}
+            onClick={() => console.log("submit")}
+          ></div>
         </fieldset>
 
         <div className={styles.buttonsContainer}>
@@ -74,7 +76,10 @@ const LoginPage = () => {
 
           <p>Have no account?</p>
 
-          <button className={styles.signup} onClick={() => console.log('submit')}>
+          <button
+            className={styles.signup}
+            onClick={() => console.log("submit")}
+          >
             Sign up
             <i className="fa fa-user-plus" aria-hidden="true"></i>
           </button>
@@ -83,7 +88,12 @@ const LoginPage = () => {
     );
   };
 
-  return <>{1 ? <AppWaiting /> : loginForm()}</>;
+  return (
+    <>
+      {/* {1 ? <AppWaiting /> : loginForm()} */}
+      {loginForm()}
+    </>
+  );
 };
 
 // const mapStateToProps = (state) => ({
