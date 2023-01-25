@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteProduct } from "../actions/productActions";
 import styles from "../scss/AdminButtons.module.scss";
+import { deleteProduct } from "../store/product/productActions";
 
 type Props = {
   id: string,
@@ -20,7 +20,7 @@ const AdminButtons = ({ id }: Props) => {
         className={styles.remove}
         onClick={() => {
           if (window.confirm("Are you sure to delete?")) {
-            deleteProduct();
+            deleteProduct(id);
           }
         }}
       >

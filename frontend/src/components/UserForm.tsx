@@ -1,49 +1,36 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { ChangeEvent, FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../scss/UserFormPage.module.scss";
+import { initialUser, User } from "../types/User";
 
-// { user, sendDataUser }
-const UserForm = () => {
-  const [userData, setUserData] = useState("");
+type Props = {
+  saveUser: (data: User) => Promise<void>;
+};
+
+const UserForm = ({ saveUser }: Props) => {
+  const [userData, setUserData] = useState<User>(initialUser);
 
   const navigate = useNavigate();
 
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setUserData({ ...userData, [event.target.name]: event.target.value });
+  };
 
-  //   setUserData({
-  //     ...userData,
-  //     [name]: value,
-  //   });
-  // };
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  // const handleFormSubmit = (event) => {
-  //   event.preventDefault();
+    await saveUser(userData);
+  };
 
-  //   user = {
-  //     ...user,
-  //     ...userData,
-  //   };
-
-  //   sendDataUser(user);
-  // };
-
-  // const showPassword = () => {
-  //   let pwdInput = document.querySelector(".pwd-input");
-  //   pwdInput.type === "password"
-  //     ? (pwdInput.type = "text")
-  //     : (pwdInput.type = "password");
-  // };
-
-  // const goLogin = (event) => {
-  //   event.preventDefault();
-
-  //   navigate("/login");
-  // };
+  const showPassword = () => {
+    const pwdInput = document.querySelector(".pwd-input") as HTMLInputElement;
+    pwdInput.type === "password"
+      ? (pwdInput.type = "text")
+      : (pwdInput.type = "password");
+  };
 
   return (
-    <form className={styles.userForm} onSubmit={() => console.log('submit')
-    }>
+    <form className={styles.userForm} onSubmit={submit}>
       <header>
         <h2>Register</h2>
         <p>Please fill in this form to create an account</p>
@@ -59,8 +46,8 @@ const UserForm = () => {
             placeholder="Username"
             required
             autoFocus
-            onChange={() => console.log('submit')}
-            defaultValue={'username'}
+            onChange={onChange}
+            defaultValue={"username"}
           />
         </div>
       </fieldset>
@@ -74,8 +61,8 @@ const UserForm = () => {
             placeholder="Email"
             autoComplete="off"
             required
-            onChange={() => console.log('submit')}
-            defaultValue={'email'}
+            onChange={onChange}
+            defaultValue={"email"}
           />
         </div>
       </fieldset>
@@ -89,17 +76,17 @@ const UserForm = () => {
             className="pwd-input"
             placeholder="Password"
             required
-            onChange={() => console.log('submit')}
+            onChange={onChange}
           />
         </div>
-        <div className={styles.eye} onClick={() => console.log('submit')}></div>
+        <div className={styles.eye} onClick={showPassword}></div>
       </fieldset>
 
       <div className={styles.buttonsContainer}>
         <button className={styles.login}>Save</button>
 
         <p>Have an account?</p>
-        <button className={styles.signin} onClick={() => console.log('submit')}>
+        <button className={styles.signin} onClick={() => navigate("/login")}>
           Sign in
           <i className="fas fa-user"></i>
         </button>

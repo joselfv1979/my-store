@@ -14,3 +14,8 @@ export const initialUser: User = {
     password: "",
     email: ""
 }
+
+export type AuthRequest = {
+    username: string,
+    password: string,
+}

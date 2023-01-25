@@ -6,12 +6,12 @@ const productRouter = Router(); // creación de la instancia de enrutamiento
 
 productRouter.get('/', getProductList);
 
-productRouter.get('/:id', getProductData);
+productRouter.get('/:id', authHandler, getProductData);
 
-productRouter.post('/product-add', createProduct);
+productRouter.post('/product-add', authHandler, createProduct);
 
 productRouter.put('/product-edit/:id', authHandler, editProduct);
 
-productRouter.delete('/:id', removeProduct)
+productRouter.delete('/:id', authHandler, removeProduct)
 
 export default productRouter; // exportación del enrutador

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserListAction, deleteUserAction } from "../actions/userActions";
 import { connect } from "react-redux";
 import styles from "../scss/UserListPage.module.scss";
 

@@ -1,13 +1,14 @@
 import { Router } from "express";
-const { getUsers, getUserById, getUserData, addNewUser, editUser, removeUser } = require('../controllers/userController');
+import { login } from "../controllers/loginController";
+import { getUsers, getUserById, addNewUser, editUser, removeUser } from '../controllers/userController';
 
 const userRouter = Router(); // creación de la instancia de enrutamiento
 
 userRouter.get('/:id', getUserById);
 
-userRouter.delete('/:id', removeUser);;
+userRouter.delete('/:id', removeUser);
 
-userRouter.post('/sign-in', getUserData);
+userRouter.post('/sign-in', login);
 
 userRouter.post('/sign-up', addNewUser);
 

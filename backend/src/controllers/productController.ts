@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { CustomError } from "../models/CustomError";
 import { IProduct } from "../models/Product";
-import { ProductFilters } from "../models/RequestQuery";
+import { ProductQuery } from "../models/ProductQuery";
 import {
   getFilteredProducts,
   getProduct,
@@ -12,18 +12,14 @@ import {
 import { getRating } from "../utils/productRating";
 
 export const getProductList = async (
-  req: Request<{}, {}, {}, ProductFilters>,
+  req: Request<{}, {}, {}, ProductQuery>,
   res: Response,
   next: NextFunction
 ) => {
-  try {
+  try {    
     const result = await getFilteredProducts(req.query);
-    console.log("Result: ", result);
-
     res.json(result);
   } catch (error) {
-    console.log("Error::::::::::::", error);
-
     next(new CustomError(500, "Couldn't fetch products, try it later"));
   }
 };

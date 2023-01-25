@@ -5,10 +5,11 @@ import {
   addNewUser,
   getUser,
   getUsers,
+  loginUser,
   removeUser,
   updateUser,
 } from "../../services/userService";
-import { User } from "../../types/User";
+import { AuthRequest, User } from "../../types/User";
 import {
   setUserSuccess,
   setUsersSuccess,
@@ -19,6 +20,8 @@ import {
   setUserFail,
   eliminateUserFail,
   modifyUserFail,
+  loginUserSuccess,
+  loginUserFail
 } from "./userSlice";
 
 export const fetchUsers = (): ThunkAction<
@@ -76,5 +79,16 @@ export const editUser = (
     response.success
       ? dispatch(modifyUserSuccess(response.value))
       : dispatch(modifyUserFail(response.message));
+  };
+};
+
+export const login = (
+  user: AuthRequest
+): ThunkAction<void, RootState, unknown, AnyAction> => {
+  return async (dispatch) => {
+    const response = await loginUser(user);
+    response.success
+      ? dispatch(loginUserSuccess(response.value))
+      : dispatch(loginUserFail(response.message));
   };
 };

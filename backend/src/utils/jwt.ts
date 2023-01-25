@@ -18,5 +18,6 @@ export function generateToken(id: string, username: string, role: string) {
   };
 
   // generate JWT
-  return sign(payload, privateKey, signInOptions);
+  const token = sign(payload, privateKey, signInOptions);
+  return token
 };

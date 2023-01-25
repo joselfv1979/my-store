@@ -4,6 +4,7 @@ import { initialUser, User } from "../../types/User";
 export interface UserState {
   users: User[];
   user: User;
+  loggedUser?: User;
   message?: string;
   error: boolean;
   loading: boolean;
@@ -60,6 +61,14 @@ export const userSlice = createSlice({
       state.message = action.payload;
       state.error = true;
     },
+    loginUserSuccess: (state, action: PayloadAction<User>) => {
+      state.loggedUser = action.payload;
+      state.error = true;
+    },
+    loginUserFail: (state, action: PayloadAction<string>) => {
+      state.message = action.payload;
+      state.error = true;
+    },
   },
 });
 
@@ -72,7 +81,9 @@ export const {
   setUserFail,
   createUserFail,
   eliminateUserFail,
-  modifyUserFail
+  modifyUserFail,
+  loginUserSuccess,
+  loginUserFail
 } = userSlice.actions;
 
 export default userSlice.reducer;

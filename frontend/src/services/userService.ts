@@ -1,11 +1,20 @@
 import axios from "axios";
 import { Result } from "../types/Result";
-import { User } from "../types/User";
+import { AuthRequest, User } from "../types/User";
 import { handleError } from "../utils/handleError";
 
 const api = axios.create({
   baseURL: "/users",
 });
+
+export const loginUser = async (credentials: AuthRequest): Promise<Result<User, string>> => {
+  try {
+    const { data } = await api.post("/sign-in", credentials);
+    return { success: true, value: data };
+  } catch (error) {
+    return { success: false, message: handleError(error) };
+  }
+}
 
 export const getUsers = async (): Promise<Result<User[], string>> => {
   try {

@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  getProductsAction,
-  deleteProductAction,
-} from "../actions/productActions";
-import {
-  addToList,
-  addQuantity,
-  subtractQuantity,
-} from "../actions/cartActions";
+
 import ProductList from "../components/ProductList";
 import SearchForm from "../components/SearchForm";
 import styles from "../scss/ProductListPage.module.scss";

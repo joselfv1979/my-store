@@ -13,35 +13,36 @@ export const getUserDataById = async (id: string) => {
   return execute(sql, [id]);
 };
 
-export const getUser = async (username: string, password: string) => {
+export const loginUser = async (username: string, password: string) => {
   const sql = "select * from users where username = ? and password = sha1(?)";
 
   return execute(sql, [username, password]);
 };
 
 export const addUser = async (user: IUser) => {
-  const { username, email, password, roles, image } = user;
+  const { fullname, username, email, password, roles, image } = user;
   const sql =
-    "insert into users (username, email, sha1(password), roles, image) values (?, ?, sha1(?), ?)";
+    "insert into users (fullname, username, email, password, role, image) values (?, ?, ?, sha1(?), ?, ?)";
 
   const result = await execute(sql, [
+    fullname,
     username,
     email,
     password,
-    roles,
+    roles[0],
     image,
   ]);
   return result;
 };
 
 export const updateUser = async (id: string, user: IUser) => {
-  const { username, email, roles, image } = user;
-  const sql = "update users set username = ?, email = ? where id = ?";
+  const { fullname, username, email, image } = user;
+  const sql = "update users set fullname = ?, username = ?, email = ?, image = ? where id = ?";
 
   const result = await execute(sql, [
+    fullname,
     username,
     email,
-    roles,
     image,
     id,
   ]);

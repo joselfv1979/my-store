@@ -1,11 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import {
-  addProductAction,
-  editProductAction,
-} from "../actions/productActions";
-import { setError } from "../actions/messageActions";
-import axios from "axios";
+import { useState } from "react";
 import { AppWaiting } from "../components/AppStatus";
 import ProductForm from "../components/ProductForm";
 

@@ -8,7 +8,7 @@ export interface AuthRequest extends Request {
 }
 
 const authHandler = (
-  request: Request,
+  request: AuthRequest,
   response: Response,
   next: NextFunction
 ) => {
@@ -41,7 +41,7 @@ const authHandler = (
 
   const { id: userId } = decodedToken;
 
-  //request.userId = userId;
+  request.userId = userId;
 
   next();
 };

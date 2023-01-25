@@ -3,8 +3,6 @@ import axios from "axios";
 import { getAuthToken } from "../utils/localStorage";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
-import { updateUserAction } from "../actions/userActions";
-import { setError } from "../actions/messageActions";
 import styles from "../scss/EditUserPage.module.scss";
 
 //{ match, dispatch, user }

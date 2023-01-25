@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppWaiting } from "../components/AppStatus";
 import Product from "../components/Product";
-import { getProductAction } from "../actions/productActions";
 import styles from "../scss/ProductDetailPage.module.scss";
 
 // ProductDetail View
