@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { connect } from "react-redux";
-import { useState } from "react";
 import Cart from "../components/Cart";
 import styles from "./../scss/CartPage.module.scss";
 

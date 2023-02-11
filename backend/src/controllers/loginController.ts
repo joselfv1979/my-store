@@ -8,7 +8,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     const { username, password } = req.body;
     const result = await loginUser(username, password);
 
-    let user = result[0];
+    const user = result;
     
     if (!user) {
       return next(new CustomError(401, "Invalid credentials"));

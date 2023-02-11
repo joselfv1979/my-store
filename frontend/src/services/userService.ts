@@ -39,6 +39,8 @@ export const addNewUser = async (
 ): Promise<Result<User, string>> => {
   try {
     const { data } = await api.post(`/sign-up/`, user);
+    console.log("created user", data);
+    
     return { success: true, value: data };
   } catch (error) {
     return { success: false, message: handleError(error) };

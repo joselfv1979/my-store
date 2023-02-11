@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import express, { NextFunction } from "express";
+import express from "express";
 import cors from "cors";
 import path from "path";
 import helmet from 'helmet';
@@ -14,7 +14,7 @@ dotenv.config();
 const app = express();
 
 // create database pool
-MySQLConnector.init();
+//MySQLConnector.init();
 
 app.use(morgan("dev"));
 // adding set of security middlewares

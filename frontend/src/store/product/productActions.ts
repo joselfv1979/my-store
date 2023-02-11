@@ -8,7 +8,6 @@ import {
   removeProduct,
   updateProduct,
 } from "../../services/productService";
-import { Product } from "../../types/Product";
 import {
   setProductSuccess,
   setProductsSuccess,
@@ -38,7 +37,7 @@ export const fetchProducts = (): ThunkAction<
 export const fetchProduct = (
   id: string
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
+  return async (dispatch) => {    
     const response = await getProduct(id);
     response.success
       ? dispatch(setProductSuccess(response.value))
@@ -47,9 +46,9 @@ export const fetchProduct = (
 };
 
 export const addProduct = (
-  product: Product
+  product: FormData
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
+  return async (dispatch) => {    
     const response = await addNewProduct(product);
     response.success
       ? dispatch(createProductSuccess(response.value))
@@ -69,7 +68,7 @@ export const deleteProduct = (
 };
 
 export const editProduct = (
-  product: Product
+  product: FormData
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {
     const response = await updateProduct(product);

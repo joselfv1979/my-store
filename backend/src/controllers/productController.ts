@@ -47,7 +47,7 @@ export const createProduct = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {
+  try {    
     const { name, description, category, price } = req.body;
 
     if (!name || !description || !category || !price) {
@@ -81,6 +81,9 @@ export const editProduct = async (
 ) => {
   try {
     const { id } = req.params;
+    console.log('id', id);
+    
+    console.log('req',req.body);
     const { name, description, category, price } = req.body;
 
     if (!name || !description || !category || !price) {

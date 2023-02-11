@@ -69,6 +69,9 @@ export const userSlice = createSlice({
       state.message = action.payload;
       state.error = true;
     },
+    logoutUser: (state) => {
+      state.loggedUser = undefined;
+    },
   },
 });
 
@@ -83,7 +86,8 @@ export const {
   eliminateUserFail,
   modifyUserFail,
   loginUserSuccess,
-  loginUserFail
+  loginUserFail,
+  logoutUser
 } = userSlice.actions;
 
 export default userSlice.reducer;

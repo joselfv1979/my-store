@@ -1,29 +1,14 @@
-import React from "react";
 import SingleProduct from "./Product";
-import AdminButtons from "./AdminButtons";
-import UserButtons from "./UserButtons";
-import styles from "../scss/ProductListPage.module.scss";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { useEffect } from "react";
 import { fetchProducts } from "../store/product/productActions";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
-// {
-//   addToList,
-//   subtractQuantity,
-//   addQuantity,
-//   products,
-//   showEffectDetail,
-//   user,
-//   deleteProduct,
-//   showProductDetail,
-// }
+import { storedProductList } from "../store/product/productSlice";
 
 const ProductList = () => {
   const dispatch = useAppDispatch();
-  const products = useAppSelector((state) => state.product.products);
+  const products = useAppSelector(storedProductList);
   console.log("products: ", products);
 
   useEffect(() => {
@@ -41,21 +26,5 @@ const ProductList = () => {
     </Row>
   );
 };
-
-// return (
-//   <>
-//     {products.length ? (
-//       <div className={styles.list}>
-//         <ul className={styles.ul}>
-//           <List />
-//         </ul>
-//       </div>
-//     ) : (
-//       <div className={styles.notFound}>
-//         <p>No products found</p>
-//       </div>
-//     )}
-//   </>
-// );
 
 export default ProductList;

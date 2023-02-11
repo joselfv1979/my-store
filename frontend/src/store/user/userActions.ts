@@ -21,7 +21,8 @@ import {
   eliminateUserFail,
   modifyUserFail,
   loginUserSuccess,
-  loginUserFail
+  loginUserFail,
+  logoutUser
 } from "./userSlice";
 
 export const fetchUsers = (): ThunkAction<
@@ -87,8 +88,18 @@ export const login = (
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {
     const response = await loginUser(user);
-    response.success
-      ? dispatch(loginUserSuccess(response.value))
-      : dispatch(loginUserFail(response.message));
+    if(response.success) {
+      dispatch(loginUserSuccess(response.value))
+      localStorage.setItem('token', JSON.stringify(response.value.token))
+    } else {
+      dispatch(loginUserFail(response.message));
+    }
   };
 };
+
+export const logout = (): ThunkAction<void, RootState, unknown, AnyAction>  => {
+  return async (dispatch) => {
+    localStorage.removeItem('token');
+    dispatch(logoutUser());
+  }
+}

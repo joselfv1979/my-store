@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import ProductListPage from "./pages/ProductListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ProductFormPage from "./pages/ProductFormPage";
+import ProductEditPage from "./pages/ProductEditPage";
 import LoginPage from "./pages/LoginPage";
 import UserAddPage from "./pages/UserAddPage";
 import UserEdit from "./pages/UserEditPage";
@@ -24,7 +25,7 @@ function App() {
           <Route path="/" element={<ProductListPage />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/new-product" element={<ProductFormPage />} />
-          <Route path="/edit-product/:id" element={<ProductFormPage />} />
+          <Route path="/edit-product/:id" element={<ProductEditPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<UserAddPage />} />
           <Route path="/users" element={<UserListPage />} />

@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { initialProduct, Product } from "../../types/Product";
+import { RootState } from "..";
+import { Product } from "../../types/Product";
 
 export interface ProductState {
   products: Product[];
-  product: Product;
+  product: Product | null;
   message?: string;
   error: boolean;
   loading: boolean;
@@ -11,7 +12,7 @@ export interface ProductState {
 
 const initialProductState: ProductState = {
   products: [],
-  product: initialProduct,
+  product: null,
   error: false,
   loading: false,
 };
@@ -62,6 +63,9 @@ export const productSlice = createSlice({
     },
   },
 });
+
+export const storedProduct = (state: RootState) => state.product.product;
+export const storedProductList = (state: RootState) => state.product.products;
 
 export const {
   setProductsSuccess,

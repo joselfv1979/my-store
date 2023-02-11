@@ -1,22 +1,26 @@
+import { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import { IUser } from "../models/User";
-import { execute } from "../utils/database";
+import { promisePool } from "../utils/database";
 
 export const getAllUsers = async () => {
   const sql = "select * from users";
-
-  return execute(sql, []);
+  const [rows] = await promisePool.query<RowDataPacket[]>(sql);
+  return rows;
 };
 
 export const getUserDataById = async (id: string) => {
   const sql = "select * from users where id = ?";
-
-  return execute(sql, [id]);
+  const [rows] = await promisePool.query<RowDataPacket[]>(sql, [id]);
+  return rows[0];
 };
 
 export const loginUser = async (username: string, password: string) => {
   const sql = "select * from users where username = ? and password = sha1(?)";
-
-  return execute(sql, [username, password]);
+  const [rows] = await promisePool.query<RowDataPacket[]>(sql, [
+    username,
+    password,
+  ]);
+  return rows[0];
 };
 
 export const addUser = async (user: IUser) => {
@@ -24,7 +28,7 @@ export const addUser = async (user: IUser) => {
   const sql =
     "insert into users (fullname, username, email, password, role, image) values (?, ?, ?, sha1(?), ?, ?)";
 
-  const result = await execute(sql, [
+  const [{ affectedRows }] = await promisePool.query<ResultSetHeader>(sql, [
     fullname,
     username,
     email,
@@ -32,40 +36,43 @@ export const addUser = async (user: IUser) => {
     roles[0],
     image,
   ]);
-  return result;
+
+  console.log("result", affectedRows);
+
+  return affectedRows;
 };
 
 export const updateUser = async (id: string, user: IUser) => {
   const { fullname, username, email, image } = user;
-  const sql = "update users set fullname = ?, username = ?, email = ?, image = ? where id = ?";
+  const sql =
+    "update users set fullname = ?, username = ?, email = ?, image = ? where id = ?";
 
-  const result = await execute(sql, [
+  const [{ affectedRows }] = await promisePool.query<ResultSetHeader>(sql, [
     fullname,
     username,
     email,
     image,
     id,
   ]);
-  return result;
+  return affectedRows;
 };
 
 export const deleteUser = async (id: string) => {
   const sql = "delete from users where id = ?";
-
-  const result = await execute(sql, [id]);
-  return result;
+  const [{ affectedRows }] = await promisePool.query<ResultSetHeader>(sql, [
+    id,
+  ]);
+  return affectedRows;
 };
 
 export const usernameExist = async (username: string) => {
   const sql = "SELECT id FROM users WHERE username = ?";
-
-  const result = await execute(sql, [username]);
-  return result;
+  const [rows] = await promisePool.query<RowDataPacket[]>(sql, [username]);
+  return rows[0];
 };
 
 export const emailExist = async (email: string) => {
   const sql = "SELECT id FROM users WHERE email = ?";
-
-  const result = await execute(sql, [email]);
-  return result;
+  const [rows] = await promisePool.query<RowDataPacket[]>(sql, [email]);
+  return rows[0];
 };

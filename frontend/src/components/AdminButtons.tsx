@@ -1,14 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../hooks/redux-hooks";
 import styles from "../scss/AdminButtons.module.scss";
 import { deleteProduct } from "../store/product/productActions";
 
 type Props = {
-  id: string,
-}
+  id: string;
+};
 
 const AdminButtons = ({ id }: Props) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   return (
     <div className={styles.admin}>
@@ -20,7 +22,7 @@ const AdminButtons = ({ id }: Props) => {
         className={styles.remove}
         onClick={() => {
           if (window.confirm("Are you sure to delete?")) {
-            deleteProduct(id);
+            dispatch(deleteProduct(id));
           }
         }}
       >

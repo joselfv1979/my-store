@@ -1,9 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { CustomError } from "../models/CustomError";
-import { generateToken } from "../utils/jwt";
 import {
   getAllUsers,
-  getUser,
   getUserDataById,
   addUser,
   deleteUser,
@@ -13,7 +11,11 @@ import {
 } from "../services/userService";
 import { IUser } from "../models/User";
 
-export const getUsers = async (req: Request, res: Response, next: NextFunction) => {
+export const getUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const users = await getAllUsers();
     res.json(users);
@@ -22,7 +24,11 @@ export const getUsers = async (req: Request, res: Response, next: NextFunction) 
   }
 };
 
-export const getUserById = async (req: Request, res: Response, next: NextFunction) => {
+export const getUserById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { id } = req.params;
 
@@ -37,7 +43,11 @@ export const getUserById = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-export const addNewUser = async (req: Request, res: Response, next: NextFunction) => {
+export const addNewUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { fullname, username, email, password, roles } = req.body;
     const photo = req.file ? req.file.path : "";
@@ -72,7 +82,11 @@ export const addNewUser = async (req: Request, res: Response, next: NextFunction
   }
 };
 
-export const editUser = async (req: Request, res: Response, next: NextFunction) => {
+export const editUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { id } = req.params;
     const { fullname, username, email, image } = req.body;
@@ -92,7 +106,11 @@ export const editUser = async (req: Request, res: Response, next: NextFunction) 
   }
 };
 
-export const removeUser = async (req: Request, res: Response, next: NextFunction) => {
+export const removeUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { id } = req.params;
     if (!id) return next(new CustomError(400, "Bad request"));

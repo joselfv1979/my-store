@@ -4,7 +4,8 @@ export type Product = {
     category: string,
     description: string,
     price: number,
-    image?: string
+    image?: File;
+    imagePath: string;
     rating?: number
 }
 
@@ -12,5 +13,6 @@ export const initialProduct: Product = {
     name: "",
     description: "",
     category: "",
-    price: 0
+    price: 0,
+    imagePath: ""
 }

@@ -47,7 +47,23 @@ const UserForm = ({ saveUser }: Props) => {
             required
             autoFocus
             onChange={onChange}
-            defaultValue={"username"}
+            defaultValue={""}
+          />
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <div className={styles.user}>
+          <input
+            type="text"
+            name="fullname"
+            id="fullname"
+            placeholder="Full name"
+            autoComplete="off"
+            required
+            autoFocus
+            onChange={onChange}
+            defaultValue={""}
           />
         </div>
       </fieldset>
@@ -62,7 +78,7 @@ const UserForm = ({ saveUser }: Props) => {
             autoComplete="off"
             required
             onChange={onChange}
-            defaultValue={"email"}
+            defaultValue={""}
           />
         </div>
       </fieldset>
