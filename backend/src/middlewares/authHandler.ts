@@ -11,7 +11,7 @@ const authHandler = (
   request: AuthRequest,
   response: Response,
   next: NextFunction
-) => {
+) => {  
   const authorization = request.get("authorization");
 
   if (!authorization) {
@@ -23,7 +23,7 @@ const authHandler = (
   if (authorization.toLowerCase().startsWith("bearer")) {
     token = authorization.substring(7);
   }
-
+  
   if (
     !token ||
     token.length === 0 ||

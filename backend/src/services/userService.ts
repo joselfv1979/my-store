@@ -37,8 +37,6 @@ export const addUser = async (user: IUser) => {
     image,
   ]);
 
-  console.log("result", affectedRows);
-
   return affectedRows;
 };
 

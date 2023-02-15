@@ -1,5 +1,4 @@
-import { log } from "console";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ProductForm from "../components/ProductForm";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
@@ -11,7 +10,6 @@ const ProductEditPage = () => {
 
   const dispatch = useAppDispatch();
   const product = useAppSelector(storedProduct);
-  console.log("produc", product)
 
   useEffect(() => {
     if (id) dispatch(fetchProduct(id));

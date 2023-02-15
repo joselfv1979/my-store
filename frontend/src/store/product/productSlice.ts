@@ -28,6 +28,9 @@ export const productSlice = createSlice({
       state.products = action.payload;
       state.loading = false;
     },
+    setProductPending: (state) => {
+      state.product = null;
+    },
     setProductSuccess: (state, action: PayloadAction<Product>) => {
       state.product = action.payload;
     },
@@ -56,6 +59,7 @@ export const productSlice = createSlice({
       state.products = state.products.map((item: Product) =>
         item.id === action.payload.id ? action.payload : item
       );
+      state.product = action.payload;
     },
     modifyProductFail: (state, action: PayloadAction<string>) => {
       state.message = action.payload;
@@ -69,6 +73,7 @@ export const storedProductList = (state: RootState) => state.product.products;
 
 export const {
   setProductsSuccess,
+  setProductPending,
   setProductSuccess,
   createProductSuccess,
   eliminateProductSuccess,

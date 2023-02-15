@@ -18,6 +18,7 @@ import {
   setProductFail,
   eliminateProductFail,
   modifyProductFail,
+  setProductPending,
 } from "./productSlice";
 
 export const fetchProducts = (): ThunkAction<
@@ -38,7 +39,9 @@ export const fetchProduct = (
   id: string
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {    
-    const response = await getProduct(id);
+    dispatch(setProductPending());
+    
+    const response = await getProduct(id);    
     response.success
       ? dispatch(setProductSuccess(response.value))
       : dispatch(setProductFail(response.message));
@@ -72,6 +75,8 @@ export const editProduct = (
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {
     const response = await updateProduct(product);
+    console.log(response);
+    
     response.success
       ? dispatch(modifyProductSuccess(response.value))
       : dispatch(modifyProductFail(response.message));

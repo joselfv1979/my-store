@@ -29,7 +29,7 @@ export const getProductData = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {
+  try {    
     const { id } = req.params;
     if (!id) return next(new CustomError(400, "Bad request"));
 
@@ -81,9 +81,6 @@ export const editProduct = async (
 ) => {
   try {
     const { id } = req.params;
-    console.log('id', id);
-    
-    console.log('req',req.body);
     const { name, description, category, price } = req.body;
 
     if (!name || !description || !category || !price) {

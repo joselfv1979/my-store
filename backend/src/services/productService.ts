@@ -28,7 +28,6 @@ export const getProduct = async (id: string) => {
 
 export const addProduct = async (product: IProduct) => {
   const { name, category, description, price, rating, image } = product;
-  console.log("product", product);
 
   const sql =
     "insert into products (name, description, category, price, rating, image) values (?, ?, ?, ?, ?, ?)";
