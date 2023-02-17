@@ -30,9 +30,12 @@ export const productSlice = createSlice({
     },
     setProductPending: (state) => {
       state.product = null;
+      state.loading = true;
+      state.message = undefined;
     },
     setProductSuccess: (state, action: PayloadAction<Product>) => {
       state.product = action.payload;
+      state.loading = false
     },
     setProductFail: (state, action: PayloadAction<string>) => {
       state.message = action.payload;
@@ -65,6 +68,9 @@ export const productSlice = createSlice({
       state.message = action.payload;
       state.error = true;
     },
+    eliminateProductMessage: (state) => {
+      state.message = undefined;
+    }
   },
 });
 
@@ -81,7 +87,8 @@ export const {
   setProductFail,
   createProductFail,
   eliminateProductFail,
-  modifyProductFail
+  modifyProductFail,
+  eliminateProductMessage
 } = productSlice.actions;
 
 export default productSlice.reducer;

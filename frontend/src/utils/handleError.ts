@@ -6,5 +6,5 @@ export const handleError = (error: unknown): string => {
     return error.response?.data;
   }
 
-  return "something went wrong!";
+  return "Couldn't perform action, try it later!";
 };

@@ -22,7 +22,7 @@ export const getProduct = async (
   id: string
 ): Promise<Result<Product, string>> => {
   try {   
-    const { data } = await api.get(`/${id}`, { headers: getHeaders() });
+    const { data } = await api.get(`/${id}9`, { headers: getHeaders() });
     return { success: true, value: data };
   } catch (error) {
     return { success: false, message: handleError(error) };

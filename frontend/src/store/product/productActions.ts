@@ -19,6 +19,7 @@ import {
   eliminateProductFail,
   modifyProductFail,
   setProductPending,
+  eliminateProductMessage,
 } from "./productSlice";
 
 export const fetchProducts = (): ThunkAction<
@@ -42,9 +43,11 @@ export const fetchProduct = (
     dispatch(setProductPending());
     
     const response = await getProduct(id);    
-    response.success
+    setTimeout(() => {
+      response.success
       ? dispatch(setProductSuccess(response.value))
       : dispatch(setProductFail(response.message));
+    }, 3000)
   };
 };
 
@@ -82,3 +85,7 @@ export const editProduct = (
       : dispatch(modifyProductFail(response.message));
   };
 };
+
+export const cancelProductMessage = (): ThunkAction<void, RootState, unknown, AnyAction> => {
+  return async (dispatch) => dispatch(eliminateProductMessage());
+}

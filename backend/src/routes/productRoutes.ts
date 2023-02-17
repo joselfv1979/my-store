@@ -5,7 +5,7 @@ import imageHandler from "../middlewares/imageHandler";
 
 const productRouter = Router(); // creación de la instancia de enrutamiento
 
-productRouter.get('/:id', authHandler, getProductData);
+productRouter.get('/:id', getProductData);
 
 productRouter.post('/product-add', imageHandler.single("image"), createProduct);
 

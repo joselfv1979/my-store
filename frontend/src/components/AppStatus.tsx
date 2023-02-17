@@ -3,15 +3,16 @@ import { Message } from '../types/Message';
 import spinner from "./../puff.svg";
 
 type Props = {
-  message: Message,
-  removeMessage: () => void
+  message: string,
+ // removeMessage: () => void
 }
 
-const AppMessage = ({ message, removeMessage }: Props) => {
+const AppMessage = ({ message }: Props) => {
   return (
-    <div className={styles[`${message.type}`]}>
-      <p className={styles.message}>{message.message}</p>
-      <span className={styles.close} onClick={() => removeMessage()}>
+    <div className={styles[`error`]}>
+      <p className={styles.message}>{message}</p>
+      <span className={styles.close} onClick={() => console.log('close')
+      }>
         x
       </span>
     </div>
