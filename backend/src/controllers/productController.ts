@@ -54,7 +54,9 @@ export const createProduct = async (
       return next(new CustomError(400, "Bad request"));
     }
 
-    const image = req.file ? req.file.path : "";
+    const imagePath = req.file ? req.file.path : "";
+    imagePath.replace("/public", "/static");
+
     const rating = getRating();
 
     const newProduct: IProduct = {
@@ -63,7 +65,7 @@ export const createProduct = async (
       category,
       price,
       rating,
-      image,
+      imagePath,
     };
 
     const product = await addProduct(newProduct);
@@ -81,20 +83,18 @@ export const editProduct = async (
 ) => {
   try {
     const { id } = req.params;
-    const { name, description, category, price } = req.body;
+    const { name, description, category, price, image } = req.body;
 
     if (!name || !description || !category || !price) {
       return next(new CustomError(400, "Bad request"));
     }
 
-    const image = req.file ? req.file.path : "";
-
-    const newBody = { ...req.body, image };
-
-    const product = await updateProduct(id, newBody);
+    const imagePath = req.file ? req.file.path.replace("public", "static") : image;
+    
+    const product = await updateProduct(id, { ...req.body, imagePath });
 
     return res.status(200).json(product);
-  } catch (error) {
+  } catch (error) {        
     next(new CustomError(500, "Couldn't update product, try it later"));
   }
 };

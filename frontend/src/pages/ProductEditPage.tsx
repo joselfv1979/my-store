@@ -1,21 +1,28 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ProductForm from "../components/ProductForm";
-import { AppWaiting } from "../components/AppStatus";
+import { AppMessage, AppWaiting } from "../components/AppStatus";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { cancelProductMessage, editProduct, fetchProduct } from "../store/product/productActions";
-import Alert from "react-bootstrap/Alert";
-import Container from "react-bootstrap/Container";
-//import { storedProduct } from "../store/product/productSlice";
+import {
+  cancelProductMessage,
+  editProduct,
+  fetchProduct,
+} from "../store/product/productActions";
+import { Message } from "../types/Message";
 
 const ProductEditPage = () => {
   const { id } = useParams();
 
   const dispatch = useAppDispatch();
-  // const product = useAppSelector(storedProduct);
-  const { loading, product, message } = useAppSelector(
+
+  const { loading, product, message, error } = useAppSelector(
     (state) => state.product
   );
+
+  const note: Message = {
+    type: error ? 'danger' : 'success',
+    text: error || message
+  }
 
   useEffect(() => {
     if (id) dispatch(fetchProduct(id));
@@ -26,18 +33,15 @@ const ProductEditPage = () => {
   };
 
   const cancelMessage = () => {
-    dispatch(cancelProductMessage())
-  }
+    dispatch(cancelProductMessage());
+  };
+
   return (
-    <Container>
+    <>
       {loading && <AppWaiting />}
-      {message && (
-        <Alert variant="danger" onClose={() => cancelMessage()} dismissible>
-          {message}
-        </Alert>
-      )}
+      {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
       {product && <ProductForm saveProduct={saveProduct} />}
-    </Container>
+    </>
   );
 };
 

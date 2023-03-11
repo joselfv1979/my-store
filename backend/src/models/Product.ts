@@ -5,6 +5,6 @@ export interface IProduct {
   category: string;
   price: number;
   rating: number;
-  image: string;
+  imagePath: string;
 }
 

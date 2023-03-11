@@ -1,54 +1,68 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { AppWaiting } from "../components/AppStatus";
-import Product from "../components/Product";
+import { Card } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import { AppMessage, AppWaiting } from "../components/AppStatus";
+import StarRating from "../components/StarRating";
+import UserButtons from "../components/UserButtons";
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import styles from "../scss/ProductDetailPage.module.scss";
+import { cancelProductMessage, fetchProduct } from "../store/product/productActions";
+import { Message } from "../types/Message";
 
-// ProductDetail View
-//{ match, location, dispatch, product, loading }
 const ProductDetailPage = () => {
-  // const id = match.params.id;
 
-  const navigate = useNavigate();
+//  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //  dispatch(getProductAction(id));
-  // }, [dispatch, id]);
+  const { id } = useParams();
+
+  const dispatch = useAppDispatch();
+
+  const { loading, product, message, error } = useAppSelector(
+    (state) => state.product
+  );
+
+  const note: Message = {
+    type: error ? "danger" : "success",
+    text: error || message,
+  };
+  
+  const image = product?.imagePath ? `${process.env.REACT_APP_API_IMAGES}/${product.imagePath}` : 'jj';
+  
+  useEffect(() => {
+    if (id) dispatch(fetchProduct(id));
+    console.log('id', id);
+    
+  }, [dispatch, id]);
+
+  const cancelMessage = () => {
+    dispatch(cancelProductMessage());
+  };
 
   return (
     <>
-      {1 && <AppWaiting />}
-      {3 && (
-        <div className={styles.modal}>
-          <div className={styles.modalBox}>
-            <h1>Product Detail</h1>
-            <div className={styles.container}>
-              {/* <Product /> */}
-            </div>
-            <div className={styles.description}>
-              <h3>Product description:</h3>
-              <p>
-                <span>{'description'}. </span>
-                Lorem ipsum dolor sit, amet consectetur
-                adipisicing elit. Consequuntur a alias quia corporis consequatur
-                facilis magni repellat, ab optio maxime pariatur nemo at eveniet
-                sed, consectetur molestias eligendi, necessitatibus accusamus.
-              </p>
-            </div>
-            <button onClick={() => navigate("/")}>Close</button>
-          </div>
-        </div>
+      {loading && <AppWaiting />}
+      {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
+      {product && (
+        <Card className={styles.detail}>
+        <Card.Img
+          variant="top"
+          className={styles.cardImg}
+          src={image}
+          alt={product.name}
+        />
+        <Card.Body className={styles.data}>
+          <Card.Title>{product.name}</Card.Title>
+          <Card.Title>Price: {product.price} €</Card.Title>
+          <StarRating />
+          <Card.Text>{product.description}</Card.Text>
+        </Card.Body>
+        <Card.Footer className={styles.buttonGroup}>
+          <UserButtons />
+        </Card.Footer>
+      </Card>
       )}
     </>
   );
 };
 
-// const mapStateToProps = (state) => ({
-//   error: state.message.error,
-//   product: state.product.product,
-//   loading: state.product.loading,
-// });
-
-// export default connect(mapStateToProps)(ProductDetailPage);
 export default ProductDetailPage;

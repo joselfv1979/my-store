@@ -24,6 +24,8 @@ footer {
 main {
   display: flex;
   flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   min-height: 84vh;
   width: 100%;

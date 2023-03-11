@@ -8,19 +8,9 @@ import {
   removeProduct,
   updateProduct,
 } from "../../services/productService";
-import {
-  setProductSuccess,
-  setProductsSuccess,
-  createProductSuccess,
-  eliminateProductSuccess,
-  modifyProductSuccess,
-  createProductFail,
-  setProductFail,
-  eliminateProductFail,
-  modifyProductFail,
-  setProductPending,
-  eliminateProductMessage,
-} from "./productSlice";
+import { productSlice } from "./productSlice";
+
+const { actions } = productSlice;
 
 export const fetchProducts = (): ThunkAction<
   void,
@@ -29,10 +19,13 @@ export const fetchProducts = (): ThunkAction<
   AnyAction
 > => {
   return async (dispatch) => {
+    dispatch(actions.productPending());
     const response = await getProducts();
-    response.success
-      ? dispatch(setProductsSuccess(response.value))
-      : dispatch(createProductFail(response.message));
+    setTimeout(() => {
+      response.success
+      ? dispatch(actions.setProductsSuccess(response.value))
+      : dispatch(actions.createProductFail(response.message));
+    }, 2500)
   };
 };
 
@@ -40,13 +33,13 @@ export const fetchProduct = (
   id: string
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {    
-    dispatch(setProductPending());
+    dispatch(actions.productPending());
     
     const response = await getProduct(id);    
     setTimeout(() => {
       response.success
-      ? dispatch(setProductSuccess(response.value))
-      : dispatch(setProductFail(response.message));
+      ? dispatch(actions.setProductSuccess(response.value))
+      : dispatch(actions.setProductFail(response.message));
     }, 3000)
   };
 };
@@ -57,8 +50,8 @@ export const addProduct = (
   return async (dispatch) => {    
     const response = await addNewProduct(product);
     response.success
-      ? dispatch(createProductSuccess(response.value))
-      : dispatch(createProductFail(response.message));
+      ? dispatch(actions.createProductSuccess(response.value))
+      : dispatch(actions.createProductFail(response.message));
   };
 };
 
@@ -68,8 +61,8 @@ export const deleteProduct = (
   return async (dispatch) => {
     const response = await removeProduct(id);
     response.success
-      ? dispatch(eliminateProductSuccess(id))
-      : dispatch(eliminateProductFail(response.message));
+      ? dispatch(actions.eliminateProductSuccess(id))
+      : dispatch(actions.eliminateProductFail(response.message));
   };
 };
 
@@ -81,11 +74,11 @@ export const editProduct = (
     console.log(response);
     
     response.success
-      ? dispatch(modifyProductSuccess(response.value))
-      : dispatch(modifyProductFail(response.message));
+      ? dispatch(actions.modifyProductSuccess(response.value))
+      : dispatch(actions.modifyProductFail(response.message));
   };
 };
 
 export const cancelProductMessage = (): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => dispatch(eliminateProductMessage());
+  return async (dispatch) => dispatch(actions.eliminateProductMessage());
 }

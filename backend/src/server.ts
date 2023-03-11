@@ -19,6 +19,7 @@ const app = express();
 app.use(morgan("dev"));
 // adding set of security middlewares
 app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 // parse incoming request body and append data to `req.body`
 app.use(express.json()); 
@@ -28,10 +29,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Serve static files
-app.use(
-    process.env.PUBLIC_PATH as string,
-    express.static(path.join(__dirname, process.env.UPLOADS_DIR as string))
-);
+// app.use(
+//    // process.env.PUBLIC_PATH as string,
+//    './../public/images',
+//     express.static(path.join(__dirname, process.env.UPLOADS_DIR as string))
+// );
+app.use("/static/images", express.static(path.join(__dirname, "..", "public", "images")));
 
 // Routes
 app.use('/users', usersRouter);  

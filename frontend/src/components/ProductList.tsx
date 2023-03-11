@@ -9,18 +9,16 @@ import { storedProductList } from "../store/product/productSlice";
 const ProductList = () => {
   const dispatch = useAppDispatch();
   const products = useAppSelector(storedProductList);
-  console.log("products: ", products);
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
-
+  
   return (
-    <Row xs={1} md={2} className="g-4">
+    <Row>
       {products.map((product) => (
-        <Col md="auto" key={product.id}>
+        <Col key={product.id}>
           <SingleProduct product={product} />
-          {/* {"admin" ? <AdminButtons id={"1"} /> : <UserButtons />} */}
         </Col>
       ))}
     </Row>

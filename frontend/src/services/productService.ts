@@ -6,10 +6,11 @@ import { castFormDataToProduct } from "../utils/castFormData";
 import { handleError } from "../utils/handleError";
 
 const api = axios.create({
-  baseURL: "/products",
+  baseURL: process.env.REACT_APP_API_PRODUCTS,
 });
 
 export const getProducts = async (): Promise<Result<Product[], string>> => {
+  
   try {
     const { data } = await api.get("/");
     return { success: true, value: data };
@@ -21,8 +22,10 @@ export const getProducts = async (): Promise<Result<Product[], string>> => {
 export const getProduct = async (
   id: string
 ): Promise<Result<Product, string>> => {
+  console.log('id', id);
+  
   try {   
-    const { data } = await api.get(`/${id}9`, { headers: getHeaders() });
+    const { data } = await api.get(`/${id}`);
     return { success: true, value: data };
   } catch (error) {
     return { success: false, message: handleError(error) };

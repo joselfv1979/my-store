@@ -1,4 +1,4 @@
 export type Message = {
-    type: string,
-    message: string
+    type: 'danger' | 'success',
+    text: string | undefined
 }

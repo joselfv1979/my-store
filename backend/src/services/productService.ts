@@ -27,10 +27,10 @@ export const getProduct = async (id: string) => {
 };
 
 export const addProduct = async (product: IProduct) => {
-  const { name, category, description, price, rating, image } = product;
+  const { name, category, description, price, rating, imagePath } = product;
 
   const sql =
-    "insert into products (name, description, category, price, rating, image) values (?, ?, ?, ?, ?, ?)";
+    "insert into products (name, description, category, price, rating, imagePath) values (?, ?, ?, ?, ?, ?)";
 
   const [{ affectedRows }] = await promisePool.query<ResultSetHeader>(sql, [
     name,
@@ -38,23 +38,23 @@ export const addProduct = async (product: IProduct) => {
     category,
     price,
     rating,
-    image,
+    imagePath,
   ]);
   return affectedRows;
 };
 
 export const updateProduct = async (id: string, product: IProduct) => {
-  const { name, description, category, price, image } = product;
+  const { name, description, category, price, imagePath } = product;  
 
   const sql =
-    "update products set name = ?, description = ?, category = ?, price = ?, image = ? where id = ?";
+    "update products set name = ?, description = ?, category = ?, price = ?, imagePath = ? where id = ?";
 
   const [{ affectedRows }] = await promisePool.query<ResultSetHeader>(sql, [
     name,
     description,
     category,
     price,
-    image,
+    imagePath,
     id,
   ]);
   return affectedRows;

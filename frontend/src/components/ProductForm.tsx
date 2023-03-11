@@ -10,23 +10,17 @@ type Props = {
   saveProduct: (data: FormData) => Promise<void>;
 };
 const ProductForm = ({ saveProduct }: Props) => {
-
   const stateProduct = useAppSelector((state) => state.product.product);
 
   const currentProduct = stateProduct ? stateProduct : initialProduct;
-  console.log('current',{currentProduct});
-  
-  
+
   const [product, setProduct] = useState<Product>(currentProduct);
 
   const handleInputEvent = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log('prop', event.target.value);
-    
     setProduct({ ...product, [event.target.name]: event.target.value });
   };
 
   const handleSelectEvent = (event: ChangeEvent<HTMLSelectElement>) => {
-    console.log('prop', event.target.value);
     setProduct({ ...product, [event.target.name]: event.target.value });
   };
 
@@ -37,10 +31,10 @@ const ProductForm = ({ saveProduct }: Props) => {
   const fileInput = useRef<HTMLInputElement>(null);
 
   const handleImage = (event: ChangeEvent<HTMLInputElement>) => {
-    const target = event.target as HTMLInputElement;
+    const { files } = event.target as HTMLInputElement;
 
-    if (target.files) {
-      setProduct({ ...product, image: target.files[0] });
+    if (files) {
+      setProduct({ ...product, image: files[0] });
       // const reader = new FileReader();
       // reader.onloadend = () => {
       //     setPreview(reader.result as string);
@@ -55,7 +49,7 @@ const ProductForm = ({ saveProduct }: Props) => {
 
   const sendDataProduct = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
+
     const productData = castProductToFormData(product);
 
     await saveProduct(productData);
@@ -81,8 +75,13 @@ const ProductForm = ({ saveProduct }: Props) => {
 
       <fieldset>
         <label htmlFor="category">Category</label>
-        <select name="category" id="list" required onChange={handleSelectEvent}
-        value={product.category}>
+        <select
+          name="category"
+          id="list"
+          required
+          onChange={handleSelectEvent}
+          value={product.category}
+        >
           {categories.map((category) => (
             <option key={category.catId} value={category.value}>
               {category.label}
@@ -145,7 +144,7 @@ const ProductForm = ({ saveProduct }: Props) => {
       <div className={styles.buttonsContainer}>
         <button>Submit</button>
 
-        <button onClick={() => navigate('/')} className={styles.cancel}>
+        <button onClick={() => navigate("/")} className={styles.cancel}>
           Cancel
         </button>
       </div>

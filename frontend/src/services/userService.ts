@@ -4,7 +4,7 @@ import { AuthRequest, User } from "../types/User";
 import { handleError } from "../utils/handleError";
 
 const api = axios.create({
-  baseURL: "/users",
+  baseURL: process.env.REACT_APP_API_USERS,
 });
 
 export const loginUser = async (credentials: AuthRequest): Promise<Result<User, string>> => {

@@ -1,23 +1,25 @@
 import styles from '../scss/AppStatus.module.scss';
 import { Message } from '../types/Message';
 import spinner from "./../puff.svg";
+import Alert from "react-bootstrap/Alert";
 
 type Props = {
-  message: string,
- // removeMessage: () => void
+  note: Message,
+  cancelMessage?: () => void
 }
 
-const AppMessage = ({ message }: Props) => {
+const AppMessage = ({ note, cancelMessage }: Props) => {
+
+  const removeMessage = () => {
+    if(cancelMessage) cancelMessage();
+  }
+
   return (
-    <div className={styles[`error`]}>
-      <p className={styles.message}>{message}</p>
-      <span className={styles.close} onClick={() => console.log('close')
-      }>
-        x
-      </span>
-    </div>
-  );
-};
+    <Alert variant={note.type} style={{width: "60%", textAlign: 'center'}} onClose={removeMessage} dismissible>
+          {note.text}
+    </Alert>
+  )
+}
 
 const AppWaiting = () => {
   return (
@@ -27,4 +29,4 @@ const AppWaiting = () => {
   );
 };
 
-export { AppMessage, AppWaiting };
+export { AppWaiting, AppMessage };
