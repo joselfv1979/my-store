@@ -11,6 +11,9 @@
 # production
 /dist
 
+# images
+/images
+
 # misc
 .DS_Store
 .env
