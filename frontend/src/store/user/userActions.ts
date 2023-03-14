@@ -10,6 +10,7 @@ import {
   updateUser,
 } from "../../services/userService";
 import { AuthRequest, User } from "../../types/User";
+import { validateUser } from "../../utils/validateUser";
 import { userSlice } from "./userSlice";
 
 const { actions } = userSlice;
@@ -43,6 +44,9 @@ export const addUser = (
   user: User
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {
+    const validUser = validateUser(user, false);
+    if(!validUser.success) return dispatch(actions.createUserFail(validUser.message));
+
     const response = await addNewUser(user);
     response.success
       ? dispatch(actions.createUserSuccess(response.value))
@@ -65,6 +69,9 @@ export const editUser = (
   user: User
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {
+    const validUser = validateUser(user);
+    if(!validUser.success) return dispatch(actions.modifyUserFail(validUser.message));
+
     const response = await updateUser(user);
     response.success
       ? dispatch(actions.modifyUserSuccess(response.value))

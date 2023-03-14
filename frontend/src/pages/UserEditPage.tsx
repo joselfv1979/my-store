@@ -87,9 +87,4 @@ const UserEdit = () => {
   );
 };
 
-// const mapStateToProps = (state) => ({
-//   user: state.user.user
-// });
-
-// export default connect(mapStateToProps)(UserEdit);
 export default UserEdit;
