@@ -18,6 +18,8 @@ export const getProductList = async (
 ) => {
   try {    
     const result = await getFilteredProducts(req.query);
+    console.log({result});
+    
     res.json(result);
   } catch (error) {
     next(new CustomError(500, "Couldn't fetch products, try it later"));
@@ -53,11 +55,12 @@ export const createProduct = async (
     if (!name || !description || !category || !price) {
       return next(new CustomError(400, "Bad request"));
     }
-
+    
     const imagePath = req.file ? req.file.path : "";
-    imagePath.replace("/public", "/static");
 
-    const rating = getRating();
+    const path = imagePath.replace(/\\/g, "/").replace("public", "static");
+
+    const rating = getRating();    
 
     const newProduct: IProduct = {
       name,
@@ -65,11 +68,14 @@ export const createProduct = async (
       category,
       price,
       rating,
-      imagePath,
+      imagePath: path,
     };
 
-    const product = await addProduct(newProduct);
+    const productId = await addProduct(newProduct);
 
+    if(!productId) return new CustomError(500, "Couldn't update product, try it later");
+
+    const product = await getProduct(productId.toString());
     return res.status(200).json(product);
   } catch (error) {
     next(new CustomError(500, "Couldn't create product, try it later"));
@@ -91,8 +97,14 @@ export const editProduct = async (
 
     const imagePath = req.file ? req.file.path.replace("public", "static") : image;
     
-    const product = await updateProduct(id, { ...req.body, imagePath });
+    const updatedProduct = await updateProduct(id, { ...req.body, imagePath });
 
+    if(updatedProduct !== 1) {
+      return next(new CustomError(404, "Product not found"));
+    }  
+    
+    const product = await getProduct(id);
+    
     return res.status(200).json(product);
   } catch (error) {        
     next(new CustomError(500, "Couldn't update product, try it later"));
@@ -107,9 +119,8 @@ export const removeProduct = async (
   try {
     const { id } = req.params;
 
-    await getProduct(id);
-
     const product = await deleteProduct(id);
+
     if (!product) return next(new CustomError(404, "Product not found"));
 
     return res.status(204).end();

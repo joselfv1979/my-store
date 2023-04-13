@@ -1,4 +1,4 @@
-import { ResultSetHeader, RowDataPacket } from "mysql2/promise";
+import { FieldPacket, ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import { IProduct } from "../models/Product";
 import { ProductQuery } from "../models/ProductQuery";
 import { promisePool } from "../utils/database";
@@ -32,7 +32,7 @@ export const addProduct = async (product: IProduct) => {
   const sql =
     "insert into products (name, description, category, price, rating, imagePath) values (?, ?, ?, ?, ?, ?)";
 
-  const [{ affectedRows }] = await promisePool.query<ResultSetHeader>(sql, [
+  const [{ insertId }] = await promisePool.query<ResultSetHeader>(sql, [
     name,
     description,
     category,
@@ -40,23 +40,25 @@ export const addProduct = async (product: IProduct) => {
     rating,
     imagePath,
   ]);
-  return affectedRows;
+  return insertId;
 };
 
 export const updateProduct = async (id: string, product: IProduct) => {
-  const { name, description, category, price, imagePath } = product;  
+  const { name, description, category, price, rating, imagePath } = product;  
 
   const sql =
-    "update products set name = ?, description = ?, category = ?, price = ?, imagePath = ? where id = ?";
+    "update products set name = ?, description = ?, category = ?, price = ?, rating = ?, imagePath = ? where id = ?";
 
   const [{ affectedRows }] = await promisePool.query<ResultSetHeader>(sql, [
     name,
     description,
     category,
     price,
+    rating,
     imagePath,
     id,
   ]);
+  
   return affectedRows;
 };
 
