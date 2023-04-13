@@ -4,11 +4,13 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { logout } from "../store/user/userActions";
+import { isAdmin } from "../store/user/userSlice";
 
 const Menu = () => {
   const dispatch = useAppDispatch();
 
   const { loggedUser } = useAppSelector((state) => state.user);
+  const admin = useAppSelector(isAdmin);
 
   const logoutUser = () => dispatch(logout());
 
@@ -26,16 +28,16 @@ const Menu = () => {
         <Nav.Item>
           <Nav.Link href="/about">About</Nav.Link>
         </Nav.Item>
-        <Nav.Item>
-          <Nav.Link href="/new-product">Add product</Nav.Link>
-        </Nav.Item>
+        {admin && (
+          <Nav.Item>
+            <Nav.Link href="/new-product">Add product</Nav.Link>
+          </Nav.Item>
+        )}
         {loggedUser ? (
           <Nav.Item className="ms-auto">
             <Nav.Link href={`/edit-profile/${"0"}`}>
               {loggedUser.username}
-              <span className={styles.logout}
-                onClick={logoutUser}
-              >
+              <span className={styles.logout} onClick={logoutUser}>
                 <LogoutIcon width="1.5rem" />
               </span>
             </Nav.Link>

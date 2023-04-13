@@ -45,7 +45,8 @@ export const addUser = (
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {
     const validUser = validateUser(user, false);
-    if(!validUser.success) return dispatch(actions.createUserFail(validUser.message));
+    if (!validUser.success)
+      return dispatch(actions.createUserFail(validUser.message));
 
     const response = await addNewUser(user);
     response.success
@@ -70,7 +71,8 @@ export const editUser = (
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {
     const validUser = validateUser(user);
-    if(!validUser.success) return dispatch(actions.modifyUserFail(validUser.message));
+    if (!validUser.success)
+      return dispatch(actions.modifyUserFail(validUser.message));
 
     const response = await updateUser(user);
     response.success
@@ -83,13 +85,16 @@ export const login = (
   user: AuthRequest
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {
+    dispatch(actions.userPending());
     const response = await loginUser(user);
+    setTimeout(() => {
     if (response.success) {
       dispatch(actions.loginUserSuccess(response.value));
       localStorage.setItem("token", JSON.stringify(response.value.token));
     } else {
       dispatch(actions.loginUserFail(response.message));
     }
+  }, 3000)
   };
 };
 
@@ -100,6 +105,11 @@ export const logout = (): ThunkAction<void, RootState, unknown, AnyAction> => {
   };
 };
 
-export const cancelUserMessage = (): ThunkAction<void, RootState, unknown, AnyAction> => {
+export const cancelUserMessage = (): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  AnyAction
+> => {
   return async (dispatch) => dispatch(actions.eliminateUserMessage());
-}
+};

@@ -5,6 +5,7 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { persistor, store } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
+import { DeleteModalContextProvider } from "./context/deleteModal/DeleteModalContextProvider";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const root = ReactDOM.createRoot(
@@ -16,7 +17,9 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <App />
+          <DeleteModalContextProvider>
+            <App />
+          </DeleteModalContextProvider>
         </PersistGate>
       </Provider>
     </BrowserRouter>

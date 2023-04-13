@@ -6,13 +6,22 @@ export type Product = {
     price: number,
     image?: File;
     imagePath: string;
-    rating?: number
+    rating: number
 }
 
 export const initialProduct: Product = {
     name: "",
-    description: "",
     category: "",
+    description: "",
     price: 0,
-    imagePath: ""
+    imagePath: "",
+    rating: 0
 }
+
+export interface ProductState {
+    products: Product[];
+    product: Product | null;
+    message?: string;
+    error?: string;
+    loading: boolean;
+  }

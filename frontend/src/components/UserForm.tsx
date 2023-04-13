@@ -1,7 +1,7 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { initialUser, type User } from "../types/User.d";
 import styles from "../scss/UserFormPage.module.scss";
-import { initialUser, User } from "../types/User";
 
 type Props = {
   saveUser: (data: User) => Promise<void>;

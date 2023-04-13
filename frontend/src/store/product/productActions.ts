@@ -19,13 +19,14 @@ export const fetchProducts = (): ThunkAction<
   AnyAction
 > => {
   return async (dispatch) => {
-    dispatch(actions.productPending());
+    dispatch(actions.productsPending());
+
     const response = await getProducts();
     setTimeout(() => {
       response.success
       ? dispatch(actions.setProductsSuccess(response.value))
       : dispatch(actions.createProductFail(response.message));
-    }, 2500)
+    }, 1000)
   };
 };
 
@@ -40,7 +41,7 @@ export const fetchProduct = (
       response.success
       ? dispatch(actions.setProductSuccess(response.value))
       : dispatch(actions.setProductFail(response.message));
-    }, 3000)
+    }, 1000)
   };
 };
 
@@ -49,6 +50,8 @@ export const addProduct = (
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {    
     const response = await addNewProduct(product);
+    console.log({response});
+    
     response.success
       ? dispatch(actions.createProductSuccess(response.value))
       : dispatch(actions.createProductFail(response.message));
@@ -70,9 +73,7 @@ export const editProduct = (
   product: FormData
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {
-    const response = await updateProduct(product);
-    console.log(response);
-    
+    const response = await updateProduct(product);    
     response.success
       ? dispatch(actions.modifyProductSuccess(response.value))
       : dispatch(actions.modifyProductFail(response.message));
@@ -82,3 +83,5 @@ export const editProduct = (
 export const cancelProductMessage = (): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => dispatch(actions.eliminateProductMessage());
 }
+
+

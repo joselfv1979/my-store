@@ -8,7 +8,7 @@ import {
   editProduct,
   fetchProduct,
 } from "../store/product/productActions";
-import { Message } from "../types/Message";
+import { type Message, Status } from "../types/Message.d";
 
 const ProductEditPage = () => {
   const { id } = useParams();
@@ -19,10 +19,15 @@ const ProductEditPage = () => {
     (state) => state.product
   );
 
-  const note: Message = {
-    type: error ? 'danger' : 'success',
-    text: error || message
-  }
+  const note: Message = error
+    ? {
+        type: Status.danger,
+        text: error,
+      }
+    : {
+        type: Status.success,
+        text: message,
+      };
 
   useEffect(() => {
     if (id) dispatch(fetchProduct(id));
@@ -40,7 +45,7 @@ const ProductEditPage = () => {
     <>
       {loading && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
-      {product && <ProductForm saveProduct={saveProduct} />}
+      {product && <ProductForm saveProduct={saveProduct} editing={true} />}
     </>
   );
 };

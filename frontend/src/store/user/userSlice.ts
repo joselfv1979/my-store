@@ -1,15 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
-import { initialUser, User } from "../../types/User";
-
-export interface UserState {
-  users: User[];
-  user: User;
-  loggedUser?: User;
-  message?: string;
-  error?: string;
-  loading: boolean;
-}
+import { initialUser, type User, type UserState } from "../../types/User.d";
 
 const initialUserState: UserState = {
   users: [],
@@ -21,9 +12,10 @@ export const userSlice = createSlice({
   name: "user",
   initialState: initialUserState,
   reducers: {
-    usersLoading: (state) => {
+    userPending: (state) => {
       state.loading = true;
       state.users = [];
+      state.loggedUser = undefined
       state.message = undefined;
       state.error = undefined;
     },
@@ -65,12 +57,15 @@ export const userSlice = createSlice({
     },
     loginUserSuccess: (state, action: PayloadAction<User>) => {
       state.loggedUser = action.payload;
+      state.loading = false;
     },
     loginUserFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
+      state.loading = false;
     },
     logoutUser: (state) => {
       state.loggedUser = undefined;
+      state.loading = false; 
     },
     eliminateUserMessage: (state) => {
       state.message = undefined;
