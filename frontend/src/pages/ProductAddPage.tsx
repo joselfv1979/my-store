@@ -15,7 +15,7 @@ const ProductFormPage = () => {
   const note: Message = {
     type: error ? "danger" : "success",
     text: error || message,
-  };
+  };  
 
   const saveProduct = async (data: FormData) => {
     dispatch(addProduct(data));

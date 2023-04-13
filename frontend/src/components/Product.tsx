@@ -22,6 +22,7 @@ const SingleProduct = ({ product }: Props) => {
   };
 
   const image = product.imagePath ? `${process.env.REACT_APP_API_IMAGES}/${product.imagePath}` : 'jj';
+ 
   return (
     <Card className={styles.card}>
       <Card.Img
@@ -33,7 +34,7 @@ const SingleProduct = ({ product }: Props) => {
       <Card.Body className={styles.data}>
         <Card.Title>{product.name}</Card.Title>
         <Card.Title>Price: {product.price} €</Card.Title>
-        <StarRating />
+        <StarRating stars={product.rating} />
         {/* <Card.Text>{product.description}</Card.Text> */}
       </Card.Body>
       <Card.Footer className={styles.buttonGroup}>

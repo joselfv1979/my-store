@@ -4,7 +4,7 @@ export const castProductToFormData = (product: Product) => {
   const { id, name, category, price, description, image, imagePath } = product;
   const formData = new FormData();
 
-  if (id) formData.append("id", id);
+  if (id) formData.append("id", String(id));
   formData.append("name", name);
   formData.append("category", category);
   formData.append("price", price.toString());
@@ -16,9 +16,4 @@ export const castProductToFormData = (product: Product) => {
   }
 
   return formData;
-};
-
-export const castFormDataToProduct = (data: FormData) => {
-  const value = Object.fromEntries(data.entries());
-  return value as unknown as Product;
 };

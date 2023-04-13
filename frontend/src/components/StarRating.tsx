@@ -1,12 +1,17 @@
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const StarRating = () => {
-  const stars = [1, 2, 3, 4, 5];
+type Props = {
+  stars: number
+}
+
+const StarRating = ({ stars }: Props) => {
+  const totalStars = [1,2,3,4,5];
+ 
   return (
     <>
-      {stars.map((star) => (
-        <FontAwesomeIcon key={star} icon={faStar} color="orange" />
+      {totalStars.map((star) => (
+        <FontAwesomeIcon key={star} icon={faStar} color={`${stars >= star ? '#f2b01e' : '#666'}`} />
       ))}
     </>
   );

@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { cancelUserMessage, login } from "../store/user/userActions";
 import { Message } from "../types/Message";
 import { AuthRequest } from "../types/User";
+import { fetchProducts } from "../store/product/productActions";
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
@@ -19,19 +20,23 @@ const LoginPage = () => {
 
   const loginUser = (user: AuthRequest) => {
     dispatch(login(user));
+    dispatch(fetchProducts());    
   };
 
   const cancelMessage = () => {
     dispatch(cancelUserMessage());
   };
 
+  if(loggedUser) console.log({loggedUser});
+  
+
   if (loggedUser) return <Navigate to="/" />;
 
   return (
     <>
-      {loading && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
-      <LoginForm loginUser={loginUser} />
+      {loading ? <AppWaiting />
+      : <LoginForm loginUser={loginUser} />}
     </>
   );
 };

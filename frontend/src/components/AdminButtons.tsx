@@ -1,8 +1,7 @@
 import Button from "react-bootstrap/esm/Button";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../hooks/redux-hooks";
+import { useDeleteModalContext } from "../context/deleteModal/DeleteModalContext";
 import styles from "../scss/AdminButtons.module.scss";
-import { deleteProduct } from "../store/product/productActions";
 
 type Props = {
   id: string | undefined;
@@ -10,12 +9,13 @@ type Props = {
 
 const AdminButtons = ({ id }: Props) => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+
+  const { setShowDeleteModal, setId } = useDeleteModalContext()
 
   const removeProduct = () => {
-    if (window.confirm("Are you sure to delete?") && id) {
-      dispatch(deleteProduct(id));
-    }
+
+    setShowDeleteModal(true);
+    if(id) setId(id);
   };
 
   return (

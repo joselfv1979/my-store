@@ -2,17 +2,18 @@ import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../hooks/redux-hooks";
 import styles from "../scss/ProductFormPage.module.scss";
-import { initialProduct, Product } from "../types/Product";
+import { initialProduct, Product } from "../types/Product.d";
 import { castProductToFormData } from "../utils/castFormData";
 import { categories } from "../utils/ConstantUtils";
 
 type Props = {
   saveProduct: (data: FormData) => Promise<void>;
+  editing?: boolean; // if true, show the edit form, else show the create form.
 };
-const ProductForm = ({ saveProduct }: Props) => {
+const ProductForm = ({ saveProduct, editing = false }: Props) => {
   const stateProduct = useAppSelector((state) => state.product.product);
 
-  const currentProduct = stateProduct ? stateProduct : initialProduct;
+  const currentProduct = editing && stateProduct ? stateProduct : initialProduct;
 
   const [product, setProduct] = useState<Product>(currentProduct);
 
@@ -59,7 +60,7 @@ const ProductForm = ({ saveProduct }: Props) => {
 
   return (
     <form className={styles.form} onSubmit={sendDataProduct}>
-      {stateProduct?.id ? <h2>Edit Product</h2> : <h2>New Product</h2>}
+      {editing ? <h2>Edit Product</h2> : <h2>New Product</h2>}
 
       <fieldset>
         <label htmlFor="name">Name</label>

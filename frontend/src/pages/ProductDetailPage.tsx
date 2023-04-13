@@ -53,7 +53,7 @@ const ProductDetailPage = () => {
         <Card.Body className={styles.data}>
           <Card.Title>{product.name}</Card.Title>
           <Card.Title>Price: {product.price} €</Card.Title>
-          <StarRating />
+          <StarRating stars={product.rating} />
           <Card.Text>{product.description}</Card.Text>
         </Card.Body>
         <Card.Footer className={styles.buttonGroup}>

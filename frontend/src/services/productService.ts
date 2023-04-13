@@ -2,7 +2,6 @@ import axios from "axios";
 import { Product } from "../types/Product";
 import { Result } from "../types/Result";
 import { getHeaders } from "../utils/authHeader";
-import { castFormDataToProduct } from "../utils/castFormData";
 import { handleError } from "../utils/handleError";
 
 const api = axios.create({
@@ -21,9 +20,7 @@ export const getProducts = async (): Promise<Result<Product[], string>> => {
 
 export const getProduct = async (
   id: string
-): Promise<Result<Product, string>> => {
-  console.log('id', id);
-  
+): Promise<Result<Product, string>> => {  
   try {   
     const { data } = await api.get(`/${id}`);
     return { success: true, value: data };
@@ -37,11 +34,8 @@ export const addNewProduct = async (
 ): Promise<Result<Product, string>> => {
   
   try {
-    const response = await api.post(`/product-add/`, product);
-    console.log({response});
-    
-    const newProduct = castFormDataToProduct(product);
-    return { success: true, value: newProduct };
+    const { data } = await api.post(`/product-add/`, product);    
+    return { success: true, value: data };
   } catch (error) {
     return { success: false, message: handleError(error) };
   }
@@ -51,9 +45,7 @@ export const removeProduct = async (
   id: string
 ): Promise<Result<string, string>> => {
   try {
-    const { data } = await api.delete(`/${id}`);
-    console.log({data});
-    
+    const { data } = await api.delete(`/${id}`);    
     return { success: true, value: data };
   } catch (error) {
     return { success: false, message: handleError(error) };
@@ -66,9 +58,8 @@ export const updateProduct = async (
 ): Promise<Result<Product, string>> => {
   const id = product.get("id");
   try {
-    await api.put(`/product-edit/${id}`, product);
-    const updatedProduct = castFormDataToProduct(product);
-    return { success: true, value: updatedProduct };
+    const { data } = await api.put(`/product-edit/${id}`, product);    
+    return { success: true, value: data };
   } catch (error) {
     return { success: false, message: handleError(error) };
   }
