@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "../scss/UserButtons.module.scss";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
@@ -7,9 +6,11 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 const UserButtons = () => {
   return (
     <Button variant="success"
-    onClick={() => console.log('add')
-    }>
+    onClick={() => console.log('add')}
+    style={{display: 'flex'}}
+    >
       <FontAwesomeIcon icon={faCartPlus} size="lg" />
+      <span style={{marginLeft: '1rem'}}>Add to Cart</span>
     </Button>
   );
 };

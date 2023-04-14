@@ -21,7 +21,7 @@ const SingleProduct = ({ product }: Props) => {
     navigate(`/product-detail/${product.id}`);
   };
 
-  const image = product.imagePath ? `${process.env.REACT_APP_API_IMAGES}/${product.imagePath}` : 'jj';
+  const image = `${process.env.REACT_APP_API_IMAGES}/${product.imagePath}`;
  
   return (
     <Card className={styles.card}>
@@ -30,12 +30,12 @@ const SingleProduct = ({ product }: Props) => {
         className={styles.cardImg}
         src={image}
         alt={product.name}
+        onClick={handleOnClick}
       />
-      <Card.Body className={styles.data}>
+      <Card.Body className={styles.data} onClick={handleOnClick}>
         <Card.Title>{product.name}</Card.Title>
         <Card.Title>Price: {product.price} €</Card.Title>
         <StarRating stars={product.rating} />
-        {/* <Card.Text>{product.description}</Card.Text> */}
       </Card.Body>
       <Card.Footer className={styles.buttonGroup}>
         {admin ? <AdminButtons id={product.id}/> : <UserButtons />}
