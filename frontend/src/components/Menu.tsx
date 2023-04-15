@@ -15,8 +15,8 @@ const Menu = () => {
   const logoutUser = () => dispatch(logout());
 
   return (
-    <Navbar className={"navbar navbar-dark " + styles.header}>
-      <Nav className="container-fluid">
+    <Navbar className="navbar navbar-dark" style={{ backgroundColor: "#252537" }}>
+      <Nav className={"container-fluid " + styles.header}>
         <Nav.Item className={styles.title}>
           <Navbar.Brand className={"navbar-brand " + styles.title}>
             My Store

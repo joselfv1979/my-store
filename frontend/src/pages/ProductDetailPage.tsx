@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { Card, Button } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { Card, Breadcrumb, Container, Row, Col } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import { AppMessage, AppWaiting } from "../components/AppStatus";
 import StarRating from "../components/StarRating";
 import UserButtons from "../components/UserButtons";
@@ -11,8 +11,6 @@ import {
   fetchProduct,
 } from "../store/product/productActions";
 import { Message } from "../types/Message";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBackwardStep } from "@fortawesome/free-solid-svg-icons";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -39,48 +37,41 @@ const ProductDetailPage = () => {
     dispatch(cancelProductMessage());
   };
 
-  const navigate = useNavigate();
-
   return (
     <>
       {loading && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
       {product && (
-        <div style={{ display: "flex", width: "90%", height: "100%" }}>
-          <span
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              textAlign: "center",
-              marginRight: "1rem",
-              color: "#fff",
-            }}
-          >
-            Back
-            <Button onClick={() => navigate("/")}>
-              <FontAwesomeIcon icon={faBackwardStep} />
-            </Button>
-          </span>
-          <Card style={{ width: "50%", height: "100%" }}>
-            <Card.Img
-              variant="top"
-              className={styles.cardImg}
-              src={image}
-              alt={product.name}
-            />
-          </Card>
-          <Card
-            style={{ padding: '2rem',marginLeft: "1.5rem", width: "50%", height: "100%" }}
-          >
-            <Card.Body >
-              <Card.Title>{product.name}</Card.Title>
-              <Card.Title>Price: {product.price} €</Card.Title>
-              <StarRating stars={product.rating} />
-              <Card.Text>{product.description}</Card.Text>
-              <UserButtons />
-            </Card.Body>
-          </Card>
-        </div>
+        <Container>
+          <Breadcrumb>
+            <Breadcrumb.Item href="/">Products</Breadcrumb.Item>
+            <Breadcrumb.Item active>{product.category}</Breadcrumb.Item>
+          </Breadcrumb>
+          <Row>
+            <Col>
+              <Card className={styles.cardImg}>
+                <Card.Img variant="top" src={image} alt={product.name} />
+              </Card>
+            </Col>
+            <Col>
+              <Card className={styles.cardDetails}>
+                <Card.Body>
+                  <Card.Title>{product.name}</Card.Title>
+                  <Card.Title>Price: {product.price} €</Card.Title>
+                  <StarRating stars={product.rating} />
+                  <Card.Text>
+                    {product.description}. Lorem ipsum dolor, sit amet
+                    consectetur adipisicing elit. Officiis praesentium eveniet
+                    consequatur provident aut dolorem? Asperiores corrupti
+                    libero aliquid laudantium blanditiis numquam magnam earum
+                    nisi, mollitia, nulla totam. Quas, cupiditate!
+                  </Card.Text>
+                  <UserButtons />
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
       )}
     </>
   );
