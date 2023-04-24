@@ -21,11 +21,11 @@ const ProductEditPage = () => {
 
   const note: Message = error
     ? {
-        type: Status.danger,
+        type: Status.DANGER,
         text: error,
       }
     : {
-        type: Status.success,
+        type: Status.SUCCESS,
         text: message,
       };
 

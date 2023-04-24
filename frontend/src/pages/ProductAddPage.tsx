@@ -5,7 +5,7 @@ import {
   addProduct,
   cancelProductMessage,
 } from "../store/product/productActions";
-import { Message } from "../types/Message";
+import { Message, Status } from "../types/Message.d";
 
 const ProductFormPage = () => {
   const dispatch = useAppDispatch();
@@ -13,8 +13,8 @@ const ProductFormPage = () => {
   const { loading, message, error } = useAppSelector((state) => state.product);
 
   const note: Message = {
-    type: error ? "danger" : "success",
-    text: error || message,
+    type: error ? Status.DANGER : Status.SUCCESS,
+    text: error ? error : message,
   };  
 
   const saveProduct = async (data: FormData) => {

@@ -13,7 +13,6 @@ const AdminButtons = ({ id }: Props) => {
   const { setShowDeleteModal, setId } = useDeleteModalContext()
 
   const removeProduct = () => {
-
     setShowDeleteModal(true);
     if(id) setId(id);
   };

@@ -38,7 +38,7 @@ const SingleProduct = ({ product }: Props) => {
         <StarRating stars={product.rating} />
       </Card.Body>
       <Card.Footer className={styles.buttonGroup}>
-        {admin ? <AdminButtons id={product.id}/> : <UserButtons />}
+        {admin ? <AdminButtons id={product.id}/> : <UserButtons product={product} />}
       </Card.Footer>
     </Card>
   );

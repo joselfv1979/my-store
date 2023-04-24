@@ -3,7 +3,7 @@ import { AppWaiting, AppMessage } from "../components/AppStatus";
 import UserForm from "../components/UserForm";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { addUser, cancelUserMessage } from "../store/user/userActions";
-import { Message } from "../types/Message";
+import { Message, Status } from "../types/Message.d";
 import { User } from "../types/User";
 
 const UserAddPage = () => {
@@ -11,10 +11,15 @@ const UserAddPage = () => {
 
   const { error, message, loading } = useAppSelector((state) => state.user);
 
-  const note: Message = {
-    type: error ? 'danger' : 'success',
-    text: error || message
-  }
+  const note: Message = error
+  ? {
+      type: Status.DANGER,
+      text: error,
+    }
+  : {
+      type: Status.SUCCESS,
+      text: message,
+    };
   
   const saveUser = async (data: User) => {
     dispatch(addUser(data))

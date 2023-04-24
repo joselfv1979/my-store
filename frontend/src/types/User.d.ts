@@ -1,3 +1,12 @@
+export interface UserState {
+  users: User[];
+  user: User;
+  loggedUser?: User;
+  message?: string;
+  error?: string;
+  loading: boolean;
+}
+
 export interface User {
   id?: string;
   username: string;
@@ -16,15 +25,6 @@ export const initialUser: User = {
   roles: ["user"],
   email: "",
 };
-
-export interface UserState {
-  users: User[];
-  user: User;
-  loggedUser?: User;
-  message?: string;
-  error?: string;
-  loading: boolean;
-}
 
 export interface AuthRequest {
   username: string;

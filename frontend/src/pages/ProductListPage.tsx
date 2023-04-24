@@ -5,7 +5,7 @@ import {
   cancelProductMessage,
   fetchProducts,
 } from "../store/product/productActions";
-import { Message } from "../types/Message";
+import { Message, Status } from "../types/Message.d";
 import { useDeleteModalContext } from "../context/deleteModal/DeleteModalContext";
 import DeleteModal from "../components/DeleteModal";
 import { useEffect } from "react";
@@ -22,10 +22,15 @@ const ProductListPage = () => {
       if(loading)dispatch(fetchProducts());
   }, [dispatch, loading]);
 
-  const note: Message = {
-    type: error ? "danger" : "success",
-    text: error || message,
-  };
+  const note: Message = error
+  ? {
+      type: Status.DANGER,
+      text: error,
+    }
+  : {
+      type: Status.SUCCESS,
+      text: message,
+    };
 
   const cancelMessage = () => {
     dispatch(cancelProductMessage());
