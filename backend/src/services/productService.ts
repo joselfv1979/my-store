@@ -1,4 +1,4 @@
-import { FieldPacket, ResultSetHeader, RowDataPacket } from "mysql2/promise";
+import { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import { IProduct } from "../models/Product";
 import { ProductQuery } from "../models/ProductQuery";
 import { promisePool } from "../utils/database";
