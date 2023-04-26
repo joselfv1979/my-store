@@ -1,67 +1,46 @@
-import {
-  PlusCircleIcon,
-  MinusCircleIcon,
-  TrashIcon,
-} from "./Icons";
+import { PlusCircleIcon, MinusCircleIcon } from "./Icons";
 import styles from "./../scss/CartPage.module.scss";
+import { useAppSelector } from "../hooks/redux-hooks";
+import { stateCart } from "../store/cart/cartSlice";
+import {
+  Button,
+  ButtonGroup,
+  Card,
+  Col,
+  Row,
+} from "react-bootstrap";
 
-//{ cart, subtractQuantity, addQuantity }
-const cart: string[] = [];
+// cart, subtractQuantity, addQuantity
 const Cart = () => {
- // { product }
-  const ProductData = () => {
-    return (
-      <>
-        {/* <img src={`/files/${product.image}`} alt={product.description} /> */}
-        <div className={styles.data}>
-          <p className={styles.name}>{'name'}</p>
-          <p className={styles.text}>Price: {'price'} €</p>
-        </div>
-        <div className={styles.quantity}>
-          <p>Quantity: {'quantity'}</p>
-        </div>
-      </>
-    );
-  };
+  const cart = useAppSelector(stateCart);
 
-  // { product }
-  const PlusButton = () => {
-    return (
-      <button className={styles.plus} onClick={() => console.log('add')}>
-        <PlusCircleIcon width="1rem" />
-      </button>
-    );
-  };
-
-  // { product }
-  const MinusButton = () => {
-    return (
-      <button
-        className={styles.minus}
-        onClick={() => console.log('substract')}
-      >
-        {2 > 1 ? (
-          <MinusCircleIcon />
-        ) : (
-          <TrashIcon />
-        )}
-      </button>
-    );
-  };
-
-  const CartList = () => {
-    return cart.map((product) => (
-      <li className={styles.card} key={product}>
-        <ProductData />
-        <div className={styles.buttons}>
-          <PlusButton />
-          <MinusButton />
-        </div>
-      </li>
-    ));
-  };
-
-  return <ul className={styles.list}>{'cart list'}</ul>;
+  return (
+    <>
+      {cart.map((item) => (
+        <Row key={item?.id} style={{ width: " 100%", display: "flex" }}>
+          <Col style={{ margin: "1rem" }}>
+            <Card style={{ flexDirection: "row" }}>
+              <Card.Body>
+                <Card.Title>{item.name}</Card.Title>
+                <Card.Subtitle>Price: {item.price} €</Card.Subtitle>
+                <Card.Subtitle>Quantity: {item.quantity}</Card.Subtitle>
+              </Card.Body>
+              <Card.Footer>
+                <ButtonGroup vertical>
+                  <Button>
+                    <PlusCircleIcon width="1rem" />
+                  </Button>
+                  <Button>
+                    <MinusCircleIcon />
+                  </Button>
+                </ButtonGroup>
+              </Card.Footer>
+            </Card>
+          </Col>
+        </Row>
+      ))}
+    </>
+  );
 };
 
 export default Cart;

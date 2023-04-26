@@ -28,6 +28,9 @@ const Menu = () => {
         <Nav.Item>
           <Nav.Link href="/about">About</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/cart">Cart</Nav.Link>
+        </Nav.Item>
         {admin && (
           <Nav.Item>
             <Nav.Link href="/new-product">Add product</Nav.Link>
