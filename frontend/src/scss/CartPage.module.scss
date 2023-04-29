@@ -1,171 +1,57 @@
-$ligth-border: 1px solid lightgrey;
-
-%flex-column {
-    display: flex;
-    flex-direction: column;
+.cartContainer {
+    height: 100%;
 }
 
-%Card-layout {
-    display: flex;
-    border: $ligth-border;
-    border-radius: 3px;
-}
-
-%cart-overview-button {
-    align-self: center;
-    border: $ligth-border;
-    border-radius: 3px;
-    color: #fff;
-    height: 2.5rem;
-    margin-top: 1em;
-    width: 5rem;
-}
-
-.container {
-    @extend %flex-column;
-    line-height: 1.25rem;
+.cartTitle {
     text-align: center;
-    width: 100%;
-
-    h1 {
-        color: #fafbfd;
-        font-family: 'Playfair Display', serif;
-        margin: 1rem;
-    }
-
-    p {
-        align-self: center;
-    }
-}
-
-.content {
-    align-self: center;
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-}
-
-.empty {
-    color: #fafbfd;
+    color: #fff;
     margin: 2rem;
 }
 
-.total {
-    @extend %Card-layout;
-    background-color: #fff;
-    flex-direction: column;
-    height: 17rem;
-    padding: 1rem;
-    margin-left: 4rem;
-    width: 12rem;
-
-    p {
-        margin-top: .5rem;
-
-        .text {
-            font: {
-                size: small;
-                style: italic;
-            }
-
-            color: grey;
-        }
-    }
-
-    hr {
-        align-self: center;
-        background-color: #000;
-        margin-top: 1em;
-        width: 80%;
-    }
-
-}
-
-.checkout,
-.more {
-    @extend %cart-overview-button;
-    background-color: #000;
-}
-
-.clear {
-    @extend %cart-overview-button;
-    background-color: #f44336;
-    margin-bottom: .5rem
-}
-
-.more {
-    @extend %cart-overview-button;
-    background-color: #fff;
-    color: #000;
-    font-weight: bold;
-}
-
-.list {
-    @extend %flex-column;
-}
-
-.card {
+.itemCard {
+    flex-direction: row;
     align-items: center;
-    background-color: #fff;
-    border: $ligth-border;
-    border-radius: 3px;
-    display: grid;
-    grid-template-columns: 17% 25% 20% 30%;
-    gap: 1rem;
-    justify-items: center;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    width: 30rem;
+    height: 8rem;
+    width: 34rem;
+    margin-bottom: 1.5rem;
+}
 
-    img {
-        height: 4em;
-    }
+.itemPhoto {
+    width: 6rem;
+    height: 6rem;
+    margin-left: 1rem;
+}
 
-    .data {
-        text-align: justify;
+.itemBody {
+    text-align: center;
+}
 
-        p {
-            margin-top: .5rem;
-        }
+.itemFooter {
+    height: 100%;
+}
 
-        p.name {
-            font-weight: bold;
-            text-transform: uppercase;
-        }
+.itemButtonStack {
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+}
 
-    }
+.checkoutCard {
+    width: 24rem;
+    text-align: center;
+}
 
-    .quantity {
-        align-items: center;
-        display: flex;
-        width: auto;
-    }
+.checkoutSubtitle {
+    margin: 1rem;
+}
 
-    .buttons {
-        align-items: center;
-        display: flex;
+.checkoutButton {
+    margin: 0.5rem;
+}
 
-        button {
-            border-radius: 3px;
-            border: $ligth-border;
-            color: #fff;
-            display: flex;
-            padding: .4rem .8rem;
-            margin: .5rem;
-        }
-
-        .plus {
-            background-color: #000;
-            
-            svg {
-                width: 1rem;
-            }
-        }
-
-        .minus {
-            background-color: #f44336;
-        }
-    }
+.checkoutMoreStack {
+    margin-top: 1.5rem;
+    width: 24rem;
 }
 
 @media screen and (max-width: 800px) {

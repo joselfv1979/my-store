@@ -3,36 +3,43 @@ import styles from "./../scss/CartPage.module.scss";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { totalItems, totalPrice } from "../store/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
-import { ButtonGroup, Card } from "react-bootstrap";
+import { Button, Card, Stack } from "react-bootstrap";
 export const Checkout = () => {
   const items = useAppSelector(totalItems);
   const price = useAppSelector(totalPrice);
 
   const navigate = useNavigate();
+  
   return (
     <>
-      <Card>
+      <Card className={styles.checkoutCard}>
         <Card.Body>
-          <Card.Title>Total Items:</Card.Title>
-          <Card.Subtitle>{items}</Card.Subtitle>
-          <Card.Title>Total Payment:</Card.Title>
-          <Card.Subtitle>{price} €</Card.Subtitle>
+          <Card.Header>
+            <Card.Title>Checkout</Card.Title>
+          </Card.Header>
+          <Card.Subtitle className={styles.checkoutSubtitle}>
+            Total Items: {items}
+          </Card.Subtitle>
+          <Card.Subtitle className={styles.checkoutSubtitle}>
+            Total Payment: {price} €
+          </Card.Subtitle>
         </Card.Body>
         <Card.Footer>
-          <ButtonGroup>
-            <button className={styles.checkout}>Checkout</button>
-            <button
-              className={styles.clear}
-              onClick={() => console.log("clear")}
-            >
+          <Stack>
+            <Button variant="dark" className={styles.checkoutButton}>
+              Checkout
+            </Button>
+            <Button variant="danger" className={styles.checkoutButton}>
               Clear
-            </button>
-          </ButtonGroup>
+            </Button>
+          </Stack>
         </Card.Footer>
       </Card>
-      <button className={styles.more} onClick={() => navigate("/")}>
-        BUY MORE
-      </button>
+      <Stack className={styles.checkoutMoreStack}>
+        <Button variant="secondary" size="lg" onClick={() => navigate("/")}>
+          BUY MORE
+        </Button>
+      </Stack>
     </>
   );
 };

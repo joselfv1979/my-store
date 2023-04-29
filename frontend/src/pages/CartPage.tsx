@@ -10,13 +10,11 @@ const CartPage = () => {
   const items = useAppSelector(totalItems);
 
   return (
-    <Container style={{ width: " 100%", height: "100%" }}>
-      <h1 style={{ color: "#fff", textAlign: "center", margin: "2rem" }}>
-        Cart
-      </h1>
+    <Container className={styles.cartContainer}>
+      <h1 className={styles.cartTitle}>Cart</h1>
 
       {items > 0 ? (
-        <Row style={{ height: " 100%", display: "flex" }}>
+        <Row>
           <Col xs={7}>
             <Cart />
           </Col>
@@ -25,7 +23,7 @@ const CartPage = () => {
           </Col>
         </Row>
       ) : (
-        <Row className={styles.empty}>Your cart is empty</Row>
+        <Row>Your cart is empty</Row>
       )}
     </Container>
   );
