@@ -13,16 +13,16 @@ export const Checkout = () => {
   return (
     <>
       <Card className={styles.checkoutCard}>
-        <Card.Body>
-          <Card.Header>
+      <Card.Header>
             <Card.Title>Checkout</Card.Title>
           </Card.Header>
-          <Card.Subtitle className={styles.checkoutSubtitle}>
+        <Card.Body>
+          <Card.Title>
             Total Items: {items}
-          </Card.Subtitle>
-          <Card.Subtitle className={styles.checkoutSubtitle}>
-            Total Payment: {price} €
-          </Card.Subtitle>
+          </Card.Title>
+          <Card.Title>
+            Total Invoice: {price} €
+          </Card.Title>
         </Card.Body>
         <Card.Footer>
           <Stack>
