@@ -5,17 +5,22 @@ import Navbar from "react-bootstrap/Navbar";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { logout } from "../store/user/userActions";
 import { isAdmin } from "../store/user/userSlice";
+import { totalItems } from "../store/cart/cartSlice";
 
 const Menu = () => {
   const dispatch = useAppDispatch();
 
   const { loggedUser } = useAppSelector((state) => state.user);
   const admin = useAppSelector(isAdmin);
+  const items = useAppSelector(totalItems);
 
   const logoutUser = () => dispatch(logout());
 
   return (
-    <Navbar className="navbar navbar-dark" style={{ backgroundColor: "#252537" }}>
+    <Navbar
+      className="navbar navbar-dark"
+      style={{ backgroundColor: "#252537" }}
+    >
       <Nav className={"container-fluid " + styles.header}>
         <Nav.Item className={styles.title}>
           <Navbar.Brand className={"navbar-brand " + styles.title}>
@@ -29,7 +34,10 @@ const Menu = () => {
           <Nav.Link href="/about">About</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href="/cart">Cart</Nav.Link>
+          <Nav.Link href="/cart">
+            <i className="fa fa-shopping-cart" aria-hidden="true"></i>
+            {items > 0 && <span className={styles.badge}>{items}</span>}
+          </Nav.Link>
         </Nav.Item>
         {admin && (
           <Nav.Item>

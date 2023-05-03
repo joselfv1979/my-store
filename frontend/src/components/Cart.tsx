@@ -1,15 +1,23 @@
 import { PlusCircleIcon, MinusCircleIcon } from "./Icons";
 import styles from "./../scss/CartPage.module.scss";
-import { useAppSelector } from "../hooks/redux-hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { stateCart } from "../store/cart/cartSlice";
-import {
-  Button,
-  Stack,
-} from "react-bootstrap";
+import { Button, Stack } from "react-bootstrap";
+import { addProduct, substractProduct } from "../store/cart/cartActions";
+import { CartItem } from "../types/Cart";
 
 // cart, subtractQuantity, addQuantity
 const Cart = () => {
   const cart = useAppSelector(stateCart);
+  const dispatch = useAppDispatch();
+
+  const addItem = (item: CartItem) => {
+    dispatch(addProduct(item));
+  };
+
+  const subtractItem = (item: CartItem) => {
+    dispatch(substractProduct(item));
+  };
 
   const photoPath = process.env.REACT_APP_API_IMAGES;
 
@@ -29,10 +37,10 @@ const Cart = () => {
           </Stack>
 
           <Stack gap={2} className={styles.itemButtonStack}>
-            <Button variant="dark">
+            <Button variant="dark" onClick={() => addItem(item)}>
               <PlusCircleIcon width="1rem" />
             </Button>
-            <Button variant="dark">
+            <Button variant="dark" onClick={() => subtractItem(item)}>
               <MinusCircleIcon />
             </Button>
           </Stack>
