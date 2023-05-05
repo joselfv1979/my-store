@@ -22,7 +22,7 @@ const SingleProduct = ({ product }: Props) => {
   };
 
   const image = `${process.env.REACT_APP_API_IMAGES}/${product.imagePath}`;
- 
+
   return (
     <Card className={styles.card}>
       <Card.Img
@@ -38,7 +38,11 @@ const SingleProduct = ({ product }: Props) => {
         <StarRating stars={product.rating} />
       </Card.Body>
       <Card.Footer className={styles.buttonGroup}>
-        {admin ? <AdminButtons id={product.id}/> : <UserButtons product={product} />}
+        {admin ? (
+          <AdminButtons id={product.id} />
+        ) : (
+          <UserButtons product={product} style={styles.userButton} />
+        )}
       </Card.Footer>
     </Card>
   );

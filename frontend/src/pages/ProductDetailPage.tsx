@@ -71,7 +71,7 @@ const ProductDetailPage = () => {
                     libero aliquid laudantium blanditiis numquam magnam earum
                     nisi, mollitia, nulla totam. Quas, cupiditate!
                   </Card.Text>
-                  <UserButtons product={product} />
+                  <UserButtons product={product} style={styles.userButton} />
                 </Card.Body>
               </Card>
             </Col>

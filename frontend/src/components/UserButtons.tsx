@@ -8,9 +8,10 @@ import { type CartItem } from "../types/Cart";
 
 type Props = {
   product: Product;
+  style: string
 };
 
-const UserButtons = ({ product }: Props) => {
+const UserButtons = ({ product, style }: Props) => {
   const dispatch = useAppDispatch();
 
   const newItem: CartItem = { ...product, quantity: 0 };
@@ -18,11 +19,11 @@ const UserButtons = ({ product }: Props) => {
   return (
     <Button
       variant="success"
+      className={style}
       onClick={() => dispatch(addProduct(newItem))}
-      style={{ display: "flex" }}
     >
       <FontAwesomeIcon icon={faCartPlus} size="lg" />
-      <span style={{ marginLeft: "1rem" }}>Add to Cart</span>
+      <span>Add to Cart</span>
     </Button>
   );
 };

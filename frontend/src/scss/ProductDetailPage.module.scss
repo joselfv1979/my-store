@@ -7,6 +7,16 @@
   height: 100%;
 }
 
+.userButton {
+  height: 3rem;
+  width: 10rem;
+  margin-top: 1rem;
+  
+  span {
+      margin-left: 0.5rem;
+  }
+}
+
 /* Diseño para tabletas */
 @media screen and (max-width: 800px) {
 
