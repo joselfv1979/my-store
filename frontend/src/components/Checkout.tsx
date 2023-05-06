@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { Button, Card, Stack } from "react-bootstrap";
 export const Checkout = () => {
   const items = useAppSelector(totalItems);
-  const shipping = 5;
   const subtotal = Number(useAppSelector(totalPrice));
+  const SHIPPING = 5;
 
   const navigate = useNavigate();
   
@@ -22,13 +22,13 @@ export const Checkout = () => {
             Total Items: <span className={styles.checkoutQuantity}>{items} U</span>
           </Card.Title>
           <Card.Title className={styles.checkoutConcept}>
-            Shipping: <span className={styles.checkoutQuantity}>{shipping} €</span>
+            Shipping: <span className={styles.checkoutQuantity}>{SHIPPING} €</span>
           </Card.Title>
           <Card.Title className={styles.checkoutConcept}>
             Subtotal: <span className={styles.checkoutQuantity}>{subtotal} €</span>
           </Card.Title>
           <Card.Title className={styles.checkoutConcept}>
-            Total invoice: <span className={styles.checkoutQuantity}>{subtotal + shipping} €</span>
+            Total invoice: <span className={styles.checkoutQuantity}>{subtotal + SHIPPING} €</span>
           </Card.Title>
         </Card.Body>
         <Card.Footer>
