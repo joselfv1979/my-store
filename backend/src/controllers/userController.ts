@@ -98,8 +98,10 @@ export const editUser = async (
 
     const newBody = { ...req.body, imagePath: photo };
 
-    const user = await updateUser(id, newBody);
-    if (!user) return next(new CustomError(404, "User not found"));
+    const updatedUser = await updateUser(id, newBody);
+    if (!updatedUser) return next(new CustomError(404, "User not found"));
+    
+    const user = await getUserDataById(id);
     res.status(201).json(user);
   } catch (error) {
     next(new CustomError(404, "User not found"));
