@@ -11,7 +11,7 @@ import { fetchProducts } from "../store/product/productActions";
 const LoginPage = () => {
   const dispatch = useAppDispatch();
 
-  const { loggedUser, error, loading } = useAppSelector((state) => state.user);
+  const { authUser, error, loading } = useAppSelector((state) => state.user);
 
   const note: Message = {
     type: Status.DANGER,
@@ -27,9 +27,9 @@ const LoginPage = () => {
     dispatch(cancelUserMessage());
   };
 
-  if (loggedUser) console.log({ loggedUser });
+  if (authUser) console.log({ authUser });
 
-  if (loggedUser) return <Navigate to="/" />;
+  if (authUser) return <Navigate to="/" />;
 
   return (
     <>

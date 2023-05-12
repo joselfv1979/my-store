@@ -1,13 +1,13 @@
 import axios from "axios";
 import { Result } from "../types/Result";
-import { AuthRequest, User } from "../types/User";
+import { AuthRequest, AuthResponse, User } from "../types/User";
 import { handleError } from "../utils/handleError";
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_USERS,
 });
 
-export const loginUser = async (credentials: AuthRequest): Promise<Result<User, string>> => {
+export const loginUser = async (credentials: AuthRequest): Promise<Result<AuthResponse, string>> => {
   try {
     const { data } = await api.post("/sign-in", credentials);
     return { success: true, value: data };

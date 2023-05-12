@@ -2,15 +2,22 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { initialUser, type User } from "../types/User.d";
 import styles from "../scss/UserFormPage.module.scss";
+import { useAppSelector } from "../hooks/redux-hooks";
 
 type Props = {
   saveUser: (data: User) => Promise<void>;
+  editing?: boolean;
 };
 
-const UserForm = ({ saveUser }: Props) => {
-  const [userData, setUserData] = useState<User>(initialUser);
+const UserForm = ({ saveUser, editing = false }: Props) => {
+  const { user }  = useAppSelector((state) => state.user);
 
-  const navigate = useNavigate();
+  const currentUser = user ? user : initialUser;
+
+  const [userData, setUserData] = useState<User>(currentUser);
+  const [shown, setShown] = useState(false);
+
+  const switchShown = () => setShown(!shown);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUserData({ ...userData, [event.target.name]: event.target.value });
@@ -22,18 +29,13 @@ const UserForm = ({ saveUser }: Props) => {
     await saveUser(userData);
   };
 
-  const showPassword = () => {
-    const pwdInput = document.querySelector(".pwd-input") as HTMLInputElement;
-    pwdInput.type === "password"
-      ? (pwdInput.type = "text")
-      : (pwdInput.type = "password");
-  };
+  const navigate = useNavigate();
 
   return (
     <form className={styles.userForm} onSubmit={submit}>
       <header>
-        <h2>Register</h2>
-        <p>Please fill in this form to create an account</p>
+        {editing ? <h2>Edit Profile</h2> : <h2>Register</h2>}
+        <p>Please fill in this form</p>
       </header>
 
       <fieldset>
@@ -47,7 +49,7 @@ const UserForm = ({ saveUser }: Props) => {
             required
             autoFocus
             onChange={onChange}
-            defaultValue={""}
+            defaultValue={userData.username}
           />
         </div>
       </fieldset>
@@ -63,7 +65,7 @@ const UserForm = ({ saveUser }: Props) => {
             required
             autoFocus
             onChange={onChange}
-            defaultValue={""}
+            value={userData.fullname}
           />
         </div>
       </fieldset>
@@ -78,34 +80,43 @@ const UserForm = ({ saveUser }: Props) => {
             autoComplete="off"
             required
             onChange={onChange}
-            defaultValue={""}
+            value={userData.email}
           />
         </div>
       </fieldset>
 
-      <fieldset>
-        <div className={styles.pwd}>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            className="pwd-input"
-            placeholder="Password"
-            required
-            onChange={onChange}
-          />
-        </div>
-        <div className={styles.eye} onClick={showPassword}></div>
-      </fieldset>
+      {!editing && (
+        <fieldset>
+          <div className={styles.pwd}>
+            <input
+              type={shown ? "text" : "password"}
+              name="password"
+              id="password"
+              className="pwd-input"
+              placeholder="Password"
+              required
+              onChange={onChange}
+            />
+          </div>
+          <div className={styles.eye} onClick={switchShown}></div>
+        </fieldset>
+      )}
 
       <div className={styles.buttonsContainer}>
         <button className={styles.login}>Save</button>
 
-        <p>Have an account?</p>
-        <button className={styles.signin} onClick={() => navigate("/login")}>
-          Sign in
-          <i className="fas fa-user"></i>
-        </button>
+        {!editing && (
+          <>
+            <p>Have an account?</p>
+            <button
+              className={styles.signin}
+              onClick={() => navigate("/login")}
+            >
+              Sign in
+              <i className="fas fa-user"></i>
+            </button>
+          </>
+        )}
       </div>
     </form>
   );

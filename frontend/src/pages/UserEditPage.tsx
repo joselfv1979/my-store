@@ -1,90 +1,53 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { connect } from "react-redux";
-import styles from "../scss/EditUserPage.module.scss";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
+import { Message, Status } from "../types/Message.d";
+import { cancelUserMessage, editUser, fetchUser } from "../store/user/userActions";
+import { User } from "../types/User";
+import { AppMessage, AppWaiting } from "../components/AppStatus";
+import UserForm from "../components/UserForm";
 
-//{ match, dispatch, user }
 const UserEdit = () => {
- // const { id } = match.params;
+  const { id } = useParams();
 
-  const [userData, setUserData] = useState({});
+  const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   const getUser = async (id) => {
-  //     try {
-  //       let token = getAuthToken();
-  //       const { data } = await axios.get(`/users/${id}`, {
-  //         headers: { Authorization: `${token}` },
-  //       });
-  //       setUserData(data.user);
-  //     } catch (error) {
-  //       dispatch(setError(error.response.data.message));
-  //     }
-  //   };
-  //   getUser(id);
-  // }, [dispatch, id]);
+  const { loading, user, message, error } = useAppSelector(
+    (state) => state.user
+  );
 
-  const navigate = useNavigate();
+  console.log('user', id);
+  
+  const note: Message = error
+  ? {
+      type: Status.DANGER,
+      text: error,
+    }
+  : {
+      type: Status.SUCCESS,
+      text: message,
+    };
 
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-
-  //   setUserData({
-  //     ...userData,
-  //     [name]: value,
-  //   });
-  // };
-
-  // const getOutForm = () => {
-  //   user.role === "admin" ? navigate("/users") : navigate("/");
-  // };
-
-  // const handleFormSubmit = (event) => {
-  //   event.preventDefault();
-  //   dispatch(updateUserAction(userData));
-  //   getOutForm();
-  // };
-
+    useEffect(() => {
+      if (id) dispatch(fetchUser(id));
+    }, [dispatch, id]);
+  
+    const saveUser = async (data: User) => {
+      dispatch(editUser(data));
+    };
+  
+    const cancelMessage = () => {
+      dispatch(cancelUserMessage());
+    };
+  
   return (
-    <div className={styles.modal} onSubmit={() => console.log('submit')
-    }>
-      <form className={styles.form}>
-        <h2>Edit</h2>
-        <fieldset>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            placeholder="Username"
-            autoComplete="off"
-            required
-            onChange={() => console.log('submit')}
-            defaultValue={'username'}
-          />
-        </fieldset>
-
-        <fieldset>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            placeholder="Email"
-            autoComplete="off"
-            required
-            onChange={() => console.log('submit')}
-            defaultValue={'emIL'}
-          />
-        </fieldset>
-        <div className={styles.buttons}>
-          <button className={styles.save}>Save</button>
-          <button className={styles.cancel} onClick={() => console.log('submit')}>
-            Cancel
-          </button>
-        </div>
-      </form>
-    </div>
+    <>
+      {loading && <AppWaiting />}
+      {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
+      {user && <UserForm saveUser={saveUser} editing={true} />}
+    </>
   );
 };
 
 export default UserEdit;
+

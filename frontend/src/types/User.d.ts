@@ -1,7 +1,7 @@
 export interface UserState {
   users: User[];
-  user: User;
-  loggedUser?: User;
+  user: User | null;
+  authUser?: AuthResponse;
   message?: string;
   error?: string;
   loading: boolean;
@@ -29,4 +29,11 @@ export const initialUser: User = {
 export interface AuthRequest {
   username: string;
   password: string;
+}
+
+export interface AuthResponse {
+  id: string;
+  username: string;
+  roles: string[];
+  token: string
 }

@@ -5,7 +5,6 @@ import cartSlice from "./cart/cartSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 
-
 const persistConfig = {
   key: "root",
   storage,

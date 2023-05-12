@@ -10,7 +10,7 @@ import { totalItems } from "../store/cart/cartSlice";
 const Menu = () => {
   const dispatch = useAppDispatch();
 
-  const { loggedUser } = useAppSelector((state) => state.user);
+  const { authUser } = useAppSelector((state) => state.user);
   const admin = useAppSelector(isAdmin);
   const items = useAppSelector(totalItems);
 
@@ -18,8 +18,7 @@ const Menu = () => {
 
   return (
     <Navbar
-      className="navbar navbar-dark"
-      style={{ backgroundColor: "#252537" }}
+      className={"navbar navbar-dark " + styles.menuBg}
     >
       <Nav className={"container-fluid " + styles.header}>
         <Nav.Item className={styles.title}>
@@ -44,10 +43,10 @@ const Menu = () => {
             <Nav.Link href="/new-product">Add product</Nav.Link>
           </Nav.Item>
         )}
-        {loggedUser ? (
+        {authUser ? (
           <Nav.Item className="ms-auto">
-            <Nav.Link href={`/edit-profile/${"0"}`}>
-              {loggedUser.username}
+            <Nav.Link href={`/edit-profile/${authUser.id}`}>
+              {authUser.username}
               <span className={styles.logout} onClick={logoutUser}>
                 <LogoutIcon width="1.5rem" />
               </span>

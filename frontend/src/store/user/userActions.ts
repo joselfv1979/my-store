@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { RootState } from "..";
+import { RootState, persistor } from "..";
 import {
   addNewUser,
   getUser,
@@ -70,7 +70,7 @@ export const editUser = (
   user: User
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {
-    const validUser = validateUser(user);
+    const validUser = validateUser(user, true);
     if (!validUser.success)
       return dispatch(actions.modifyUserFail(validUser.message));
 
@@ -101,6 +101,7 @@ export const login = (
 export const logout = (): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {
     localStorage.removeItem("token");
+    persistor.flush();
     dispatch(actions.logoutUser());
   };
 };

@@ -2,8 +2,7 @@ import { Result } from '../types/Result';
 import { User } from '../types/User';
 
 export const validateUser = (user: User, editing?: boolean): Result<User, string> => {
-    
-    //const data = Object.fromEntries(user.entries());
+
     const { fullname, username, email, password } = user;
     console.log('editing', editing);
     
