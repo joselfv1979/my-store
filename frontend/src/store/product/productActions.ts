@@ -12,7 +12,7 @@ import { productSlice } from "./productSlice";
 
 const { actions } = productSlice;
 
-export const fetchProducts = (): ThunkAction<
+export const fetchProducts = (query?: string ): ThunkAction<
   void,
   RootState,
   unknown,
@@ -20,8 +20,11 @@ export const fetchProducts = (): ThunkAction<
 > => {
   return async (dispatch) => {
     dispatch(actions.productsPending());
+console.log('query', query);
 
-    const response = await getProducts();
+    const response = await getProducts(query);
+    console.log('res ',{response});
+    
     setTimeout(() => {
       response.success
       ? dispatch(actions.setProductsSuccess(response.value))

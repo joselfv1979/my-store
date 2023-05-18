@@ -8,10 +8,10 @@ const api = axios.create({
   baseURL: process.env.REACT_APP_API_PRODUCTS,
 });
 
-export const getProducts = async (): Promise<Result<Product[], string>> => {
+export const getProducts = async (query: string = ''): Promise<Result<Product[], string>> => {
   
   try {
-    const { data } = await api.get("/");
+    const { data } = await api.get(`/?category=${query}`);
     return { success: true, value: data };
   } catch (error) {
     return { success: false, message: handleError(error) };

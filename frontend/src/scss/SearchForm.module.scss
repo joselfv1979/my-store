@@ -1,11 +1,28 @@
-.search {
-    align-items: center;
-    display: flex;
-    height: 3rem;
-    justify-content: center;
-    margin-top: 1rem;
-    width: 60%;
+.searchForm {
+    margin-bottom: 2rem;
 }
+
+.searchButton {
+    width: 2rem;
+    height: 2.5rem;
+    background: #fff;
+    border: 1px solid #fafbfd;
+    border-right: 0;
+    border-radius: 5px;
+}
+
+.searchInput{
+    width: 18rem;
+    border: 1px solid #fafbfd;
+    border-left: 0;
+    border-radius: 5px;
+    padding-left: 1rem;
+    &:focus {
+        outline: none;
+    }
+}
+  
+
 
 .new {
     align-items: center;

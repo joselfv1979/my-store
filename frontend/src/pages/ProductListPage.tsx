@@ -9,18 +9,21 @@ import { Message, Status } from "../types/Message.d";
 import { useDeleteModalContext } from "../context/deleteModal/DeleteModalContext";
 import DeleteModal from "../components/DeleteModal";
 import { useEffect } from "react";
+import SearchForm from "../components/SearchForm";
 
 const ProductListPage = () => {
+
   const dispatch = useAppDispatch();
+
+  useEffect(() => {    
+    dispatch(fetchProducts());
+  }, [dispatch])
+
   const { showDeleteModal } = useDeleteModalContext();
 
   const { loading, products, message, error } = useAppSelector(
     (state) => state.product
   );
-
-  useEffect(() => {
-      if(loading)dispatch(fetchProducts());
-  }, [dispatch, loading]);
 
   const note: Message = error
   ? {
@@ -40,6 +43,7 @@ const ProductListPage = () => {
     <>
       {loading && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
+      <SearchForm />
       {products && <ProductList />}
       {showDeleteModal && <DeleteModal />}
     </>

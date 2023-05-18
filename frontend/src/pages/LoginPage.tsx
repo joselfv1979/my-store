@@ -20,7 +20,7 @@ const LoginPage = () => {
 
   const loginUser = (user: AuthRequest) => {
     dispatch(login(user));
-    dispatch(fetchProducts());
+    dispatch(fetchProducts(""));
   };
 
   const cancelMessage = () => {
