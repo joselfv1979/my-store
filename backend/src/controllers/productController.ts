@@ -17,6 +17,8 @@ export const getProductList = async (
   next: NextFunction
 ) => {
   try {    
+    console.log('query', req.query);
+    
     const result = await getFilteredProducts(req.query);
     console.log({result});
     

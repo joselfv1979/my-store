@@ -6,6 +6,8 @@ export const buildProductQuery = (parameters: ProductQuery) => {
   let count = 0;
   let filters: string[] = [];
 
+  console.log('category', category);
+  
   if (name) {
     sql += " where name = ?";
     filters.push(name);
@@ -32,6 +34,6 @@ export const buildProductQuery = (parameters: ProductQuery) => {
     filters.push(rating);
     count++;
   }
-
+  
   return { sql, filters };
 };

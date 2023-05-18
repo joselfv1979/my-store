@@ -13,6 +13,7 @@ export const getAllProducts = async () => {
 export const getFilteredProducts = async (parameters: ProductQuery) => {
   try {
     const { sql, filters } = buildProductQuery(parameters);
+    
     const [rows] = await promisePool.query<RowDataPacket[]>(sql, filters);
     return rows;
   } catch (error) {
