@@ -7,11 +7,11 @@ const productRouter = Router(); // creación de la instancia de enrutamiento
 
 productRouter.get('/:id', getProductData);
 
-productRouter.post('/product-add', imageHandler.single("image"), createProduct);
+productRouter.post('/product-add', authHandler, imageHandler.single("image"), createProduct);
 
-productRouter.put('/product-edit/:id', imageHandler.single("image"), editProduct);
+productRouter.put('/product-edit/:id', authHandler, imageHandler.single("image"), editProduct);
 
-productRouter.delete('/:id', removeProduct);
+productRouter.delete('/:id', authHandler, removeProduct);
 
 productRouter.get('/', getProductList);
 

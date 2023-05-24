@@ -33,7 +33,7 @@ const authHandler = (
     return next(new CustomError(401, "token missing or invalid"));
   }
 
-  let decodedToken = <Jwt>jwt.verify(token, process.env.SECRET as string);
+  let decodedToken = <Jwt>jwt.verify(token, process.env.SECRET);
 
   if (!decodedToken) {
     return next(new CustomError(401, "token missing or invalid"));

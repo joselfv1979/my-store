@@ -7,14 +7,10 @@ import morgan from "morgan";
 import usersRouter from "./routes/userRoutes"; // variables que almacenan los módulos de los endpoint enrutados
 import productRouter from "./routes/productRoutes";
 import { errorHandler } from "./middlewares/errorHandler";
-import * as MySQLConnector from "./utils/database";
 
 dotenv.config();
 
 const app = express();
-
-// create database pool
-//MySQLConnector.init();
 
 app.use(morgan("dev"));
 // adding set of security middlewares
