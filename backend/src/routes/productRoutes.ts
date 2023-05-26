@@ -3,7 +3,9 @@ import { getProductList, getProductData, createProduct, removeProduct, editProdu
 import authHandler from "../middlewares/authHandler";
 import imageHandler from "../middlewares/imageHandler";
 
-const productRouter = Router(); // creación de la instancia de enrutamiento
+const productRouter = Router(); // Creates a routing instance
+
+// Some routes use image, authentication handlers
 
 productRouter.get('/:id', getProductData);
 
@@ -15,4 +17,4 @@ productRouter.delete('/:id', authHandler, removeProduct);
 
 productRouter.get('/', getProductList);
 
-export default productRouter; // exportación del enrutador
+export default productRouter;

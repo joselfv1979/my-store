@@ -12,7 +12,9 @@ dotenv.config();
 
 const app = express();
 
+// adding morgan to log HTTP requests
 app.use(morgan("dev"));
+
 // adding set of security middlewares
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
@@ -25,11 +27,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Serve static files
-// app.use(
-//    // process.env.PUBLIC_PATH as string,
-//    './../public/images',
-//     express.static(path.join(__dirname, process.env.UPLOADS_DIR as string))
-// );
 app.use("/static/images", express.static(path.join(__dirname, "..", "public", "images")));
 
 // Routes
@@ -41,6 +38,7 @@ app.use(errorHandler);
 
 const port = process.env.PORT || 8000;
 
+// start the server
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 })

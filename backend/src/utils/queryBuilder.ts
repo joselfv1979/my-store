@@ -1,5 +1,6 @@
 import { ProductQuery } from "../models/ProductQuery";
 
+// Builds filtered queries
 export const buildProductQuery = (parameters: ProductQuery) => {
   const { name, category, price, rating } = parameters;
   let sql = "select * from products";

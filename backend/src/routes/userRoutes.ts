@@ -2,7 +2,7 @@ import { Router } from "express";
 import { login } from "../controllers/loginController";
 import { getUsers, getUserById, addNewUser, editUser, removeUser } from '../controllers/userController';
 
-const userRouter = Router(); // creación de la instancia de enrutamiento
+const userRouter = Router(); // Creates a routing instance
 
 userRouter.get('/:id', getUserById);
 
@@ -16,4 +16,4 @@ userRouter.put('/edit/:id', editUser);
 
 userRouter.get('/', getUsers);
 
-export default userRouter; // exportación del enrutador
+export default userRouter;

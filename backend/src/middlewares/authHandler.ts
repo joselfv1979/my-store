@@ -7,6 +7,7 @@ export interface AuthRequest extends Request {
   userId: string;
 }
 
+// Middleware for token authentication
 const authHandler = (
   request: AuthRequest,
   response: Response,

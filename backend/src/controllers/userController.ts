@@ -11,6 +11,7 @@ import {
 } from "../services/userService";
 import { IUser } from "../models/User";
 
+// endpoint to get all users
 export const getUsers = async (
   req: Request,
   res: Response,
@@ -24,6 +25,7 @@ export const getUsers = async (
   }
 };
 
+// endpoint to get one user by id
 export const getUserById = async (
   req: Request,
   res: Response,
@@ -43,6 +45,7 @@ export const getUserById = async (
   }
 };
 
+// endpoint to create a new user
 export const addNewUser = async (
   req: Request,
   res: Response,
@@ -82,6 +85,7 @@ export const addNewUser = async (
   }
 };
 
+// endpoint to update one user by id
 export const editUser = async (
   req: Request,
   res: Response,
@@ -108,6 +112,7 @@ export const editUser = async (
   }
 };
 
+// endpoint to delete one user by id
 export const removeUser = async (
   req: Request,
   res: Response,

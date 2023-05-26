@@ -3,6 +3,7 @@ import { CustomError } from "../models/CustomError";
 import { loginUser } from "../services/userService";
 import { generateToken } from "../utils/jwt";
 
+// endpoint to login users
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { username, password } = req.body;

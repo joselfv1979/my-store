@@ -11,23 +11,21 @@ import {
 } from "../services/productService";
 import { getRating } from "../utils/productRating";
 
+// endpoint to get all products
 export const getProductList = async (
   req: Request<{}, {}, {}, ProductQuery>,
   res: Response,
   next: NextFunction
 ) => {
-  try {    
-    console.log('query', req.query);
-    
-    const result = await getFilteredProducts(req.query);
-    console.log({result});
-    
+  try {        
+    const result = await getFilteredProducts(req.query);    
     res.json(result);
   } catch (error) {
     next(new CustomError(500, "Couldn't fetch products, try it later"));
   }
 };
 
+// endpoint to get one product by id
 export const getProductData = async (
   req: Request,
   res: Response,
@@ -46,6 +44,7 @@ export const getProductData = async (
   }
 };
 
+// endpoint to create a new product
 export const createProduct = async (
   req: Request,
   res: Response,
@@ -60,6 +59,7 @@ export const createProduct = async (
     
     const imagePath = req.file ? req.file.path : "";
 
+    // 'static' is virtual directory, so as not to expose the real path 'public'
     const path = imagePath.replace(/\\/g, "/").replace("public", "static");
 
     const rating = getRating();    
@@ -84,6 +84,7 @@ export const createProduct = async (
   }
 };
 
+// endpoint to update one product by id
 export const editProduct = async (
   req: Request,
   res: Response,
@@ -97,6 +98,7 @@ export const editProduct = async (
       return next(new CustomError(400, "Bad request"));
     }
 
+    // Check if there is a new file path, or we use the old one.
     const imagePath = req.file ? req.file.path.replace("public", "static") : image;
     
     const updatedProduct = await updateProduct(id, { ...req.body, imagePath });
@@ -113,6 +115,7 @@ export const editProduct = async (
   }
 };
 
+// endpoint to delete one product by id
 export const removeProduct = async (
   req: Request,
   res: Response,

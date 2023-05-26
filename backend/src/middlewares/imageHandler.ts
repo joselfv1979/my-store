@@ -1,6 +1,7 @@
 import multer from "multer";
 import { v4 as uuidv4 } from "uuid";
 
+// Image handling middleware
 const storage = multer.diskStorage({
   destination: "./public/images",
   filename: (req, file, cb) => {
