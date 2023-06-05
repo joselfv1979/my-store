@@ -28,7 +28,7 @@ export const addUser = async (user: IUser) => {
   const sql =
     "insert into users (fullname, username, email, password, role, image) values (?, ?, ?, sha1(?), ?, ?)";
 
-  const [{ affectedRows }] = await promisePool.query<ResultSetHeader>(sql, [
+  const [{ insertId }] = await promisePool.query<ResultSetHeader>(sql, [
     fullname,
     username,
     email,
@@ -37,7 +37,7 @@ export const addUser = async (user: IUser) => {
     image,
   ]);
 
-  return affectedRows;
+  return insertId;
 };
 
 export const updateUser = async (id: string, user: IUser) => {

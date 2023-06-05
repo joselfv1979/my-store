@@ -77,9 +77,13 @@ export const addNewUser = async (
       roles,
       image: photo,
     };
+    
+    const userId = await addUser(newUser);
 
-    const response = await addUser(newUser);
-    res.status(201).json(response);
+    if(!userId) return new CustomError(500, "Couldn't create product, try it later");
+
+    const user = await getUserDataById(userId.toString());
+    res.status(201).json(user);
   } catch (error) {
     next(error);
   }

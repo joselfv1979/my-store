@@ -75,7 +75,7 @@ export const createProduct = async (
 
     const productId = await addProduct(newProduct);
 
-    if(!productId) return new CustomError(500, "Couldn't update product, try it later");
+    if(!productId) return new CustomError(500, "Couldn't create product, try it later");
 
     const product = await getProduct(productId.toString());
     return res.status(200).json(product);
