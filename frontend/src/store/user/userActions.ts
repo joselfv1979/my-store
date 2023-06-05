@@ -1,6 +1,3 @@
-import { AnyAction } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { RootState, persistor } from "..";
 import {
   addNewUser,
   getUser,
@@ -12,105 +9,97 @@ import {
 import { AuthRequest, User } from "../../types/User";
 import { validateUser } from "../../utils/validateUser";
 import { userSlice } from "./userSlice";
+import { AppThunk } from "../../types/AppThunk";
 
 const { actions } = userSlice;
 
-export const fetchUsers = (): ThunkAction<
-  void,
-  RootState,
-  unknown,
-  AnyAction
-> => {
-  return async (dispatch) => {
-    const response = await getUsers();
-    response.success
-      ? dispatch(actions.setUsersSuccess(response.value))
-      : dispatch(actions.setUserFail(response.message));
-  };
+// Action to fetch all users
+export const fetchUsers = (): AppThunk => async (dispatch) => {
+  const response = await getUsers();
+  response.success
+    ? dispatch(actions.setUsersSuccess(response.value))
+    : dispatch(actions.setUserFail(response.message));
 };
 
-export const fetchUser = (
-  id: string
-): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
+// Action to fetch one user by id
+export const fetchUser =
+  (id: string): AppThunk =>
+  async (dispatch) => {
     const response = await getUser(id);
     response.success
       ? dispatch(actions.setUserSuccess(response.value))
       : dispatch(actions.setUserFail(response.message));
   };
-};
 
-export const addUser = (
-  user: User
-): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
+// Action to create a new user, previous validation
+export const addUser =
+  (user: User): AppThunk =>
+  async (dispatch) => {
     const validUser = validateUser(user, false);
-    if (!validUser.success)
-      return dispatch(actions.createUserFail(validUser.message));
+
+    if (!validUser.success) {
+      dispatch(actions.createUserFail(validUser.message));
+      return;
+    }
 
     const response = await addNewUser(user);
     response.success
       ? dispatch(actions.createUserSuccess(response.value))
       : dispatch(actions.createUserFail(response.message));
   };
-};
 
-export const deleteUser = (
-  id: string
-): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
+// Action to delete one user by id,
+export const deleteUser =
+  (id: string): AppThunk =>
+  async (dispatch) => {
     const response = await removeUser(id);
     response.success
       ? dispatch(actions.eliminateUserSuccess(id))
       : dispatch(actions.eliminateUserFail(response.message));
   };
-};
 
-export const editUser = (
-  user: User
-): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
+// Action to update one user by id, previous validation
+export const editUser =
+  (user: User): AppThunk =>
+  async (dispatch) => {
     const validUser = validateUser(user, true);
-    if (!validUser.success)
-      return dispatch(actions.modifyUserFail(validUser.message));
+
+    if (!validUser.success) {
+      dispatch(actions.modifyUserFail(validUser.message));
+      return;
+    }
 
     const response = await updateUser(user);
     response.success
       ? dispatch(actions.modifyUserSuccess(response.value))
       : dispatch(actions.modifyUserFail(response.message));
   };
-};
 
-export const login = (
-  user: AuthRequest
-): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
+// Action to login a user
+export const login =
+  (user: AuthRequest): AppThunk =>
+  async (dispatch) => {
     dispatch(actions.userPending());
     const response = await loginUser(user);
+
     setTimeout(() => {
-    if (response.success) {
-      dispatch(actions.loginUserSuccess(response.value));
-      localStorage.setItem("token", JSON.stringify(response.value.token));
-    } else {
-      dispatch(actions.loginUserFail(response.message));
-    }
-  }, 3000)
+      if (response.success) {
+        dispatch(actions.loginUserSuccess(response.value));
+        localStorage.setItem("token", JSON.stringify(response.value.token));
+      } else {
+        dispatch(actions.loginUserFail(response.message));
+      }
+    }, 3000);
   };
+
+// Action to logout a user
+export const logout = (): AppThunk => async (dispatch) => {
+  localStorage.removeItem("token");
+  dispatch(actions.logoutUser());
 };
 
-export const logout = (): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
-    localStorage.removeItem("token");
-    persistor.flush();
-    dispatch(actions.logoutUser());
-  };
+// Action to remove any message from UserState
+export const cancelUserMessage = (): AppThunk => (dispatch) => {
+  dispatch(actions.eliminateUserMessage());
 };
 
-export const cancelUserMessage = (): ThunkAction<
-  void,
-  RootState,
-  unknown,
-  AnyAction
-> => {
-  return async (dispatch) => dispatch(actions.eliminateUserMessage());
-};

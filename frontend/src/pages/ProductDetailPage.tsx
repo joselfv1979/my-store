@@ -10,7 +10,7 @@ import {
   cancelProductMessage,
   fetchProduct,
 } from "../store/product/productActions";
-import { Message, Status } from "../types/Message.d";
+import { Message, Status } from "../types/Message";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -22,20 +22,19 @@ const ProductDetailPage = () => {
   );
 
   const note: Message = error
-  ? {
-      type: Status.DANGER,
-      text: error,
-    }
-  : {
-      type: Status.SUCCESS,
-      text: message,
-    };
+    ? {
+        type: Status.DANGER,
+        text: error,
+      }
+    : {
+        type: Status.SUCCESS,
+        text: message,
+      };
 
   const image = `${process.env.REACT_APP_API_IMAGES}/${product?.imagePath}`;
 
   useEffect(() => {
     if (id) dispatch(fetchProduct(id));
-    console.log("id", id);
   }, [dispatch, id]);
 
   const cancelMessage = () => {

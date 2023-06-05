@@ -10,9 +10,7 @@ const DeleteModal = () => {
 
   const dispatch = useAppDispatch();
 
-  const deleteItem = () => {
-    console.log('deleting...',{id});
-    
+  const deleteItem = () => {    
     if(id) dispatch(deleteProduct(id));
     handleClose();
   };

@@ -4,7 +4,7 @@ import {
   AuthResponse,
   type User,
   type UserState,
-} from "../../types/User.d";
+} from "../../types/User";
 
 const initialUserState: UserState = {
   users: [],

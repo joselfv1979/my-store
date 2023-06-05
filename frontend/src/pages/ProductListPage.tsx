@@ -5,7 +5,7 @@ import {
   cancelProductMessage,
   fetchProducts,
 } from "../store/product/productActions";
-import { Message, Status } from "../types/Message.d";
+import { Message, Status } from "../types/Message";
 import { useDeleteModalContext } from "../context/deleteModal/DeleteModalContext";
 import DeleteModal from "../components/DeleteModal";
 import { useEffect } from "react";
@@ -46,6 +46,7 @@ const ProductListPage = () => {
       <SearchForm />
       {products && <ProductList />}
       {showDeleteModal && <DeleteModal />}
+      <>rrrrr</>
     </>
   );
 };

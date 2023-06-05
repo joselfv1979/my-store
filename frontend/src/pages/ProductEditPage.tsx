@@ -8,7 +8,7 @@ import {
   editProduct,
   fetchProduct,
 } from "../store/product/productActions";
-import { type Message, Status } from "../types/Message.d";
+import { type Message, Status } from "../types/Message";
 
 const ProductEditPage = () => {
   const { id } = useParams();

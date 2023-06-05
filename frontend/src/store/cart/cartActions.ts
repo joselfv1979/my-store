@@ -1,37 +1,31 @@
-import { AnyAction } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { RootState } from "..";
 import { cartSlice } from "./cartSlice";
 import { type CartItem } from "../../types/Cart";
+import { AppThunk } from "../../types/AppThunk";
 
 const { actions } = cartSlice;
 
-export const addProduct = (
-  product: CartItem
-): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
+// Action to add one product to cart
+export const addProduct =
+  (product: CartItem): AppThunk =>
+  (dispatch) => {
     dispatch(actions.addItemSuccess(product));
   };
-};
 
-export const substractProduct = (
-  product: CartItem
-): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
+// Action to remove one product to cart
+export const substractProduct =
+  (product: CartItem): AppThunk =>
+  (dispatch) => {
     dispatch(actions.substractItemSuccess(product));
   };
-}
 
-export const fetchItem = ( id: string ): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
+// Action to fetch one product from cart
+export const fetchItem =
+  (id: string): AppThunk =>
+  (dispatch) => {
     dispatch(actions.setCartItem(id));
-  }
+  };
 
-}
-
-export const emptyCart = (): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
-    dispatch(actions.emptyCartItems());
-  }
-}
-
+// Action to empty the cart
+export const emptyCart = (): AppThunk => (dispatch) => {
+  dispatch(actions.emptyCartItems());
+};

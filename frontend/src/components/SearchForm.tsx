@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
 import styles from "../scss/SearchForm.module.scss";
 import Form from "react-bootstrap/esm/Form";
 import InputGroup from "react-bootstrap/esm/InputGroup";
@@ -15,7 +15,7 @@ const SearchForm = () => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
     setQuery(event.target.value);
 
-  const handleSubmit = (event: React.SyntheticEvent)=> {
+  const handleSubmit = (event: SyntheticEvent)=> {
     event.preventDefault()
     dispatch(fetchProducts(query))
   }

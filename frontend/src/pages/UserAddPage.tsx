@@ -3,7 +3,7 @@ import { AppWaiting, AppMessage } from "../components/AppStatus";
 import UserForm from "../components/UserForm";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { addUser, cancelUserMessage } from "../store/user/userActions";
-import { Message, Status } from "../types/Message.d";
+import { Message, Status } from "../types/Message";
 import { User } from "../types/User";
 
 const UserAddPage = () => {
@@ -21,7 +21,7 @@ const UserAddPage = () => {
       text: message,
     };
   
-  const saveUser = async (data: User) => {
+  const saveUser = (data: User) => {
     dispatch(addUser(data))
   };
 

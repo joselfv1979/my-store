@@ -6,17 +6,16 @@ import { Button, Stack } from "react-bootstrap";
 import { addProduct, substractProduct } from "../store/cart/cartActions";
 import { CartItem } from "../types/Cart";
 
-// cart, subtractQuantity, addQuantity
 const Cart = () => {
   const cart = useAppSelector(stateCart);
   const dispatch = useAppDispatch();
 
-  const addItem = (item: CartItem) => {
-    dispatch(addProduct(item));
-  };
-
   const subtractItem = (item: CartItem) => {
     dispatch(substractProduct(item));
+  };
+
+  const addItem = (item: CartItem) => {
+    dispatch(addProduct(item));
   };
 
   const photoPath = process.env.REACT_APP_API_IMAGES;

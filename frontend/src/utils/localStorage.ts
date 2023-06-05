@@ -1,4 +1,3 @@
-import { RootState } from "../store";
 
 const saveToLocalStorage = (state: any) => {
     try {

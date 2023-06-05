@@ -1,6 +1,3 @@
-import { AnyAction } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { RootState } from "..";
 import {
   addNewProduct,
   getProduct,
@@ -9,82 +6,70 @@ import {
   updateProduct,
 } from "../../services/productService";
 import { productSlice } from "./productSlice";
+import { AppThunk } from "../../types/AppThunk";
 
 const { actions } = productSlice;
 
-export const fetchProducts = (query?: string ): ThunkAction<
-  void,
-  RootState,
-  unknown,
-  AnyAction
-> => {
-  return async (dispatch) => {
+// Action to fetch all products
+export const fetchProducts =
+  (query?: string): AppThunk =>
+  async (dispatch) => {
     dispatch(actions.productsPending());
-console.log('query', query);
 
     const response = await getProducts(query);
-    console.log('res ',{response});
-    
     setTimeout(() => {
       response.success
-      ? dispatch(actions.setProductsSuccess(response.value))
-      : dispatch(actions.createProductFail(response.message));
-    }, 1000)
+        ? dispatch(actions.setProductsSuccess(response.value))
+        : dispatch(actions.createProductFail(response.message));
+    }, 1000);
   };
-};
 
-export const fetchProduct = (
-  id: string
-): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {    
+// Action to fetch one product by id
+export const fetchProduct =
+  (id: string): AppThunk =>
+  async (dispatch) => {
     dispatch(actions.productPending());
-    
-    const response = await getProduct(id);    
+
+    const response = await getProduct(id);
     setTimeout(() => {
       response.success
-      ? dispatch(actions.setProductSuccess(response.value))
-      : dispatch(actions.setProductFail(response.message));
-    }, 1000)
+        ? dispatch(actions.setProductSuccess(response.value))
+        : dispatch(actions.setProductFail(response.message));
+    }, 1000);
   };
-};
 
-export const addProduct = (
-  product: FormData
-): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {    
+// Action to create a new product
+export const addProduct =
+  (product: FormData): AppThunk =>
+  async (dispatch) => {
     const response = await addNewProduct(product);
-    console.log({response});
-    
+
     response.success
       ? dispatch(actions.createProductSuccess(response.value))
       : dispatch(actions.createProductFail(response.message));
   };
-};
 
-export const deleteProduct = (
-  id: string
-): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
+// Action to delete one product by id,
+export const deleteProduct =
+  (id: string): AppThunk =>
+  async (dispatch) => {
     const response = await removeProduct(id);
     response.success
       ? dispatch(actions.eliminateProductSuccess(id))
       : dispatch(actions.eliminateProductFail(response.message));
   };
-};
 
-export const editProduct = (
-  product: FormData
-): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
-    const response = await updateProduct(product);    
+// Action to update one product by id
+export const editProduct =
+  (product: FormData): AppThunk =>
+  async (dispatch) => {
+    const response = await updateProduct(product);
     response.success
       ? dispatch(actions.modifyProductSuccess(response.value))
       : dispatch(actions.modifyProductFail(response.message));
   };
+
+// Action to remove any message from ProductState
+export const cancelProductMessage = (): AppThunk => async (dispatch) => {
+  dispatch(actions.eliminateProductMessage());
 };
-
-export const cancelProductMessage = (): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => dispatch(actions.eliminateProductMessage());
-}
-
-

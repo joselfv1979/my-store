@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { Message, Status } from "../types/Message.d";
+import { Message, Status } from "../types/Message";
 import { cancelUserMessage, editUser, fetchUser } from "../store/user/userActions";
 import { User } from "../types/User";
 import { AppMessage, AppWaiting } from "../components/AppStatus";
@@ -32,7 +32,7 @@ const UserEdit = () => {
       if (id) dispatch(fetchUser(id));
     }, [dispatch, id]);
   
-    const saveUser = async (data: User) => {
+    const saveUser = (data: User) => {
       dispatch(editUser(data));
     };
   

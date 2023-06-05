@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../hooks/redux-hooks";
 import styles from "../scss/ProductFormPage.module.scss";
-import { initialProduct, Product } from "../types/Product.d";
+import { initialProduct, Product } from "../types/Product";
 import { castProductToFormData } from "../utils/castFormData";
 import { categories } from "../utils/ConstantUtils";
 

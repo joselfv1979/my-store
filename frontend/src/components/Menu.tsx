@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { logout } from "../store/user/userActions";
 import { isAdmin } from "../store/user/userSlice";
 import { totalItems } from "../store/cart/cartSlice";
+import { emptyCart } from "../store/cart/cartActions";
 
 const Menu = () => {
   const dispatch = useAppDispatch();
@@ -14,7 +15,10 @@ const Menu = () => {
   const admin = useAppSelector(isAdmin);
   const items = useAppSelector(totalItems);
 
-  const logoutUser = () => dispatch(logout());
+  const logoutUser =  (): void => {
+     dispatch(logout());
+     dispatch(emptyCart());
+  };
 
   return (
     <Navbar

@@ -7,15 +7,26 @@ const api = axios.create({
   baseURL: process.env.REACT_APP_API_USERS,
 });
 
+/**
+ * Returns user's login data
+ * @param {AuthRequest} credentials - {username, password}.
+ * @returns {Result<AuthResponse, string>} User's data or an error messsage
+ */
 export const loginUser = async (credentials: AuthRequest): Promise<Result<AuthResponse, string>> => {
   try {
     const { data } = await api.post("/sign-in", credentials);
+    console.log({data});
+    
     return { success: true, value: data };
   } catch (error) {
     return { success: false, message: handleError(error) };
   }
 }
 
+/**
+ * Returns all users
+ * @returns {Result<User[], string>} All user or an error messsage
+ */
 export const getUsers = async (): Promise<Result<User[], string>> => {
   try {
     const { data } = await api.get("/");
@@ -25,6 +36,11 @@ export const getUsers = async (): Promise<Result<User[], string>> => {
   }
 };
 
+/**
+ * Returns one user
+ * @param {string} id - The user id.
+ * @returns {Result<User, string>} User or an error messsage
+ */
 export const getUser = async (id: string): Promise<Result<User, string>> => {
   try {
     const { data } = await api.get(`/${id}`);
@@ -34,19 +50,27 @@ export const getUser = async (id: string): Promise<Result<User, string>> => {
   }
 };
 
+/**
+ * Returns one user
+ * @param {User} user - Object of type User.
+ * @returns {Result<User, string>} User or an error messsage
+ */
 export const addNewUser = async (
   user: User
 ): Promise<Result<User, string>> => {
   try {
-    const { data } = await api.post(`/sign-up/`, user);
-    console.log("created user", data);
-    
+    const { data } = await api.post(`/sign-up/`, user);   
     return { success: true, value: data };
   } catch (error) {
     return { success: false, message: handleError(error) };
   }
 };
 
+/**
+ * Returns one user
+ * @param {string} id - The user id.
+ * @returns {Result<string, string>} User or an error messsage
+ */
 export const removeUser = async (
   id: string
 ): Promise<Result<string, string>> => {

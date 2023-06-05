@@ -4,7 +4,7 @@ import { AppMessage, AppWaiting } from "../components/AppStatus";
 import LoginForm from "../components/LoginForm";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { cancelUserMessage, login } from "../store/user/userActions";
-import { Message, Status } from "../types/Message.d";
+import { Message, Status } from "../types/Message";
 import { AuthRequest } from "../types/User";
 import { fetchProducts } from "../store/product/productActions";
 

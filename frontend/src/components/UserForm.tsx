@@ -1,11 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { initialUser, type User } from "../types/User.d";
+import { initialUser, type User } from "../types/User";
 import styles from "../scss/UserFormPage.module.scss";
 import { useAppSelector } from "../hooks/redux-hooks";
 
 type Props = {
-  saveUser: (data: User) => Promise<void>;
+  saveUser: (data: User) => void;
   editing?: boolean;
 };
 
@@ -23,10 +23,9 @@ const UserForm = ({ saveUser, editing = false }: Props) => {
     setUserData({ ...userData, [event.target.name]: event.target.value });
   };
 
-  const submit = async (event: FormEvent<HTMLFormElement>) => {
+  const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    await saveUser(userData);
+    saveUser(userData);
   };
 
   const navigate = useNavigate();

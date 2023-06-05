@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "..";
-import { type Product, type ProductState } from "../../types/Product.d";
+import { type RootState } from "..";
+import { type Product, type ProductState } from "../../types/Product";
 
 const initialProductState: ProductState = {
   products: [],

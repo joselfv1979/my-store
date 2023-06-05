@@ -5,7 +5,7 @@ import {
   addProduct,
   cancelProductMessage,
 } from "../store/product/productActions";
-import { Message, Status } from "../types/Message.d";
+import { Message, Status } from "../types/Message";
 
 const ProductFormPage = () => {
   const dispatch = useAppDispatch();

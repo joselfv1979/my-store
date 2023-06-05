@@ -1,9 +1,9 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import productSlice from "./product/productSlice";
 import userSlice from "./user/userSlice";
 import cartSlice from "./cart/cartSlice";
 import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage/session";
+import storage from "redux-persist/es/storage";
 
 const persistConfig = {
   key: "root",
@@ -27,5 +27,5 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof reducers>;
 export type AppDispatch = typeof store.dispatch;

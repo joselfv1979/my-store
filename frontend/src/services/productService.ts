@@ -8,6 +8,7 @@ const api = axios.create({
   baseURL: process.env.REACT_APP_API_PRODUCTS,
 });
 
+// Request to get all products (optional filter parameter)
 export const getProducts = async (
   query: string = ""
 ): Promise<Result<Product[], string>> => {
@@ -19,6 +20,7 @@ export const getProducts = async (
   }
 };
 
+// Request to get one product by id
 export const getProduct = async (
   id: string
 ): Promise<Result<Product, string>> => {
@@ -30,6 +32,7 @@ export const getProduct = async (
   }
 };
 
+// Request to create one product
 export const addNewProduct = async (
   product: FormData
 ): Promise<Result<Product, string>> => {
@@ -43,6 +46,7 @@ export const addNewProduct = async (
   }
 };
 
+// Request to delete one product by id
 export const removeProduct = async (
   id: string
 ): Promise<Result<string, string>> => {
@@ -54,6 +58,7 @@ export const removeProduct = async (
   }
 };
 
+// Request to update one product by id
 export const updateProduct = async (
   product: FormData
 ): Promise<Result<Product, string>> => {
