@@ -1,4 +1,4 @@
-import SingleProduct from "./Product";
+import ProductCard from "./ProductCard";
 import { useAppSelector } from "../hooks/redux-hooks";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -12,7 +12,7 @@ const ProductList = () => {
     <Row>
       {products.map((product) => (
         <Col key={product.id}>
-          <SingleProduct product={product} />
+          <ProductCard product={product} />
         </Col>
       ))}
     </Row>

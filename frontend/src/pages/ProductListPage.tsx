@@ -46,7 +46,6 @@ const ProductListPage = () => {
       <SearchForm />
       {products && <ProductList />}
       {showDeleteModal && <DeleteModal />}
-      <>rrrrr</>
     </>
   );
 };

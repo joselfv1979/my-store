@@ -43,9 +43,14 @@ const Menu = () => {
           </Nav.Link>
         </Nav.Item>
         {admin && (
+          <>
           <Nav.Item>
             <Nav.Link href="/new-product">Add product</Nav.Link>
           </Nav.Item>
+          <Nav.Item>
+          <Nav.Link href="/users">Users</Nav.Link>
+        </Nav.Item>
+          </>
         )}
         {authUser ? (
           <Nav.Item className="ms-auto">

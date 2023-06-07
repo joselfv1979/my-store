@@ -13,7 +13,7 @@ type Props = {
   product: Product;
 };
 
-const SingleProduct = ({ product }: Props) => {
+const ProductCard = ({ product }: Props) => {
   const admin = useAppSelector(isAdmin);
 
   const navigate = useNavigate();
@@ -50,4 +50,4 @@ const SingleProduct = ({ product }: Props) => {
   );
 };
 
-export default SingleProduct;
+export default ProductCard;

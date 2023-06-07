@@ -1,58 +1,42 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { connect } from "react-redux";
-import styles from "../scss/UserListPage.module.scss";
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
+import { cancelUserMessage, fetchUsers } from "../store/user/userActions";
+import { Message, Status } from "../types/Message";
+import { AppMessage, AppWaiting } from "../components/AppStatus";
+import UserList from "../components/UserList";
 
-//{ dispatch, userList }
 const UserListPage = () => {
-  // useEffect(() => {
-  //   dispatch(getUserListAction());
-  // }, [dispatch]);
+  const dispatch = useAppDispatch();
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
-  const userList: string[] = [];
-  const UserList = () => {
+  const { loading, users, message, error } = useAppSelector(
+    (state) => state.user
+  );
 
-    return userList.map((i) => (
-      <li key={i} className={styles.card}>
-        <div className={styles.image}></div>
-        <p>{'username'}</p>
-        <div className={styles.buttons}>
-          <button
-            className={styles.edit}
-            onClick={() => navigate(`/edit-profile/${'0'}`)}
-          >
-            <i className="fas fa-pencil-alt"></i>
-          </button>
+  const note: Message = error
+    ? {
+        type: Status.DANGER,
+        text: error,
+      }
+    : {
+        type: Status.SUCCESS,
+        text: message,
+      };
 
-          <button
-            className={styles.remove}
-            onClick={() => {
-              if (window.confirm("Are you sure to delete?")) {
-                console.log('delete')
-              }
-            }}
-          >
-            <i className="fas fa-trash-alt"></i>
-          </button>
-        </div>
-      </li>
-    ));
+  const cancelMessage = () => {
+    dispatch(cancelUserMessage());
   };
+
   return (
-    <div className={styles.container}>
-      <h1>Users</h1>
-      <ul>
-        {/* <UserList /> */}
-      </ul>
-    </div>
+    <>
+      {loading && <AppWaiting />}
+      {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
+      {users && <UserList />}
+    </>
   );
 };
 
-// const mapStateToProps = (state) => ({
-//   userList: state.user.userList,
-// });
-
-// export default connect(mapStateToProps)(UserListPage);
 export default UserListPage;
