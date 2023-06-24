@@ -26,8 +26,11 @@ app.use(express.urlencoded({ extended: true }));
 // enable all CORS request 
 app.use(cors());
 
+const publicPath = process.env.PUBLIC_PATH;
+const uploadDir = process.env.UPLOADS_DIR;
+
 // Serve static files
-app.use("/static/images", express.static(path.join(__dirname, "..", "public", "images")));
+app.use(`/${publicPath}`, express.static(path.join(__dirname, `../${uploadDir}`)));
 
 // Routes
 app.use('/users', usersRouter);  

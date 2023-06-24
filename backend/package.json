@@ -7,10 +7,11 @@
     "dist/server.js"
   ],
   "scripts": {
+    "build": "rm -rf ./dist && tsc",
     "dev": "ts-node-dev --input-type=module --respawn --pretty --transpile-only src/server.ts",
-    "start": "tsc&&node ./dist/server.js",
+    "start": "npm run build && node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "tsc"
+    "tsc": "tsc --watch"
   },
   "author": "",
   "license": "ISC",

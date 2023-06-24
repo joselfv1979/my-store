@@ -1,6 +1,6 @@
 import { ResultSetHeader, RowDataPacket } from "mysql2/promise";
-import { IUser } from "../models/User";
 import { promisePool } from "../utils/database";
+import { IUser } from "../models/User";
 
 export const getAllUsers = async () => {
   const sql = "select * from users";

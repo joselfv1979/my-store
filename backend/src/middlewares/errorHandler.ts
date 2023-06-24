@@ -7,11 +7,13 @@ export const errorHandler = (
   req: Request,
   res: Response,
   next: NextFunction
-) => {  // CustomError: { status: number, message: string }
+) => {  // CustomError: { status: number, message: string }  
   if (err instanceof CustomError) {
     console.log(err);
     res.status(err.status).json(err.message);
   } else {
+    console.log(err);
+    
     res.status(500).json("Something went wrong");
   }
 };

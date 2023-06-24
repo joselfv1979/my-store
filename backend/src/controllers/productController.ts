@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { CustomError } from "../models/CustomError";
 import { IProduct } from "../models/Product";
 import { ProductQuery } from "../models/ProductQuery";
 import {
@@ -10,6 +9,7 @@ import {
   updateProduct,
 } from "../services/productService";
 import { getRating } from "../utils/productRating";
+import { CustomError } from "../models/CustomError";
 
 // endpoint to get all products
 export const getProductList = async (
@@ -51,16 +51,11 @@ export const createProduct = async (
   next: NextFunction
 ) => {
   try {    
-    const { name, description, category, price } = req.body;
+    const { name, description, category, price, image } = req.body;
 
     if (!name || !description || !category || !price) {
       return next(new CustomError(400, "Bad request"));
     }
-    
-    const imagePath = req.file ? req.file.path : "";
-
-    // 'static' is virtual directory, so as not to expose the real path 'public'
-    const path = imagePath.replace(/\\/g, "/").replace("public", "static");
 
     const rating = getRating();    
 
@@ -70,7 +65,7 @@ export const createProduct = async (
       category,
       price,
       rating,
-      imagePath: path,
+      imagePath: image,
     };
 
     const productId = await addProduct(newProduct);
@@ -99,9 +94,9 @@ export const editProduct = async (
     }
 
     // Check if there is a new file path, or we use the old one.
-    const imagePath = req.file ? req.file.path.replace("public", "static") : image;
+   // const imagePath = req.file ? req.file.path.replace("public", "static") : image;
     
-    const updatedProduct = await updateProduct(id, { ...req.body, imagePath });
+    const updatedProduct = await updateProduct(id, { ...req.body, imagePath: image });
 
     if(updatedProduct !== 1) {
       return next(new CustomError(404, "Product not found"));

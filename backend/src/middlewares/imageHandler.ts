@@ -3,13 +3,13 @@ import { v4 as uuidv4 } from "uuid";
 
 // Image handling middleware
 const storage = multer.diskStorage({
-  destination: "./public/images",
+  destination: process.env.UPLOADS_DIR,
   filename: (req, file, cb) => {
     cb(null, `${uuidv4() + file.originalname}`);
   },
 });
 
-const fileFilter = (req: any, file: any, cb: any) => {
+const fileFilter = (req, file, cb) => {
   const { mimetype } = file;
   if (
     mimetype === "image/jpg" ||
