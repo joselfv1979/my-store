@@ -15,21 +15,29 @@ const Menu = () => {
   const admin = useAppSelector(isAdmin);
   const items = useAppSelector(totalItems);
 
-  const logoutUser =  (): void => {
-     dispatch(logout());
-     dispatch(emptyCart());
+  const logoutUser = (): void => {
+    dispatch(logout());
+    dispatch(emptyCart());
   };
 
   return (
-    <Navbar
-      className={"navbar navbar-dark " + styles.menuBg}
-    >
+    <Navbar className={"navbar navbar-dark " + styles.menuBg}>
       <Nav className={"container-fluid " + styles.header}>
         <Nav.Item className={styles.title}>
           <Navbar.Brand className={"navbar-brand " + styles.title}>
             My Store
           </Navbar.Brand>
         </Nav.Item>
+        {admin && (
+          <>
+            <Nav.Item>
+              <Nav.Link href="/new-product">Add product</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="/users">Users</Nav.Link>
+            </Nav.Item>
+          </>
+        )}
         <Nav.Item>
           <Nav.Link href="/">Home</Nav.Link>
         </Nav.Item>
@@ -42,16 +50,6 @@ const Menu = () => {
             {items > 0 && <span className={styles.badge}>{items}</span>}
           </Nav.Link>
         </Nav.Item>
-        {admin && (
-          <>
-          <Nav.Item>
-            <Nav.Link href="/new-product">Add product</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-          <Nav.Link href="/users">Users</Nav.Link>
-        </Nav.Item>
-          </>
-        )}
         {authUser ? (
           <Nav.Item className="ms-auto">
             <Nav.Link href={`/edit-profile/${authUser.id}`}>

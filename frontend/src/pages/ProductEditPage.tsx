@@ -15,7 +15,7 @@ const ProductEditPage = () => {
 
   const dispatch = useAppDispatch();
 
-  const { loading, product, message, error } = useAppSelector(
+  const { status, product, message, error } = useAppSelector(
     (state) => state.product
   );
 
@@ -43,7 +43,7 @@ const ProductEditPage = () => {
 
   return (
     <>
-      {loading && <AppWaiting />}
+      {status === 'loading' && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
       {product && <ProductForm saveProduct={saveProduct} editing={true} />}
     </>

@@ -10,7 +10,7 @@ import { Message, Status } from "../types/Message";
 const ProductFormPage = () => {
   const dispatch = useAppDispatch();
 
-  const { loading, message, error } = useAppSelector((state) => state.product);
+  const { status, message, error } = useAppSelector((state) => state.product);
 
   const note: Message = {
     type: error ? Status.DANGER : Status.SUCCESS,
@@ -27,9 +27,9 @@ const ProductFormPage = () => {
 
   return (
     <>
-      {loading && <AppWaiting />}
+      {status === 'loading' && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} /> }
-      {!loading && <ProductForm saveProduct={saveProduct} />}
+      {status !== 'loading' && <ProductForm saveProduct={saveProduct} />}
     </>
   );
 };

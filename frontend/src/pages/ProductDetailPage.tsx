@@ -17,7 +17,7 @@ const ProductDetailPage = () => {
 
   const dispatch = useAppDispatch();
 
-  const { loading, product, message, error } = useAppSelector(
+  const { status, product, message, error } = useAppSelector(
     (state) => state.product
   );
 
@@ -43,7 +43,7 @@ const ProductDetailPage = () => {
 
   return (
     <>
-      {loading && <AppWaiting />}
+      {status === 'loading' && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
       {product && (
         <Container>

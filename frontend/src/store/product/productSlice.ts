@@ -5,7 +5,7 @@ import { type Product, type ProductState } from "../../types/Product";
 const initialProductState: ProductState = {
   products: [],
   product: null,
-  loading: true,
+  status: 'idle',
 };
 
 export const productSlice = createSlice({
@@ -15,26 +15,27 @@ export const productSlice = createSlice({
     productsPending: (state) => {
       state.products = [];
       state.product = null;
+      state.status = 'loading';
       state.message = undefined;
       state.error = undefined;
     },
     productPending: (state) => {
       state.product = null;
-      state.loading = true;
+      state.status = 'loading';
       state.message = undefined;
       state.error = undefined;
     },
     setProductsSuccess: (state, action: PayloadAction<Product[]>) => {
       state.products = action.payload;
-      state.loading = false;
+      state.status = 'success';
     },
     setProductSuccess: (state, action: PayloadAction<Product>) => {
       state.product = action.payload;
-      state.loading = false;
+      state.status = 'success';
     },
     setProductFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
-      state.loading = false;
+      state.status = 'fail';
     },
     createProductSuccess: (state, action: PayloadAction<Product>) => {
       state.products = [...state.products, action.payload];

@@ -3,7 +3,7 @@ export interface ProductState {
     product: Product | null;
     message?: string;
     error?: string;
-    loading: boolean;
+    status: 'loading' | 'idle' | 'success' | 'fail';
   }
 
 export interface Product {

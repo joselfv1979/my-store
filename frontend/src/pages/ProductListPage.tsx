@@ -14,16 +14,15 @@ import SearchForm from "../components/SearchForm";
 const ProductListPage = () => {
 
   const dispatch = useAppDispatch();
-
-  useEffect(() => {    
-    dispatch(fetchProducts());
-  }, [dispatch])
-
-  const { showDeleteModal } = useDeleteModalContext();
-
-  const { loading, products, message, error } = useAppSelector(
+  const { status, message, error } = useAppSelector(
     (state) => state.product
   );
+
+  useEffect(() => {    
+    if(status === 'idle') dispatch(fetchProducts());
+  }, [dispatch, status])
+
+  const { showDeleteModal } = useDeleteModalContext();
 
   const note: Message = error
   ? {
@@ -41,10 +40,10 @@ const ProductListPage = () => {
 
   return (
     <>
-      {loading && <AppWaiting />}
+      {status === 'loading' && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
-      <SearchForm />
-      {products && <ProductList />}
+      {status === 'success' && <SearchForm />}
+      {status === 'success' && <ProductList />}
       {showDeleteModal && <DeleteModal />}
     </>
   );
