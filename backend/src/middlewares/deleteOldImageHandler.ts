@@ -11,9 +11,11 @@ export const deleteOldImageHandler = async (
   const uploadDir = process.env.UPLOADS_DIR;
   const publicPath = process.env.PUBLIC_PATH;
 
+  // If there is a new image file, we delete the old file.
   if (req.file) {
     try {
       const product = await getProduct(req.params.id);
+      // If the old file is 'no_image.jpg', we do not delete it.
       if (!product.imagePath.includes("no_image.jpg")) {
         await unlink(product.imagePath.replace("static", "public"));
       }

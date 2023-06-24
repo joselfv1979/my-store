@@ -17,8 +17,8 @@ export const getProductList = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {        
-    const result = await getFilteredProducts(req.query);    
+  try {
+    const result = await getFilteredProducts(req.query);
     res.json(result);
   } catch (error) {
     next(new CustomError(500, "Couldn't fetch products, try it later"));
@@ -31,7 +31,7 @@ export const getProductData = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {    
+  try {
     const { id } = req.params;
     if (!id) return next(new CustomError(400, "Bad request"));
 
@@ -50,14 +50,14 @@ export const createProduct = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {    
+  try {
     const { name, description, category, price, image } = req.body;
 
     if (!name || !description || !category || !price) {
       return next(new CustomError(400, "Bad request"));
     }
 
-    const rating = getRating();    
+    const rating = getRating();
 
     const newProduct: IProduct = {
       name,
@@ -70,7 +70,8 @@ export const createProduct = async (
 
     const productId = await addProduct(newProduct);
 
-    if(!productId) return new CustomError(500, "Couldn't create product, try it later");
+    if (!productId)
+      return new CustomError(500, "Couldn't create product, try it later");
 
     const product = await getProduct(productId.toString());
     return res.status(200).json(product);
@@ -93,19 +94,19 @@ export const editProduct = async (
       return next(new CustomError(400, "Bad request"));
     }
 
-    // Check if there is a new file path, or we use the old one.
-   // const imagePath = req.file ? req.file.path.replace("public", "static") : image;
-    
-    const updatedProduct = await updateProduct(id, { ...req.body, imagePath: image });
+    const updatedProduct = await updateProduct(id, {
+      ...req.body,
+      imagePath: image,
+    });
 
-    if(updatedProduct !== 1) {
+    if (updatedProduct !== 1) {
       return next(new CustomError(404, "Product not found"));
-    }  
-    
+    }
+
     const product = await getProduct(id);
-    
+
     return res.status(200).json(product);
-  } catch (error) {        
+  } catch (error) {
     next(new CustomError(500, "Couldn't update product, try it later"));
   }
 };
