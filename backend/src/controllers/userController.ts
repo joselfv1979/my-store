@@ -80,7 +80,9 @@ export const addNewUser = async (
     
     const userId = await addUser(newUser);
 
-    if(!userId) return new CustomError(500, "Couldn't create product, try it later");
+    if(!userId) {
+      return next(new CustomError(500, "Couldn't register user, try it later"));
+    }
 
     const user = await getUserDataById(userId.toString());
     res.status(201).json(user);
@@ -129,7 +131,7 @@ export const removeUser = async (
     const user = await deleteUser(id);
     if (!user) return next(new CustomError(404, "User not found"));
 
-    return res.status(204).end();
+    res.status(204).end();
   } catch (error) {
     next(new CustomError(404, "User not found"));
   }

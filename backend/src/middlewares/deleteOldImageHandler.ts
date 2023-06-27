@@ -11,7 +11,7 @@ export const deleteOldImageHandler = async (
   const uploadDir = process.env.UPLOADS_DIR;
   const publicPath = process.env.PUBLIC_PATH;
 
-  // If there is a new image file, we delete the old file.
+  // If there is a new image file, the old file is removed from the server.
   if (req.file) {
     try {
       const product = await getProduct(req.params.id);
