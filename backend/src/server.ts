@@ -1,14 +1,15 @@
-import * as dotenv from "dotenv";
+import { config } from "dotenv";
 import express from "express";
 import cors from "cors";
 import path from "path";
 import helmet from 'helmet';
 import morgan from "morgan";
+import * as MySQLConnector from './utils/database';
 import usersRouter from "./routes/userRoutes"; // variables que almacenan los módulos de los endpoint enrutados
 import productRouter from "./routes/productRoutes";
 import { errorHandler } from "./middlewares/errorHandler";
 
-dotenv.config();
+config();
 
 const app = express();
 
@@ -39,9 +40,13 @@ app.use('/products', productRouter);
 // Error handler middleware
 app.use(errorHandler);
 
+//MySQLConnector.connect();
+
 const port = process.env.PORT || 8000;
 
 // start the server
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 })
+
+export default server;

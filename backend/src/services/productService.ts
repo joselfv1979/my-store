@@ -3,28 +3,37 @@ import { IProduct } from "../models/Product";
 import { ProductQuery } from "../models/ProductQuery";
 import { promisePool } from "../utils/database";
 import { buildProductQuery } from "../utils/queryBuilder";
+import { CustomError } from "../models/CustomError";
 
 export const getAllProducts = async () => {
   const sql = "select * from products";
   const [rows] = await promisePool.query<RowDataPacket[]>(sql);
-  return rows;
+  const result: IProduct[] = JSON.parse(JSON.stringify(rows));
+
+  return result;
 };
 
 export const getFilteredProducts = async (parameters: ProductQuery) => {
   try {
     const { sql, filters } = buildProductQuery(parameters);
-    
     const [rows] = await promisePool.query<RowDataPacket[]>(sql, filters);
-    return rows;
+    
+    const result: IProduct[] = JSON.parse(JSON.stringify(rows));
+
+    return result;
   } catch (error) {
     console.log(error);
   }
 };
 
 export const getProduct = async (id: string) => {
-  const sql = "select * from products where id = ?";
-  const [rows] = await promisePool.query<RowDataPacket[]>(sql, [id]);
-  return rows[0];
+    const sql = "select * from products where id = ?";
+
+    const [rows] = await promisePool.query<RowDataPacket[]>(sql, [id]);
+    if(rows.length !== 1) throw new CustomError(404, 'Product not found');
+    
+    const product: IProduct = JSON.parse(JSON.stringify(rows[0]));
+    return product;
 };
 
 export const addProduct = async (product: IProduct) => {
@@ -41,11 +50,11 @@ export const addProduct = async (product: IProduct) => {
     rating,
     imagePath,
   ]);
-  return insertId;
+  return { ...product, id: insertId };
 };
 
 export const updateProduct = async (id: string, product: IProduct) => {
-  const { name, description, category, price, rating, imagePath } = product;  
+  const { name, description, category, price, rating, imagePath } = product;
 
   const sql =
     "update products set name = ?, description = ?, category = ?, price = ?, rating = ?, imagePath = ? where id = ?";
@@ -59,8 +68,9 @@ export const updateProduct = async (id: string, product: IProduct) => {
     imagePath,
     id,
   ]);
-  
-  return affectedRows;
+
+  if (affectedRows === 1) return { ...product, id };
+  return null;
 };
 
 export const deleteProduct = async (id: string) => {
@@ -69,5 +79,11 @@ export const deleteProduct = async (id: string) => {
   const [{ affectedRows }] = await promisePool.query<ResultSetHeader>(sql, [
     id,
   ]);
+  return affectedRows;
+};
+
+export const deleteAllProducts = async () => {
+  const sql = "delete from products";
+  const [{ affectedRows }] = await promisePool.query<ResultSetHeader>(sql);
   return affectedRows;
 };

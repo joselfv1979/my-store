@@ -33,13 +33,11 @@ export const getProductData = async (
 ) => {
   try {
     const { id } = req.params;
-    if (!id) return next(new CustomError(400, "Bad request"));
-
+    if (!id) throw new CustomError(400, "Bad request");
+    
     const product = await getProduct(id);
-    if (!product) return next(new CustomError(404, "Product not found"));
-
     res.status(200).json(product);
-  } catch (error) {
+  } catch (error) {    
     next(error);
   }
 };
@@ -68,13 +66,12 @@ export const createProduct = async (
       imagePath: image,
     };
 
-    const productId = await addProduct(newProduct);
+    const product = await addProduct(newProduct);
 
-    if (!productId)
+    if (!product)
       return new CustomError(500, "Couldn't create product, try it later");
 
-    const product = await getProduct(productId.toString());
-    return res.status(200).json(product);
+    return res.status(201).json(product);
   } catch (error) {
     next(new CustomError(500, "Couldn't create product, try it later"));
   }
@@ -99,13 +96,11 @@ export const editProduct = async (
       imagePath: image,
     });
 
-    if (updatedProduct !== 1) {
+    if (!updatedProduct) {
       return next(new CustomError(404, "Product not found"));
     }
 
-    const product = await getProduct(id);
-
-    return res.status(200).json(product);
+    return res.status(201).json(updatedProduct);
   } catch (error) {
     next(new CustomError(500, "Couldn't update product, try it later"));
   }

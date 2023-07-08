@@ -1,0 +1,8 @@
+/** @type {import('ts-jest').JestConfigWithTsJest} */
+module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  resetMocks: true,
+  setupFiles: ['dotenv/config'],
+  roots: ["<rootDir>/tests/**"],
+};

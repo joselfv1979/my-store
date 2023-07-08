@@ -6,8 +6,6 @@ export const buildProductQuery = (parameters: ProductQuery) => {
   let sql = "select * from products";
   let count = 0;
   let filters: string[] = [];
-
-  console.log('category', category);
   
   if (name) {
     sql += " where name = ?";
