@@ -4,5 +4,5 @@ module.exports = {
   testEnvironment: 'node',
   resetMocks: true,
   setupFiles: ['dotenv/config'],
-  roots: ["<rootDir>/tests/**"],
+  roots: ["<rootDir>/tests"],
 };

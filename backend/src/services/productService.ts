@@ -1,13 +1,13 @@
 import { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import { IProduct } from "../models/Product";
 import { ProductQuery } from "../models/ProductQuery";
-import { promisePool } from "../utils/database";
+import { pool } from "../utils/database";
 import { buildProductQuery } from "../utils/queryBuilder";
 import { CustomError } from "../models/CustomError";
 
 export const getAllProducts = async () => {
   const sql = "select * from products";
-  const [rows] = await promisePool.query<RowDataPacket[]>(sql);
+  const [rows] = await pool.query<RowDataPacket[]>(sql);
   const result: IProduct[] = JSON.parse(JSON.stringify(rows));
 
   return result;
@@ -16,7 +16,7 @@ export const getAllProducts = async () => {
 export const getFilteredProducts = async (parameters: ProductQuery) => {
   try {
     const { sql, filters } = buildProductQuery(parameters);
-    const [rows] = await promisePool.query<RowDataPacket[]>(sql, filters);
+    const [rows] = await pool.query<RowDataPacket[]>(sql, filters);
     
     const result: IProduct[] = JSON.parse(JSON.stringify(rows));
 
@@ -29,7 +29,7 @@ export const getFilteredProducts = async (parameters: ProductQuery) => {
 export const getProduct = async (id: string) => {
     const sql = "select * from products where id = ?";
 
-    const [rows] = await promisePool.query<RowDataPacket[]>(sql, [id]);
+    const [rows] = await pool.query<RowDataPacket[]>(sql, [id]);
     if(rows.length !== 1) throw new CustomError(404, 'Product not found');
     
     const product: IProduct = JSON.parse(JSON.stringify(rows[0]));
@@ -42,7 +42,7 @@ export const addProduct = async (product: IProduct) => {
   const sql =
     "insert into products (name, description, category, price, rating, imagePath) values (?, ?, ?, ?, ?, ?)";
 
-  const [{ insertId }] = await promisePool.query<ResultSetHeader>(sql, [
+  const [{ insertId }] = await pool.query<ResultSetHeader>(sql, [
     name,
     description,
     category,
@@ -59,7 +59,7 @@ export const updateProduct = async (id: string, product: IProduct) => {
   const sql =
     "update products set name = ?, description = ?, category = ?, price = ?, rating = ?, imagePath = ? where id = ?";
 
-  const [{ affectedRows }] = await promisePool.query<ResultSetHeader>(sql, [
+  const [{ affectedRows }] = await pool.query<ResultSetHeader>(sql, [
     name,
     description,
     category,
@@ -76,7 +76,7 @@ export const updateProduct = async (id: string, product: IProduct) => {
 export const deleteProduct = async (id: string) => {
   const sql = "delete from products where id = ?";
 
-  const [{ affectedRows }] = await promisePool.query<ResultSetHeader>(sql, [
+  const [{ affectedRows }] = await pool.query<ResultSetHeader>(sql, [
     id,
   ]);
   return affectedRows;
@@ -84,6 +84,6 @@ export const deleteProduct = async (id: string) => {
 
 export const deleteAllProducts = async () => {
   const sql = "delete from products";
-  const [{ affectedRows }] = await promisePool.query<ResultSetHeader>(sql);
+  const [{ affectedRows }] = await pool.query<ResultSetHeader>(sql);
   return affectedRows;
 };
