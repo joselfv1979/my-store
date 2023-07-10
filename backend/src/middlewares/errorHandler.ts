@@ -9,7 +9,7 @@ export const errorHandler = (
   next: NextFunction
 ) => {  // CustomError: { status: number, message: string }  
   if (err instanceof CustomError) {
-    console.log(err);
+    console.log(err.message);
     res.status(err.status).json(err.message);
   } else {
     console.log(err);

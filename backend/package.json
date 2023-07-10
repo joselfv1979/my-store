@@ -8,9 +8,10 @@
   ],
   "scripts": {
     "build": "rm -rf ./dist && tsc",
+    "coverage": "jest --coverage",
     "dev": "ts-node-dev --input-type=module --respawn --pretty --transpile-only src/server.ts",
     "start": "npm run build && node dist/server.js",
-    "test": "jest --verbose --no-cache --detectOpenHandles --coverage",
+    "test": "jest --verbose --no-cache --detectOpenHandles",
     "test:watch": "npm run test -- --watch",
     "tsc": "tsc --watch"
   },

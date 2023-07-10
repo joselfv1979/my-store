@@ -7,6 +7,7 @@ import morgan from "morgan";
 import usersRouter from "./routes/userRoutes"; // variables que almacenan los módulos de los endpoint enrutados
 import productRouter from "./routes/productRoutes";
 import { errorHandler } from "./middlewares/errorHandler";
+import { connect } from "./utils/database";
 
 config();
 
@@ -35,6 +36,8 @@ app.use(`/${publicPath}`, express.static(path.join(__dirname, `../${uploadDir}`)
 // Routes
 app.use('/users', usersRouter);  
 app.use('/products', productRouter);
+
+connect();
 
 // Error handler middleware
 app.use(errorHandler);

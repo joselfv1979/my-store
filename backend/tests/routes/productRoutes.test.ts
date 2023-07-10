@@ -1,3 +1,4 @@
+import { expect, describe, test, beforeAll, afterAll } from '@jest/globals';
 import supertest from "supertest";
 import server from "../../src/server";
 import { addProduct, deleteAllProducts } from "../../src/services/productService";
@@ -48,6 +49,15 @@ describe("Product routes", () => {
       .send(newProduct);
     expect(res.status).toEqual(201);
     expect(res.body).toHaveProperty("name");
+  });
+
+  test("should return error if a required property is not present", async () => {
+    const res = await api
+      .post(`${PRODUCTS_ROUTE}/product-add`)
+      .set("authorization", token)
+      .send({name: "apple"});
+    expect(res.status).toEqual(400);
+    expect(res.text).toBe("\"Bad request\"");
   });
 
   test("should update one product", async () => {

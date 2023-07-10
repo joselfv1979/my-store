@@ -52,7 +52,7 @@ export const createProduct = async (
     const { name, description, category, price, image } = req.body;
 
     if (!name || !description || !category || !price) {
-      return next(new CustomError(400, "Bad request"));
+      throw new CustomError(400, "Bad request");
     }
 
     const rating = getRating();
@@ -73,7 +73,7 @@ export const createProduct = async (
 
     return res.status(201).json(product);
   } catch (error) {
-    next(new CustomError(500, "Couldn't create product, try it later"));
+    next(error);
   }
 };
 
