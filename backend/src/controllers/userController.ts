@@ -85,7 +85,7 @@ export const addNewUser = async (
     }
 
     const user = await getUserDataById(userId.toString());
-    res.status(201).json(user);
+    res.status(200).json(user);
   } catch (error) {
     next(error);
   }

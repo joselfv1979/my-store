@@ -1,8 +1,8 @@
 import { expect, describe, test, beforeAll, afterAll } from '@jest/globals';
 import { connect, pool } from "../../src/utils/database";
 
-beforeAll(async () => {
-  await connect();
+beforeAll(() => {
+  connect();
 })
 
 describe("Database connection", () => {
@@ -12,6 +12,6 @@ describe("Database connection", () => {
   });
 });
 
-afterAll(async () => {
-  await pool.end();
+afterAll(() => {
+  pool.end();
 });

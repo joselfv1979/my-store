@@ -5,7 +5,6 @@ import imageHandler from "../middlewares/imageHandler";
 import { imagePathHandler } from "../middlewares/imagePathHandler";
 import { deleteOldImageHandler } from "../middlewares/deleteOldImageHandler";
 
-
 const productRouter = Router(); // Creates a routing instance
 
 // Some routes use image, authentication handlers
