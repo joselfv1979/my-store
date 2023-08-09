@@ -1,19 +1,20 @@
 import { Router } from "express";
 import { login } from "../controllers/loginController";
 import { getUsers, getUserById, addNewUser, editUser, removeUser } from '../controllers/userController';
+import authHandler from "../middlewares/authHandler";
 
 const userRouter = Router(); // Creates a routing instance
-
-userRouter.get('/:id', getUserById);
-
-userRouter.delete('/:id', removeUser);
 
 userRouter.post('/sign-in', login);
 
 userRouter.post('/sign-up', addNewUser);
 
-userRouter.put('/edit/:id', editUser);
+userRouter.put('/user-edit/:id', authHandler, editUser);
 
-userRouter.get('/', getUsers);
+userRouter.delete('/:id', authHandler, removeUser);
+
+userRouter.get('/:id', authHandler, getUserById);
+
+userRouter.get('/', authHandler, getUsers);
 
 export default userRouter;

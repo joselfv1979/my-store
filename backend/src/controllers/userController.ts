@@ -133,6 +133,6 @@ export const removeUser = async (
 
     res.status(204).end();
   } catch (error) {
-    next(new CustomError(404, "User not found"));
+    next(new CustomError(500, "Couldn't delete user"));
   }
 };

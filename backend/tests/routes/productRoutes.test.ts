@@ -3,7 +3,7 @@ import supertest from "supertest";
 import { server, app } from "../../src/server";
 import { pool } from "../../src/utils/database";
 import { addProduct, deleteAllProducts } from "../../src/services/productService";
-import { PRODUCTS_ROUTE, getProductId, getToken, newProduct, initialProducts } from "../helpers";
+import { PRODUCTS_ROUTE, getProductId, getToken, newProduct, initialProducts, product1 } from "../helpers";
 
 const api = supertest(app);
 
@@ -12,7 +12,7 @@ let id = "";
 
 beforeEach(async () => {
   await deleteAllProducts();
-  await addProduct(initialProducts[0]);
+  await addProduct(product1);
   token = await getToken();
   id = await getProductId();
 });
@@ -80,7 +80,7 @@ describe("POST, creating a new product", () => {
 
     expect(productsAtEnd.body).toHaveLength(initialProducts.length);
   });
-})
+});
 
 describe("PUT, updating a product", () => {
   test("PUT, should update one product", async () => {
@@ -116,7 +116,7 @@ describe("PUT, updating a product", () => {
     const product = await api.get(`${PRODUCTS_ROUTE}/${id}`);
     expect(Number(product.body.price)).toBe(initialProducts[0].price);
   });
-})
+});
 
 describe("DELETE, deleting a product", () => {
   test("DELETE, should delete one product", async () => {
@@ -158,7 +158,7 @@ describe("DELETE, deleting a product", () => {
 
     expect(productsAtEnd.body).toHaveLength(initialProducts.length);
   });
-})
+});
 
 afterAll(() => {
   pool.end();

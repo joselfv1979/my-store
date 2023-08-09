@@ -74,3 +74,9 @@ export const emailExist = async (email: string) => {
   const [rows] = await pool.query<RowDataPacket[]>(sql, [email]);
   return rows[0];
 };
+
+export const deleteAllUsers = async () => {
+  const sql = "delete from users";
+
+  await pool.query<ResultSetHeader>(sql);
+}
