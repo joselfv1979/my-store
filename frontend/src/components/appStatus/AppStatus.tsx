@@ -1,5 +1,5 @@
 import styles from '../scss/AppStatus.module.scss';
-import { Message } from '../types/Message';
+import { Message } from '../../types/Message';
 import spinner from "./../puff.svg";
 import Alert from "react-bootstrap/Alert";
 
