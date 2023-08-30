@@ -1,7 +1,6 @@
-import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import AdminButtons from "./AdminButtons";
-import { customRender } from "../../utils/test-utils";
+import { render, screen } from "../../tests/utils/test-utils";
 
 const productId = "1";
 
@@ -14,7 +13,7 @@ jest.mock("react-router-dom", () => ({
 
 describe("AdminButtons", () => {
   it("renders buttons appropriately", () => {
-    customRender(<AdminButtons id={productId} />);
+    render(<AdminButtons id={productId} />);
 
     const buttons = screen.getAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -29,7 +28,7 @@ describe("AdminButtons", () => {
     const spyTwo = jest.fn();
     const user = userEvent.setup();
 
-    customRender(<AdminButtons id={productId} />, {
+    render(<AdminButtons id={productId} />, {
       value: {
         showDeleteModal: false,
         setShowDeleteModal: spyOne,
@@ -48,7 +47,7 @@ describe("AdminButtons", () => {
   it("calls useNavigate hook", async () => {
     const user = userEvent.setup();
 
-    customRender(<AdminButtons id={productId} />);
+    render(<AdminButtons id={productId} />);
 
     const editButton = screen.getByTestId("edit-button");
     await user.click(editButton);

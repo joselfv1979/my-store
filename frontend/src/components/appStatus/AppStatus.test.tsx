@@ -1,7 +1,6 @@
-import { screen } from "@testing-library/react";
+import { render, screen } from "../../tests/utils/test-utils";
 import userEvent from "@testing-library/user-event";
 import { AppMessage, AppWaiting } from "./AppStatus";
-import { customRender } from "../../utils/test-utils";
 import { Status, type Message } from "../../types/Message";
 import spinner from "./../puff.svg";
 
@@ -14,7 +13,7 @@ const cancelMessage = jest.fn();
 
 describe("AppMessage", () => {
   it("renders message component", () => {
-    customRender(<AppMessage note={note} />);
+    render(<AppMessage note={note} />);
 
     const alert = screen.getByRole("alert");
     expect(alert).toBeInTheDocument();
@@ -24,7 +23,7 @@ describe("AppMessage", () => {
   });
 
   it("close alert component", async () => {
-    customRender(<AppMessage note={note} cancelMessage={cancelMessage} />);
+    render(<AppMessage note={note} cancelMessage={cancelMessage} />);
 
     const closeAlert = screen.getByRole('button', { name: 'Close alert' });
     await userEvent.click(closeAlert);
@@ -35,7 +34,7 @@ describe("AppMessage", () => {
 
 describe("AppWaiting", () => {
   it("renders loading component", () => {
-    customRender(<AppWaiting />);
+    render(<AppWaiting />);
 
     const image = screen.getByAltText(/Loading.../i);
     expect(image).toHaveAttribute('src', spinner)
