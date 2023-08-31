@@ -10,47 +10,37 @@ type Props = {
   saveProduct: (data: FormData) => Promise<void>;
   editing?: boolean; // if true, show the edit form, else show the create form.
 };
+
+type InputType = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
 const ProductForm = ({ saveProduct, editing = false }: Props) => {
   const stateProduct = useAppSelector((state) => state.product.product);
 
-  const currentProduct = editing && stateProduct ? stateProduct : initialProduct;
+  const currentProduct =
+    editing && stateProduct ? stateProduct : initialProduct;
 
   const [product, setProduct] = useState<Product>(currentProduct);
 
-  const handleInputEvent = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInputEvent = (event: ChangeEvent<InputType>) => {
     setProduct({ ...product, [event.target.name]: event.target.value });
   };
 
-  const handleSelectEvent = (event: ChangeEvent<HTMLSelectElement>) => {
-    setProduct({ ...product, [event.target.name]: event.target.value });
-  };
-
-  const handleTextAreaEvent = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setProduct({ ...product, [event.target.name]: event.target.value });
+  const handleImage = (event: ChangeEvent<HTMLInputElement>) => {
+    event.target.files &&
+      setProduct({ ...product, image: event.target.files[0] });
   };
 
   const fileInput = useRef<HTMLInputElement>(null);
 
-  const handleImage = (event: ChangeEvent<HTMLInputElement>) => {
-    const { files } = event.target as HTMLInputElement;
-
-    if (files) {
-      setProduct({ ...product, image: files[0] });
-      // const reader = new FileReader();
-      // reader.onloadend = () => {
-      //     setPreview(reader.result as string);
-      // };
-      // reader.readAsDataURL(target.files[0]);
-    }
-  };
-
-  const handleClick = () => {
-    fileInput.current?.click();
-  };
+  const imagePath =
+    product.imagePath.length > 0
+      ? `${process.env.REACT_APP_API_IMAGES}/${product.imagePath}`
+      : null;
+      
+  const url = product.image ? URL.createObjectURL(product.image) : imagePath;
 
   const sendDataProduct = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const productData = castProductToFormData(product);
 
     await saveProduct(productData);
@@ -67,6 +57,7 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
         <input
           type="text"
           name="name"
+          id="name"
           autoComplete="off"
           required
           onChange={handleInputEvent}
@@ -78,9 +69,9 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
         <label htmlFor="category">Category</label>
         <select
           name="category"
-          id="list"
+          id="category"
           required
-          onChange={handleSelectEvent}
+          onChange={handleInputEvent}
           value={product.category}
         >
           {categories.map((category) => (
@@ -96,6 +87,7 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
         <input
           type="number"
           name="price"
+          id="price"
           step="0.01"
           required
           onChange={handleInputEvent}
@@ -106,10 +98,10 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
       <fieldset className={styles.fullColumn}>
         <label htmlFor="description">Description</label>
         <textarea
-          // type="text"
           name="description"
+          id="description"
           required
-          onChange={handleTextAreaEvent}
+          onChange={handleInputEvent}
           value={product.description}
         />
       </fieldset>
@@ -121,25 +113,19 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
             className={styles.inputFile}
             type="file"
             ref={fileInput}
-            id="image"
             name="image"
+            id="image"
             accept=".jpg,.jpeg,.png"
             onChange={handleImage}
           />
-          <button className={styles.editImage} onClick={handleClick}>
-            Edit image
-          </button>
         </div>
-        {/* <div className={styles.imageContainer}>
-              {image ? (
-                <img
-                  src={window.URL.createObjectURL(image)}
-                  alt="File Preview"
-                />
-              ) : (
-                <p>no image selected</p>
-              )}
-            </div> */}
+        <div className={styles.imageContainer}>
+          {url ? (
+            <img src={url} alt="File Preview" />
+          ) : (
+            <p>no image selected</p>
+          )}
+        </div>
       </fieldset>
 
       <div className={styles.buttonsContainer}>
