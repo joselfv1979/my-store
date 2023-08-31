@@ -90,6 +90,8 @@ export const editProduct = async (
       return next(new CustomError(400, "Bad request"));
     }
 
+    delete req.body.image;
+
     const updatedProduct = await updateProduct(id, {
       ...req.body,
       imagePath: image,
