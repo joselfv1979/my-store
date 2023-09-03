@@ -2,17 +2,18 @@ import React, { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Menu from "./components/Menu";
 import Footer from "./components/Footer";
+import HomePage from "pages/HomePage";
 import ProductListPage from "./pages/ProductListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ProductAddPage from "./pages/ProductAddPage";
 import ProductEditPage from "./pages/ProductEditPage";
-import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/login/LoginPage";
 import UserAddPage from "./pages/UserAddPage";
 import UserEdit from "./pages/UserEditPage";
 import UserListPage from "./pages/UserListPage";
 import CartPage from "./pages/CartPage";
 import ErrorPage from "./pages/ErrorPage";
-import About from "./pages/About";
+import About from "./pages/about/About";
 import styles from "./App.module.scss";
 import { useAppDispatch } from "./hooks/redux-hooks";
 import { cancelProductMessage } from "./store/product/productActions";
@@ -33,7 +34,8 @@ function App() {
 
       <main>
         <Routes>
-          <Route path="/" element={<ProductListPage />} />
+        <Route path="/" element={<HomePage />} />
+          <Route path="/products" element={<ProductListPage />} />
           <Route path="/product-detail/:id" element={<ProductDetailPage />} />
           <Route path="/new-product" element={<ProductAddPage />} />
           <Route path="/edit-product/:id" element={<ProductEditPage />} />
