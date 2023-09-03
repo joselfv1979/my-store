@@ -1,11 +1,9 @@
-import { Result } from '../types/Result';
-import { User } from '../types/User';
+import { type Result } from '../types/Result';
+import { type User } from '../types/User';
 
 export const validateUser = (user: User, editing?: boolean): Result<User, string> => {
 
-    const { fullname, username, email, password } = user;
-    console.log('editing', editing);
-    
+    const { fullname, username, email, password } = user;    
 
     const regex = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
