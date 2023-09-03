@@ -1,4 +1,4 @@
-import Button from "react-bootstrap/esm/Button";
+import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { useDeleteModalContext } from "../context/deleteModal/DeleteModalContext";
 import { useAppDispatch } from "../hooks/redux-hooks";
