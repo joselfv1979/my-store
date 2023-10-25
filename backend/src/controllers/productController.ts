@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { IProduct } from "../models/Product";
+import { ProductWithoutId } from "../models/Product";
 import { ProductQuery } from "../models/ProductQuery";
 import {
   getFilteredProducts,
@@ -58,7 +58,7 @@ export const createProduct = async (
     // For every new product we get a random rating
     const rating = getRating();
 
-    const newProduct: IProduct = {
+    const newProduct: ProductWithoutId = {
       name,
       description,
       category,

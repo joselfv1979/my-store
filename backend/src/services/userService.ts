@@ -1,6 +1,6 @@
 import { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import { pool } from "../utils/database";
-import { IUser } from "../models/User";
+import { IUser, UserWithoutId } from "../models/User";
 
 export const getAllUsers = async () => {
   const sql = "select * from users";
@@ -23,7 +23,7 @@ export const loginUser = async (username: string, password: string) => {
   return rows[0];
 };
 
-export const addUser = async (user: IUser) => {
+export const addUser = async (user: UserWithoutId) => {
   const { fullname, username, email, password, roles, image } = user;
   const sql =
     "insert into users (fullname, username, email, password, role, image) values (?, ?, ?, sha1(?), ?, ?)";
@@ -37,7 +37,7 @@ export const addUser = async (user: IUser) => {
     image,
   ]);
 
-  return insertId;
+  return { ...user, id: insertId};
 };
 
 export const updateUser = async (id: string, user: IUser) => {

@@ -1,5 +1,5 @@
 export interface IUser {
-    id?: string
+    id: string
     fullname: string;
     username: string;
     email: string;
@@ -7,3 +7,5 @@ export interface IUser {
     roles: string[];
     image: string;
   }
+
+export type UserWithoutId = Omit<IUser, "id">

@@ -1,12 +1,33 @@
 {
-  "version": "2.0.0",
   "tasks": [
     {
-      "type": "typescript",
-      "tsconfig": "backend/tsconfig.json",
-      "problemMatcher": ["$tsc"],
-      "group": "build",
-      "label": "tsc: build - backend/tsconfig.json"
+      "command": "cd ./backend && tsc",
+      "label": "build app",
+      "type": "shell"
+    },
+    {
+      "command": "echo build app",
+      "dependsOn": [
+        "build app"
+      ],
+      "dependsOrder": "sequence",
+      "label": "build app before debug",
+      "type": "shell"
+    },
+    {
+      "command": "rm -rf ./backend/dist",
+      "label": "clean app",
+      "type": "shell"
+    },
+    {
+      "command": "echo clean app after debug",
+      "dependsOn": [
+        "clean app"
+      ],
+      "dependsOrder": "sequence",
+      "label": "clean app after debug",
+      "type": "shell"
     }
-  ]
+  ],
+  "version": "2.0.0"
 }

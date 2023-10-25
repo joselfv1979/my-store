@@ -1,5 +1,5 @@
 import { ResultSetHeader, RowDataPacket } from "mysql2/promise";
-import { IProduct } from "../models/Product";
+import { IProduct, ProductWithoutId } from "../models/Product";
 import { ProductQuery } from "../models/ProductQuery";
 import { pool } from "../utils/database";
 import { buildProductQuery } from "../utils/queryBuilder";
@@ -30,7 +30,7 @@ export const getProduct = async (id: string) => {
   return product;
 };
 
-export const addProduct = async (product: IProduct) => {
+export const addProduct = async (product: ProductWithoutId) => {
   const { name, category, description, price, rating, imagePath } = product;
 
   const sql =

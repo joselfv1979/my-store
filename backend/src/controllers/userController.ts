@@ -9,7 +9,7 @@ import {
   emailExist,
   usernameExist,
 } from "../services/userService";
-import { IUser } from "../models/User";
+import { UserWithoutId } from "../models/User";
 
 // endpoint to get all users
 export const getUsers = async (
@@ -69,7 +69,7 @@ export const addNewUser = async (
       return next(new CustomError(409, "Username already exists"));
     }
 
-    const newUser: IUser = {
+    const newUser: UserWithoutId = {
       fullname,
       username,
       email,
@@ -78,13 +78,12 @@ export const addNewUser = async (
       image: photo,
     };
     
-    const userId = await addUser(newUser);
+    const user = await addUser(newUser);
 
-    if(!userId) {
+    if(!user) {
       return next(new CustomError(500, "Couldn't register user, try it later"));
     }
 
-    const user = await getUserDataById(userId.toString());
     res.status(200).json(user);
   } catch (error) {
     next(error);
