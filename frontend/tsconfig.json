@@ -1,27 +1,37 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
+    "baseUrl": "src",
+    "declaration": true, // Generate corresponding .d.ts file
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
+    "incremental": true, // Enable incremental compilation by reading/writing information from prior compilations to a file on disk
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
     "noEmit": true,
-    "baseUrl": "src",
-    "jsx": "react-jsx",
-    "sourceMap": true, // Generate corrresponding .map file
-    "declaration": true, // Generate corresponding .d.ts file
+    "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": false, // Report errors on unused locals
     "noUnusedParameters": true, // Report errors on unused parameters
-    "incremental": true // Enable incremental compilation by reading/writing information from prior compilations to a file on disk
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true, // Generate corrresponding .map file
+    "strict": true,
+    "target": "es6",
   },
-  "include": ["src/**/*", "./tests/setupTests.ts"],
-  "exclude": ["node_modules", "build"]
+  "exclude": [
+    "node_modules",
+    "build"
+  ],
+  "include": [
+    "src/**/*",
+    "./tests/setupTests.ts",
+  ]
 }
