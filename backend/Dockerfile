@@ -1,6 +1,6 @@
 FROM node:18
 WORKDIR /app
-COPY backend/ /api
+COPY . /api
 WORKDIR /api
 RUN npm install
 COPY . .
