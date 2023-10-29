@@ -1,31 +1,42 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { initialUser, type User } from "../types/User";
-import styles from "../scss/UserFormPage.module.scss";
+import styles from "../assets/scss/UserFormPage.module.scss";
 import { useAppSelector } from "../hooks/redux-hooks";
 
 type Props = {
-  saveUser: (data: User) => void;
+  saveUser: (data: User) => Promise<void>;
   editing?: boolean;
 };
 
 const UserForm = ({ saveUser, editing = false }: Props) => {
-  const { user }  = useAppSelector((state) => state.user);
+  const { user, status }  = useAppSelector((state) => state.user);
 
-  const currentUser = user ? user : initialUser;
+  const currentUser = user ?? initialUser;
 
   const [userData, setUserData] = useState<User>(currentUser);
+  
   const [shown, setShown] = useState(false);
-
   const switchShown = () => setShown(!shown);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUserData({ ...userData, [event.target.name]: event.target.value });
   };
 
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    saveUser(userData);
+    console.log('before');
+    await saveUser(userData);
+    
+    
+    if(status === "success"){
+      console.log('yyyyea');
+      
+      setUserData(initialUser);
+    }else{
+      console.log('nnnnnnnnooooooo');
+    }
+    console.log('after');
   };
 
   const navigate = useNavigate();

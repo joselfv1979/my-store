@@ -1,7 +1,6 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
-import styles from "../scss/SearchForm.module.scss";
-import Form from "react-bootstrap/esm/Form";
-import InputGroup from "react-bootstrap/esm/InputGroup";
+import styles from "../assets/scss/SearchForm.module.scss";
+import { Form, InputGroup } from "react-bootstrap";
 import { fetchProducts } from "../store/product/productActions";
 import { useAppDispatch } from "../hooks/redux-hooks";
 import { LensIcon } from "./Icons";
@@ -21,7 +20,7 @@ const SearchForm = () => {
   }
   
   return (
-    <Form className={styles.searchForm} onSubmit={handleSubmit}>
+    <Form data-testid="form-search" className={styles.searchForm} onSubmit={handleSubmit}>
       <InputGroup>
         <button className={styles.searchButton}>
           <LensIcon />

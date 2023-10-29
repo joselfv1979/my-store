@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../hooks/redux-hooks";
-import styles from "../scss/ProductFormPage.module.scss";
+import styles from "../assets/scss/ProductFormPage.module.scss";
 import { initialProduct, Product } from "../types/Product";
 import { castProductToFormData } from "../utils/castFormData";
-import { categories } from "../utils/ConstantUtils";
+import { categories } from "../data/ConstantUtils";
 
 type Props = {
   saveProduct: (data: FormData) => Promise<void>;
@@ -14,36 +14,35 @@ type Props = {
 type InputType = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
 const ProductForm = ({ saveProduct, editing = false }: Props) => {
-  const stateProduct = useAppSelector((state) => state.product.product);
+  const { product } = useAppSelector((state) => state.product);
 
-  const currentProduct =
-    editing && stateProduct ? stateProduct : initialProduct;
+  const currentProduct = editing ? product!! : initialProduct;
 
-  const [product, setProduct] = useState<Product>(currentProduct);
+  const [productData, setProductData] = useState<Product>(currentProduct);
 
   const handleInputEvent = (event: ChangeEvent<InputType>) => {
-    setProduct({ ...product, [event.target.name]: event.target.value });
+    setProductData({ ...productData, [event.target.name]: event.target.value });
   };
 
   const handleImage = (event: ChangeEvent<HTMLInputElement>) => {
     event.target.files &&
-      setProduct({ ...product, image: event.target.files[0] });
+    setProductData({ ...productData, image: event.target.files[0] });
   };
 
   const fileInput = useRef<HTMLInputElement>(null);
 
   const imagePath =
-    product.imagePath.length > 0
-      ? `${process.env.REACT_APP_API_IMAGES}/${product.imagePath}`
+  productData.imagePath.length > 0
+      ? `${process.env.REACT_APP_API_IMAGES}/${productData.imagePath}`
       : null;
       
-  const url = product.image ? URL.createObjectURL(product.image) : imagePath;
+  const url = productData.image ? URL.createObjectURL(productData.image) : imagePath;
 
   const sendDataProduct = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const productData = castProductToFormData(product);
 
-    await saveProduct(productData);
+    const productform = castProductToFormData(productData);    
+    await saveProduct(productform);
   };
 
   const navigate = useNavigate();
@@ -61,7 +60,7 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
           autoComplete="off"
           required
           onChange={handleInputEvent}
-          value={product.name}
+          value={productData.name}
         />
       </fieldset>
 
@@ -72,10 +71,10 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
           id="category"
           required
           onChange={handleInputEvent}
-          value={product.category}
+          value={productData.category}
         >
           {categories.map((category) => (
-            <option key={category.catId} value={category.value}>
+            <option key={category.id} value={category.value}>
               {category.label}
             </option>
           ))}
@@ -91,7 +90,7 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
           step="0.01"
           required
           onChange={handleInputEvent}
-          value={product.price}
+          value={productData.price}
         />
       </fieldset>
 
@@ -102,7 +101,7 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
           id="description"
           required
           onChange={handleInputEvent}
-          value={product.description}
+          value={productData.description}
         />
       </fieldset>
 

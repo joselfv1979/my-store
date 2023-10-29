@@ -1,4 +1,4 @@
-import { AppWaiting, AppMessage } from "../components/AppStatus";
+import { AppWaiting, AppMessage } from "../components/appStatus/AppStatus";
 import ProductForm from "../components/ProductForm";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import {
@@ -14,7 +14,7 @@ const ProductFormPage = () => {
 
   const note: Message = {
     type: error ? Status.DANGER : Status.SUCCESS,
-    text: error ? error : message,
+    text: error ?? message,
   };  
 
   const saveProduct = async (data: FormData) => {

@@ -1,10 +1,10 @@
-import { PlusCircleIcon, MinusCircleIcon } from "./Icons";
-import styles from "./../scss/CartPage.module.scss";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { stateCart } from "../store/cart/cartSlice";
+import { PlusCircleIcon, MinusCircleIcon } from "../Icons";
+import styles from "../../assets/scss/CartPage.module.scss";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { stateCart } from "../../store/cart/cartSlice";
 import { Button, Stack } from "react-bootstrap";
-import { addProduct, substractProduct } from "../store/cart/cartActions";
-import { CartItem } from "../types/Cart";
+import { addProduct, substractProduct } from "../../store/cart/cartActions";
+import { CartItem } from "../../types/Cart";
 
 const Cart = () => {
   const cart = useAppSelector(stateCart);

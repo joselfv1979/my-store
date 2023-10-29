@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Menu from "./components/Menu";
 import Footer from "./components/Footer";
-import HomePage from "pages/HomePage";
+import HomePage from "pages/home/HomePage";
 import ProductListPage from "./pages/ProductListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ProductAddPage from "./pages/ProductAddPage";
@@ -19,7 +19,6 @@ import { useAppDispatch } from "./hooks/redux-hooks";
 import { cancelProductMessage } from "./store/product/productActions";
 
 function App() {
-
   const { pathname } = useLocation();
 
   const dispatch = useAppDispatch();
@@ -34,7 +33,7 @@ function App() {
 
       <main>
         <Routes>
-        <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductListPage />} />
           <Route path="/product-detail/:id" element={<ProductDetailPage />} />
           <Route path="/new-product" element={<ProductAddPage />} />

@@ -1,5 +1,5 @@
 import React from "react";
-import { AppWaiting, AppMessage } from "../components/AppStatus";
+import { AppWaiting, AppMessage } from "../components/appStatus/AppStatus";
 import UserForm from "../components/UserForm";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { addUser, cancelUserMessage } from "../store/user/userActions";
@@ -9,19 +9,14 @@ import { User } from "../types/User";
 const UserAddPage = () => {
   const dispatch = useAppDispatch();
 
-  const { error, message, loading } = useAppSelector((state) => state.user);
+  const { error, message, status } = useAppSelector((state) => state.user);
 
-  const note: Message = error
-  ? {
-      type: Status.DANGER,
-      text: error,
-    }
-  : {
-      type: Status.SUCCESS,
-      text: message,
-    };
+  const note: Message = {
+    type: error ? Status.DANGER : Status.SUCCESS,
+    text: error ?? message,
+  };  
   
-  const saveUser = (data: User) => {
+  const saveUser = async (data: User) => {
     dispatch(addUser(data))
   };
 
@@ -31,7 +26,7 @@ const UserAddPage = () => {
 
   return (
     <>
-      {loading && <AppWaiting />}
+      {status === 'loading' && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
       <UserForm saveUser={saveUser} />
     </>

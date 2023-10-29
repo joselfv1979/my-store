@@ -1,9 +1,9 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../scss/LoginPage.module.scss";
-import { AuthRequest } from "../types/User";
+import styles from "../assets/scss/LoginPage.module.scss";
+import { type AuthRequest } from "../types/User";
 
-export type Props = {
+type Props = {
   loginUser: (userData: AuthRequest) => void;
 };
 
@@ -27,12 +27,8 @@ const LoginForm = ({ loginUser }: Props) => {
     loginUser(values);
   };
 
-  const showPassword = () => {
-    const pwdInput = document.querySelector(".pwd") as HTMLInputElement;
-    pwdInput.type === "password"
-      ? (pwdInput.type = "text")
-      : (pwdInput.type = "password");
-  };
+  const [shown, setShown] = useState(false);
+  const switchShown = () => setShown(!shown);
 
   const navigate = useNavigate();
 
@@ -60,7 +56,7 @@ const LoginForm = ({ loginUser }: Props) => {
       <fieldset>
         <div className={styles.pwd}>
           <input
-            type="password"
+            type={shown ? "text" : "password"}
             name="password"
             className="pwd"
             placeholder="Password"
@@ -68,11 +64,13 @@ const LoginForm = ({ loginUser }: Props) => {
             onChange={onChange}
           />
         </div>
-        <div className={styles.eye} onClick={showPassword}></div>
+        <div className={styles.eye} onClick={switchShown}></div>
       </fieldset>
 
       <div className={styles.buttonsContainer}>
-        <button className={styles.login}>Log in</button>
+        <button id="form-login-button" className={styles.login}>
+          Log in
+        </button>
 
         <p>Have no account?</p>
 

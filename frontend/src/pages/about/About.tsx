@@ -1,6 +1,5 @@
-import React from "react"
-import { GitHubIcon } from '../components/Icons'
-import styles from "./../scss/AboutPage.module.scss";
+import { GitHubIcon } from '../../components/Icons'
+import styles from "../../assets/scss/AboutPage.module.scss";
 
 const About = () => {
   return (

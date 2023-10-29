@@ -1,10 +1,10 @@
-import React from "react";
-import styles from "./../scss/CartPage.module.scss";
+import styles from "./../assets/scss/CartPage.module.scss";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { totalItems, totalPrice } from "../store/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, Stack } from "react-bootstrap";
-import { emptyCart } from "store/cart/cartActions";
+import { emptyCart } from "../store/cart/cartActions";
+
 export const Checkout = () => {
   const items = useAppSelector(totalItems);
   const subtotal = Number(useAppSelector(totalPrice));

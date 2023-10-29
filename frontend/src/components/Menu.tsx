@@ -1,5 +1,5 @@
 import { LogoutIcon } from "./Icons";
-import styles from "../scss/Menu.module.scss";
+import styles from "../assets/scss/Menu.module.scss";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";

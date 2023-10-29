@@ -2,29 +2,24 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { cancelUserMessage, fetchUsers } from "../store/user/userActions";
 import { Message, Status } from "../types/Message";
-import { AppMessage, AppWaiting } from "../components/AppStatus";
+import { AppMessage, AppWaiting } from "../components/appStatus/AppStatus";
 import UserList from "../components/UserList";
 
 const UserListPage = () => {
   const dispatch = useAppDispatch();
 
+  const { status, users, message, error } = useAppSelector(
+    (state) => state.user
+  );
+
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
 
-  const { loading, users, message, error } = useAppSelector(
-    (state) => state.user
-  );
-
-  const note: Message = error
-    ? {
-        type: Status.DANGER,
-        text: error,
-      }
-    : {
-        type: Status.SUCCESS,
-        text: message,
-      };
+  const note: Message = {
+    type: error ? Status.DANGER : Status.SUCCESS,
+    text: error ?? message,
+  };  
 
   const cancelMessage = () => {
     dispatch(cancelUserMessage());
@@ -32,7 +27,7 @@ const UserListPage = () => {
 
   return (
     <>
-      {loading && <AppWaiting />}
+      {status === 'loading' && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
       {users && <UserList />}
     </>

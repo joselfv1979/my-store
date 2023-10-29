@@ -1,6 +1,6 @@
-import styles from '../scss/AppStatus.module.scss';
+import styles from '../../assets/scss/AppStatus.module.scss';
 import { Message } from '../../types/Message';
-import spinner from "./../puff.svg";
+import spinner from "../../assets/img/puff.svg";
 import Alert from "react-bootstrap/Alert";
 
 type Props = {
@@ -23,7 +23,7 @@ const AppMessage = ({ note, cancelMessage }: Props) => {
 
 const AppWaiting = () => {
   return (
-    <div className={styles.loader}>
+    <div id="loader" className={styles.loader}>
       <img src={spinner} alt="Loading..." />
     </div>
   );

@@ -1,6 +1,6 @@
-import ProductList from "../components/ProductList";
+import ProductList from "../components/productList/ProductList";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { AppMessage, AppWaiting } from "../components/AppStatus";
+import { AppMessage, AppWaiting } from "../components/appStatus/AppStatus";
 import {
   cancelProductMessage,
   fetchProducts,
@@ -12,27 +12,19 @@ import { useEffect } from "react";
 import SearchForm from "../components/SearchForm";
 
 const ProductListPage = () => {
-
   const dispatch = useAppDispatch();
-  const { status, message, error } = useAppSelector(
-    (state) => state.product
-  );
+  const { status, message, error } = useAppSelector((state) => state.product);
 
-  useEffect(() => {    
-    if(status === 'idle') dispatch(fetchProducts());
-  }, [dispatch, status])
+  useEffect(() => {
+    if (status === "idle") dispatch(fetchProducts());
+  }, [dispatch, status]);
 
   const { showDeleteModal } = useDeleteModalContext();
 
-  const note: Message = error
-  ? {
-      type: Status.DANGER,
-      text: error,
-    }
-  : {
-      type: Status.SUCCESS,
-      text: message,
-    };
+  const note: Message = {
+    type: error ? Status.DANGER : Status.SUCCESS,
+    text: error ?? message,
+  };
 
   const cancelMessage = () => {
     dispatch(cancelProductMessage());
@@ -40,10 +32,15 @@ const ProductListPage = () => {
 
   return (
     <>
-      {status === 'loading' && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
-      {status === 'success' && <SearchForm />}
-      {status === 'success' && <ProductList />}
+      {status === "loading" ? (
+        <AppWaiting />
+      ) : (
+        <>
+          <SearchForm />
+          <ProductList />
+        </>
+      )}
       {showDeleteModal && <DeleteModal />}
     </>
   );

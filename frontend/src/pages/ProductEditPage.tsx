@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ProductForm from "../components/ProductForm";
-import { AppMessage, AppWaiting } from "../components/AppStatus";
+import { AppMessage, AppWaiting } from "../components/appStatus/AppStatus";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import {
   cancelProductMessage,
@@ -43,7 +43,7 @@ const ProductEditPage = () => {
 
   return (
     <>
-      {status === 'loading' && <AppWaiting />}
+      {status === "loading" && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
       {product && <ProductForm saveProduct={saveProduct} editing={true} />}
     </>

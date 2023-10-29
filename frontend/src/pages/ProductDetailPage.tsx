@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { Card, Breadcrumb, Container, Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { AppMessage, AppWaiting } from "../components/AppStatus";
+import { AppMessage, AppWaiting } from "../components/appStatus/AppStatus";
 import StarRating from "../components/StarRating";
 import UserButtons from "../components/UserButtons";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import styles from "../scss/ProductDetailPage.module.scss";
+import styles from "../assets/scss/ProductDetailPage.module.scss";
 import {
   cancelProductMessage,
   fetchProduct,
@@ -43,7 +43,7 @@ const ProductDetailPage = () => {
 
   return (
     <>
-      {status === 'loading' && <AppWaiting />}
+      {status === "loading" && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
       {product && (
         <Container>
