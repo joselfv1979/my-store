@@ -1,8 +1,8 @@
-FROM node:12.18.3-alpine3.9
+FROM node:18
 WORKDIR /app
-COPY src/ /app
-COPY package*.json ./
+COPY backend/ /api
+WORKDIR /api
 RUN npm install
 COPY . .
-EXPOSE 3000
+EXPOSE 7000
 CMD ["npm", "start"]
