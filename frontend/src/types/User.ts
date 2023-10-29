@@ -4,7 +4,7 @@ export interface UserState {
   authUser?: AuthResponse;
   message?: string;
   error?: string;
-  loading: boolean;
+  status: 'loading' | 'idle' | 'success' | 'fail';
 }
 
 export interface User {

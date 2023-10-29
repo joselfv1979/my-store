@@ -5,20 +5,13 @@ export interface CartState {
     item?: CartItem,
     totalPrice: number,
     message?: string,
-    error?: string,
-    loading: boolean
 }
 
 export interface CartItem extends Product { 
     quantity: number
 }; 
 
-export interface Cart {
-    items: CartItem[],
-    totalPrice: number
-}
-
-export const initialCart: Cart = {
+export const initialCart: CartState = {
     items: [],
     totalPrice: 0
 }
