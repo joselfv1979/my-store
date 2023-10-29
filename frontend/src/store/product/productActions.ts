@@ -7,6 +7,7 @@ import {
 } from "../../services/productService";
 import { productSlice } from "./productSlice";
 import { AppThunk } from "../../types/AppThunk";
+import { validateProduct } from "./../../utils/validateProduct";
 
 const { actions } = productSlice;
 
@@ -17,11 +18,10 @@ export const fetchProducts =
     dispatch(actions.productsPending());
 
     const response = await getProducts(query);
-    setTimeout(() => {
-      response.success
-        ? dispatch(actions.setProductsSuccess(response.value))
-        : dispatch(actions.createProductFail(response.message));
-    }, 1000);
+
+    response.success
+      ? dispatch(actions.setProductsSuccess(response.value))
+      : dispatch(actions.createProductFail(response.message));
   };
 
 // Action to fetch one product by id
@@ -31,19 +31,24 @@ export const fetchProduct =
     dispatch(actions.productPending());
 
     const response = await getProduct(id);
-    setTimeout(() => {
-      response.success
-        ? dispatch(actions.setProductSuccess(response.value))
-        : dispatch(actions.setProductFail(response.message));
-    }, 1000);
+
+    response.success
+      ? dispatch(actions.setProductSuccess(response.value))
+      : dispatch(actions.setProductFail(response.message));
   };
 
 // Action to create a new product
 export const addProduct =
   (product: FormData): AppThunk =>
   async (dispatch) => {
-    const response = await addNewProduct(product);
+    dispatch(actions.productsPending());
+    const validProduct = validateProduct(product);
+    if (!validProduct.success) {
+      dispatch(actions.createProductFail(validProduct.message));
+      return;
+    }
 
+    const response = await addNewProduct(product);
     response.success
       ? dispatch(actions.createProductSuccess(response.value))
       : dispatch(actions.createProductFail(response.message));
@@ -63,6 +68,12 @@ export const deleteProduct =
 export const editProduct =
   (product: FormData): AppThunk =>
   async (dispatch) => {
+    const validProduct = validateProduct(product);
+    if (!validProduct.success) {
+      dispatch(actions.modifyProductFail(validProduct.message));
+      return;
+    }
+
     const response = await updateProduct(product);
     response.success
       ? dispatch(actions.modifyProductSuccess(response.value))

@@ -40,18 +40,22 @@ export const productSlice = createSlice({
     createProductSuccess: (state, action: PayloadAction<Product>) => {
       state.products = [...state.products, action.payload];
       state.message = "Product created successfully";
+      state.status = "success";
     },
     createProductFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
+      state.status = "fail";
     },
     eliminateProductSuccess: (state, action: PayloadAction<string>) => {
       state.products = state.products.filter(
         (item: Product) => item.id !== action.payload
       ); // filter out all items with a given value. In this case the action.payload is the id of the product.
       state.message = "Product deleted successfully";
+      state.status = "success";
     },
     eliminateProductFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
+      state.status = "fail";
     },
     modifyProductSuccess: (state, action: PayloadAction<Product>) => {
       state.products = state.products.map((item: Product) =>
@@ -60,9 +64,11 @@ export const productSlice = createSlice({
       // map over the array and if the id matches, replace the item with the new value. In this case the action.payload is the new value
       state.product = action.payload;
       state.message = "Product updated successfully";
+      state.status = "success";
     },
     modifyProductFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
+      state.status = "fail";
     },
     eliminateProductMessage: (state) => {
       state.message = undefined;

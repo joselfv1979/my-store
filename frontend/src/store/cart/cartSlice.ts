@@ -5,7 +5,6 @@ import { type CartItem, type CartState } from "../../types/Cart";
 const initialCartState: CartState = {
   items: [],
   totalPrice: 0,
-  loading: true,
 };
 
 export const cartSlice = createSlice({
@@ -48,7 +47,6 @@ export const cartSlice = createSlice({
     emptyCartItems: (state) => {
       state.items = [];
       state.message = "Cart updated successfully";
-      state.loading = false;
       state.totalPrice = 0;
     },
     setCartItem: (state, action: PayloadAction<string>) => {

@@ -82,14 +82,12 @@ export const login =
     dispatch(actions.userPending());
     const response = await loginUser(user);
 
-    setTimeout(() => {
-      if (response.success) {
-        dispatch(actions.loginUserSuccess(response.value));
-        localStorage.setItem("token", JSON.stringify(response.value.token));
-      } else {
-        dispatch(actions.loginUserFail(response.message));
-      }
-    }, 3000);
+    if (response.success) {
+      dispatch(actions.loginUserSuccess(response.value));
+      localStorage.setItem("token", JSON.stringify(response.value.token));
+    } else {
+      dispatch(actions.loginUserFail(response.message));
+    }
   };
 
 // Action to logout a user
@@ -102,4 +100,3 @@ export const logout = (): AppThunk => async (dispatch) => {
 export const cancelUserMessage = (): AppThunk => (dispatch) => {
   dispatch(actions.eliminateUserMessage());
 };
-

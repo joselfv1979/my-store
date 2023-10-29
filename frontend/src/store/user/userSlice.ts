@@ -9,7 +9,7 @@ import {
 const initialUserState: UserState = {
   users: [],
   user: null,
-  loading: false,
+  status: "idle",
 };
 
 export const userSlice = createSlice({
@@ -17,38 +17,42 @@ export const userSlice = createSlice({
   initialState: initialUserState,
   reducers: {
     userPending: (state) => {
-      state.loading = true;
+      state.status = "loading";
       state.users = [];
       state.message = undefined;
       state.error = undefined;
     },
     setUsersSuccess: (state, action: PayloadAction<User[]>) => {
       state.users = action.payload;
-      state.loading = false;
+      state.status = "success";
     },
     setUserSuccess: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
-      state.loading = false;
+      state.status = "success";
     },
     setUserFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
-      state.loading = false;
+      state.status = "fail";
     },
     createUserSuccess: (state, action: PayloadAction<User>) => {
       state.users = [...state.users, action.payload];
       state.message = "User created succesfully";
+      state.status = "success";
     },
     createUserFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
+      state.status = "fail";
     },
     eliminateUserSuccess: (state, action: PayloadAction<string>) => {
       state.users = state.users.filter(
         (item: User) => item.id !== action.payload
       );
       state.message = "User deleted succesfully";
+      state.status = "success";
     },
     eliminateUserFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
+      state.status = "fail";
     },
     modifyUserSuccess: (state, action: PayloadAction<User>) => {      
       state.users = state.users.map((item: User) =>
@@ -61,22 +65,24 @@ export const userSlice = createSlice({
         roles: action.payload.roles,
       };
       state.message = "User updated successfully";
+      state.status = "success";
     },
     modifyUserFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
+      state.status = "fail";
     },
     loginUserSuccess: (state, action: PayloadAction<AuthResponse>) => {
       state.authUser = action.payload;
-      state.loading = false;
+      state.status = "success";
     },
     loginUserFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
-      state.loading = false;
+      state.status = "fail";
     },
     logoutUser: (state) => {
       state.authUser = undefined;
       state.user = null;
-      state.loading = false;
+      state.status = "success";
     },
     eliminateUserMessage: (state) => {
       state.message = undefined;
