@@ -20,13 +20,14 @@ export const pool = createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: db,
+  port: Number(process.env.DB_PORT),
 });
 
 export const connect = async () => {
   return pool
     .getConnection()
     .then(() => console.info("MySql Adapter Pool generated successfully"))
-    .catch(() => {
+    .catch(() => {      
       throw new CustomError(500, "Couldn't connect to database, try it later");
     });
 };
