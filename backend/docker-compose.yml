@@ -1,18 +1,23 @@
-version: '2.21'
+version: '2.23'
 services:
   web:
-    image: joselfv/mystore-api
+    image: joselfv/mystore_api:2.0
+    depends_on:
+      db:
+        condition: service_healthy
     ports:
       - 7000:7000
     environment:
+      NODE_ENV: production
       DB_HOST: db
       DB_USER: admin
       DB_PASSWORD: 1234
-      DB_NAME: cars
+      DB_NAME: store
+      DB_PORT: 3306
     networks:
       - backend
   db:
-    image: mysql:5.7
+    image: mysql:8.0
     ports:
       - 3306:3306
     environment:
@@ -20,8 +25,19 @@ services:
       MYSQL_DATABASE: store
       MYSQL_USER: admin
       MYSQL_PASSWORD: 1234
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 45s
+      retries: 10
     volumes:
       - ./../db/entrypoint.sql:/docker-entrypoint-initdb.d/entrypoint.sql
+    networks:
+      - backend
+  adminer:
+    image: adminer
+    ports:
+      - 8081:8080
     networks:
       - backend
 networks:
