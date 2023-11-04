@@ -1,0 +1,8 @@
+# ignore
+node_modules/
+Dockerfile
+coverage/
+build/
+.git
+.dockerignore
+Dockerfile
