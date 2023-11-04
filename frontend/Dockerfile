@@ -1,19 +1,18 @@
 # building
 
-FROM node:18-alpine
+FROM node:18-alpine AS builder
 WORKDIR /app
 # Cache and Install dependencies
 COPY package.json .
 RUN npm install
 # Copy app files
 COPY . .
-CMD ["npm", "build"]
+RUN npm run build
 
 # hosting
 
 # Bundle static assets with nginx
-FROM nginx:1.23-alpine AS production
-ENV NODE_ENV production
+FROM nginx:alpine
 # Copy built assets from builder
 COPY --from=builder /app/build /usr/share/nginx/html
 # Add your nginx.conf
