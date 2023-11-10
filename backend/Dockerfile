@@ -1,7 +1,6 @@
 FROM node:18
 WORKDIR /app
-COPY . /api
-WORKDIR /api
+COPY package.json /app
 RUN npm install
 COPY . .
 EXPOSE 7000
