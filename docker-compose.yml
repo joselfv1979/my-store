@@ -1,0 +1,59 @@
+version: '2.23'
+services:
+  db:
+    image: mysql:8.0
+    ports:
+      - 6603:3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: store
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 1234
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 45s
+      retries: 10
+    volumes:
+      - ./db/entrypoint.sql:/docker-entrypoint-initdb.d/entrypoint.sql
+    networks:
+      - backend
+
+  api:
+    image: joselfv/mystore_api:v1
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+    ports:
+      - 7000:7000
+    environment:
+      NODE_ENV: production
+      DB_HOST: db
+      DB_USER: admin
+      DB_PASSWORD: 1234
+      DB_NAME: store
+      DB_PORT: 3306
+    networks:
+      - backend
+      - frontend
+
+  client:
+    image: joselfv/mystore_app:v1
+    ports:
+      - 3050:80
+    environment:
+      DOMAIN: http://api:7000
+    networks:
+      - frontend
+
+  adminer:
+    image: adminer
+    ports:
+      - 8081:8080
+    networks:
+      - backend
+networks:
+  backend:
+  frontend:
