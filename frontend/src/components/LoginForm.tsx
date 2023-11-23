@@ -64,7 +64,7 @@ const LoginForm = ({ loginUser }: Props) => {
             onChange={onChange}
           />
         </div>
-        <div className={styles.eye} onClick={switchShown}></div>
+        <button className={styles.eye} onClick={switchShown}></button>
       </fieldset>
 
       <div className={styles.buttonsContainer}>
@@ -75,7 +75,7 @@ const LoginForm = ({ loginUser }: Props) => {
         <p>Have no account?</p>
 
         <button className={styles.signup} onClick={() => navigate("/register")}>
-          Sign up
+          <span>Sign up</span>
           <i className="fa fa-user-plus" aria-hidden="true"></i>
         </button>
       </div>
