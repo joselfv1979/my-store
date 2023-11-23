@@ -1,6 +1,4 @@
-DROP DATABASE IF EXISTS store;
-
-CREATE DATABASE store;
+CREATE DATABASE IF NOT EXISTS store;
 --
 -- Table structure for table `users`
 --
@@ -56,9 +54,7 @@ CREATE TABLE `user_products` (
 SET FOREIGN_KEY_CHECKS=1;
 
 
-DROP DATABASE IF EXISTS store_test;
-
-CREATE DATABASE store_test;
+CREATE DATABASE IF NOT EXISTS store_test;
 --
 -- Table structure for table `users`
 --
@@ -116,3 +112,5 @@ CREATE TABLE `user_products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 SET FOREIGN_KEY_CHECKS=1;
+
+
