@@ -48,7 +48,9 @@ export const getUsers = async (): Promise<Result<User[], string>> => {
  */
 export const getUser = async (id: string): Promise<Result<User, string>> => {
   try {
-    const { data } = await api.get(`/${id}`);
+    const { data } = await api.get(`/${id}`, {
+      headers: getHeaders(),
+    });
     return { success: true, value: data };
   } catch (error) {
     return { success: false, message: handleError(error) };
@@ -89,7 +91,9 @@ export const removeUser = async (
 
 export const updateUser = async (user: User): Promise<Result<User, string>> => {
   try {
-    const { data } = await api.put(`/edit/${user.id}`, user);
+    const { data } = await api.put(`/user-edit/${user.id}`, user, {
+      headers: getHeaders(),
+    });
     return { success: true, value: data };
   } catch (error) {
     return { success: false, message: handleError(error) };
