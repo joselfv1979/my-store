@@ -27,9 +27,8 @@ const ProductFormPage = () => {
 
   return (
     <>
-      {status === 'loading' && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} /> }
-      {status !== 'loading' && <ProductForm saveProduct={saveProduct} />}
+      {status === 'loading' ? <AppWaiting /> : <ProductForm saveProduct={saveProduct} />}
     </>
   );
 };
