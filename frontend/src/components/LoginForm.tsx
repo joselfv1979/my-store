@@ -2,6 +2,8 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../assets/scss/LoginPage.module.scss";
 import { type AuthRequest } from "../types/User";
+import { GoogleLogin } from "@react-oauth/google";
+import { googleLogin } from "services/userService";
 
 type Props = {
   loginUser: (userData: AuthRequest) => void;
@@ -27,6 +29,23 @@ const LoginForm = ({ loginUser }: Props) => {
     loginUser(values);
   };
 
+  const loginGoogle = async (res: any) => {
+    try {
+      console.log('google-res ',{res});
+      
+      const result = await googleLogin({ token: res?.credential });
+      console.log('result', result);
+      
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const loginGoogleFail = () => {
+    console.log('Login fail');
+  }
+
   const [shown, setShown] = useState(false);
   const switchShown = () => setShown(!shown);
 
@@ -46,7 +65,6 @@ const LoginForm = ({ loginUser }: Props) => {
             name="username"
             placeholder="Username"
             autoComplete="off"
-            required
             autoFocus
             onChange={onChange}
           />
@@ -60,7 +78,6 @@ const LoginForm = ({ loginUser }: Props) => {
             name="password"
             className="pwd"
             placeholder="Password"
-            required
             onChange={onChange}
           />
         </div>
@@ -78,6 +95,11 @@ const LoginForm = ({ loginUser }: Props) => {
           <span>Sign up</span>
           <i className="fa fa-user-plus" aria-hidden="true"></i>
         </button>
+        <div className="w-25 d-flex justify-content-center m-auto">
+        <GoogleLogin
+        onSuccess={loginGoogle}
+        onError={loginGoogleFail}></GoogleLogin>
+        </div>
       </div>
     </form>
   );

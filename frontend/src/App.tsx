@@ -26,7 +26,7 @@ function App() {
   useEffect(() => {
     dispatch(cancelProductMessage());
   }, [dispatch, pathname]);
-
+  
   return (
     <div className={styles.App}>
       <Menu />

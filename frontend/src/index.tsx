@@ -7,6 +7,7 @@ import { persistor, store } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
 import { DeleteModalContextProvider } from "./context/deleteModal/DeleteModalContextProvider";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -18,7 +19,9 @@ root.render(
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <DeleteModalContextProvider>
-            <App />
+            <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID as string}>
+              <App />
+            </GoogleOAuthProvider>
           </DeleteModalContextProvider>
         </PersistGate>
       </Provider>

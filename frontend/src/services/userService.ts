@@ -26,6 +26,20 @@ export const loginUser = async (
   }
 };
 
+export const googleLogin = async ( token: { token: string} ): Promise<Result<AuthResponse, string>> => {
+  
+  console.log('token-g', token);
+  
+  try {
+    const { data } = await api.post('/auth/google', token);
+    console.log({ data });
+
+    return { success: true, value: data };
+  } catch (error) {
+    return { success: false, message: handleError(error) };
+  }
+};
+
 /**
  * Returns all users
  * @returns {Result<User[], string>} All user or an error messsage
