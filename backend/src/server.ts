@@ -51,7 +51,7 @@ app.use((req: Request, res: Response) => {
   res.status(404).json("Path not found");
 });
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT ?? 8000;
 
 // start the server
 const server = app.listen(port, () => {

@@ -14,6 +14,7 @@ export const getAllProducts = async () => {
 
 export const getFilteredProducts = async (parameters: ProductQuery) => {
   const { sql, filters } = buildProductQuery(parameters);
+  
   const [rows] = await pool.query<RowDataPacket[]>(sql, filters);
 
   const result: IProduct[] = JSON.parse(JSON.stringify(rows));

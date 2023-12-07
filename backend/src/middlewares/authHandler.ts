@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { CustomError } from "../models/CustomError";
 import { Jwt } from "../models/Jwt";
 
@@ -34,7 +34,7 @@ const authHandler = (
     return next(new CustomError(401, "token missing or invalid"));
   }
 
-  let decodedToken = <Jwt>jwt.verify(token, process.env.SECRET);
+  let decodedToken = <Jwt>jwt.verify(token, process.env.SECRET as string);
 
   if (!decodedToken) {
     return next(new CustomError(401, "token missing or invalid"));
@@ -47,4 +47,4 @@ const authHandler = (
   next();
 };
 
-export default authHandler;
+export default authHandler as RequestHandler;

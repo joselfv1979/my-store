@@ -1,4 +1,5 @@
-import multer from "multer";
+import { Request } from "express";
+import multer, { FileFilterCallback } from "multer";
 import { v4 as uuidv4 } from "uuid";
 
 // Image handling middleware
@@ -9,7 +10,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const fileFilter = (req, file, cb) => {
+const fileFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
   const { mimetype } = file;
   if (
     mimetype === "image/jpg" ||
@@ -18,9 +19,7 @@ const fileFilter = (req, file, cb) => {
     mimetype === "image/png"
   ) {
     cb(null, true);
-  } else {
-    cb(new Error("Image uploaded is not of type jpg/jpeg or png"), false);
-  }
+  } 
 };
 
 export default multer({ storage, fileFilter });

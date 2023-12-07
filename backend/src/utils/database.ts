@@ -4,15 +4,19 @@ import { CustomError } from "../models/CustomError";
 
 config();
 
-let db: string;
+let db = "";
 
-if (process.env.NODE_ENV === "production") {
-  db = process.env.DATABASE_PROD;
-} else if (process.env.NODE_ENV === "development") {
-  db = process.env.DATABASE_DEV;
+if (process.env.NODE_ENV === "development") {
+  db = process.env.DATABASE_DEV as string;
+} else if (process.env.NODE_ENV === "test") {
+  db = process.env.DATABASE_TEST as string;
 } else {
-  db = process.env.DATABASE_TEST;
+  db = process.env.DATABASE_PROD as string;
 }
+
+console.log('env', process.env.NODE_ENV);
+
+console.log('db____', db);
 
 export const pool = createPool({
   connectionLimit: Number(process.env.DB_CONNECTION_LIMIT),
@@ -27,7 +31,7 @@ export const connect = async () => {
   return pool
     .getConnection()
     .then(() => console.info("MySql Adapter Pool generated successfully"))
-    .catch(() => {      
+    .catch(() => {            
       throw new CustomError(500, "Couldn't connect to database, try it later");
     });
 };

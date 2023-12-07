@@ -17,9 +17,9 @@ export const getProductList = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {        
+  try {            
     const result = await getFilteredProducts(req.query);
-    res.json(result);
+    return res.json(result);
   } catch (error) {
     next(new CustomError(500, "Couldn't get products"));
   }
@@ -37,7 +37,7 @@ export const getProductData = async (
     const product = await getProduct(id);
     if (!product) next(new CustomError(404, "Product not found"));
 
-    res.status(200).json(product);
+    return res.status(200).json(product);
   } catch (error) {    
     next(new CustomError(500, "Couldn't get product"));
   }
@@ -127,3 +127,4 @@ export const removeProduct = async (
     next(new CustomError(500, "Couldn't delete product"));
   }
 };
+
