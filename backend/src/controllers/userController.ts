@@ -8,8 +8,10 @@ import {
   updateUser,
   emailExist,
   usernameExist,
+  getUserByEmail,
 } from "../services/userService";
-import { UserWithoutId } from "../models/User";
+import { IUser, UserWithoutId } from "../models/User";
+import { OAuth2Client } from "google-auth-library";
 
 // endpoint to get all users
 export const getUsers = async (
@@ -43,6 +45,43 @@ export const getUserById = async (
   } catch (error) {
     next(new CustomError(404, "User not found"));
   }
+};
+
+export const authenticateUser = async (req: Request, res: Response, next: NextFunction) => {
+  const { token } = req.body;
+
+  const googleClient = new OAuth2Client({
+    clientId: `${process.env.CLIENT_URL}`,
+  });
+  
+  const ticket = await googleClient.verifyIdToken({
+    idToken: req.body.token,
+    audience: `${process.env.GOOGLE_CLIENT_ID}`
+  });
+
+  const payload = ticket.getPayload();
+
+  if(!payload?.email || !payload?.name) {
+    return next(new CustomError(400, "Bad request"));
+  }
+
+  let user: IUser | undefined;
+  
+  let storedUser = await getUserByEmail(payload.email);
+
+  if(!storedUser) {
+    const newUser: UserWithoutId = {
+      fullname: "",
+      username: payload.name,
+      email: payload.email,
+      password: "",
+      roles: ['user'],
+      image: "",
+    }
+    user = await addUser(newUser);
+  }
+
+  res.json({ user, token });
 };
 
 // endpoint to create a new user
@@ -84,7 +123,7 @@ export const addNewUser = async (
       return next(new CustomError(500, "Couldn't register user, try it later"));
     }
 
-    res.status(200).json(user);
+     res.status(200).json(user);
   } catch (error) {
     next(error);
   }

@@ -37,7 +37,7 @@ export const addUser = async (user: UserWithoutId) => {
     image,
   ]);
 
-  return { ...user, id: insertId};
+  return { ...user, id: String(insertId)};
 };
 
 export const updateUser = async (id: string, user: IUser) => {
@@ -80,3 +80,9 @@ export const deleteAllUsers = async () => {
 
   await pool.query<ResultSetHeader>(sql);
 }
+
+export const getUserByEmail = async (email?: string) => {
+  const sql = "SELECT * FROM users WHERE email = ?";
+  const [rows] = await pool.query<RowDataPacket[]>(sql, [email]);
+  return rows[0];
+};
