@@ -14,10 +14,6 @@ if (process.env.NODE_ENV === "development") {
   db = process.env.DATABASE_PROD as string;
 }
 
-console.log('env', process.env.NODE_ENV);
-
-console.log('db____', db);
-
 export const pool = createPool({
   connectionLimit: Number(process.env.DB_CONNECTION_LIMIT),
   host: process.env.DB_HOST,
