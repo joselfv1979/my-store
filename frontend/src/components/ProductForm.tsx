@@ -24,8 +24,8 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
 
   const navigate = useNavigate();
 
-  const handleInputEvent = (event: ChangeEvent<InputType>) => {
-    setProductData({ ...productData, [event.target.name]: event.target.value });
+  const handleInputEvent = (e: ChangeEvent<InputType>) => {
+    setProductData(prevState => ({...prevState, [e.target.name]: e.target.value}));
   };
 
   const sendDataProduct = async (event: FormEvent<HTMLFormElement>) => {
