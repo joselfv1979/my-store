@@ -32,6 +32,7 @@ const ImageUpload = ({ productData, setProductData }: Props) => {
           type="file"
           className="form-control"
           id="inputGroupFile01"
+          accept=".jpg, .jpeg, .png"
           ref={fileInput}
           onChange={handleImage}
         />
