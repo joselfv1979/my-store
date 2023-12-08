@@ -5,8 +5,8 @@ import styles from "../../assets/scss/HomePage.module.scss";
 
 const Benefits = () => {
   return (
-    <div className="mt-5 py-5">
-      <h1 className="my-5 text-center">Services</h1>
+    <div className="mt-2 py-5">
+      <h1 className="my-3 text-center">Services</h1>
       <Row className="my-5 pb-4">
         <Col className="d-flex align-items-center">
           <h1>Home delivery</h1>
