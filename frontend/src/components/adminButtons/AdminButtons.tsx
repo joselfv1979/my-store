@@ -1,4 +1,3 @@
-import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDeleteModalContext } from "../../context/deleteModal/DeleteModalContext";
 
@@ -20,20 +19,20 @@ const AdminButtons = ({ id }: Props) => {
 
   return (
     <>
-      <Button
+      <button
+        className="btn btn-success py-3 px-5"
         data-testid="edit-button"
-        variant="success"
         onClick={() => navigate(`/edit-product/${id}`)}
       >
-        <i className="fas fa-pencil-alt"></i>
-      </Button>
-      <Button
+        <i className="fas fa-pencil-alt" />
+      </button>
+      <button
+        className="btn btn-danger py-3 px-5"
         data-testid="trash-button"
-        variant="danger"
         onClick={removeProduct}
       >
-        <i className="fas fa-trash-alt"></i>
-      </Button>
+        <i className="fas fa-trash-alt" />
+      </button>
     </>
   );
 };
