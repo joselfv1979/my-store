@@ -40,6 +40,7 @@ app.use(
 );
 
 // Routes
+app.use("/auth", usersRouter);
 app.use("/users", usersRouter);
 app.use("/products", productRouter);
 
