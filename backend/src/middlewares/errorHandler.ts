@@ -10,10 +10,9 @@ export const errorHandler = (
 ) => {  // CustomError: { status: number, message: string }  
   if (err instanceof CustomError) {
     console.log(err.message);    
-    res.status(err.status).json(err.message);
+    return res.status(err.status).json(err.message);
   } else {
-    console.log(err.message);
-    
-    res.status(500).json("Something went wrong");
+    console.log(err.message);  
+   return res.status(500).json("Something went wrong");
   }
 };

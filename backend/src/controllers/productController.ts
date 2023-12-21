@@ -33,9 +33,9 @@ export const getProductData = async (
 ) => {
   try {
     const { id } = req.params;
-    
+
     const product = await getProduct(id);
-    if (!product) next(new CustomError(404, "Product not found"));
+    if (!product) return next(new CustomError(404, "Product not found"));
 
     return res.status(200).json(product);
   } catch (error) {    
@@ -98,7 +98,7 @@ export const editProduct = async (
     });
 
     if (!updatedProduct) {
-      next(new CustomError(404, "Product not found"));
+      return next(new CustomError(404, "Product not found"));
     }
 
     return res.status(201).json(updatedProduct);
@@ -119,7 +119,7 @@ export const removeProduct = async (
     const product = await deleteProduct(id);
 
     if (!product) {
-      next(new CustomError(404, "Product not found"));
+      return next(new CustomError(404, "Product not found"));
     }
 
     return res.status(204).end();
