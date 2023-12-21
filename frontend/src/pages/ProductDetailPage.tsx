@@ -5,7 +5,6 @@ import { AppMessage, AppWaiting } from "../components/appStatus/AppStatus";
 import StarRating from "../components/StarRating";
 import UserButtons from "../components/UserButtons";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import styles from "../assets/scss/ProductDetailPage.module.scss";
 import {
   cancelProductMessage,
   fetchProduct,
@@ -53,12 +52,12 @@ const ProductDetailPage = () => {
           </Breadcrumb>
           <Row>
             <Col>
-              <Card className={styles.cardImg}>
+              <div className="card">
                 <Card.Img variant="top" src={image} alt={product.name} />
-              </Card>
+              </div>
             </Col>
             <Col>
-              <Card className={styles.cardDetails}>
+              <div className="card">
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>
                   <Card.Title>Price: {product.price} €</Card.Title>
@@ -70,9 +69,11 @@ const ProductDetailPage = () => {
                     libero aliquid laudantium blanditiis numquam magnam earum
                     nisi, mollitia, nulla totam. Quas, cupiditate!
                   </Card.Text>
-                  <UserButtons product={product} style={styles.userButton} />
+                  <div className="d-flex justify-content-around mt-4">
+                    <UserButtons product={product} />
+                  </div>
                 </Card.Body>
-              </Card>
+              </div>
             </Col>
           </Row>
         </Container>

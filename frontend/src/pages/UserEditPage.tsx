@@ -20,7 +20,7 @@ const UserEdit = () => {
     (state) => state.user
   );
 
-  useEffect(() => {
+  useEffect(() => {    
     if (id) dispatch(fetchUser(id));
   }, [dispatch, id]);
 
