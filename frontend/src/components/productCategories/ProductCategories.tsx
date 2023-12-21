@@ -16,7 +16,7 @@ const ProductCategories = () => {
 
   return (
     <>
-      <h1 className="mb-5 text-center">Product categories</h1>
+      <h1 className="mb-5 text-center">Categories</h1>
       <Row className="g-5">
         {categories
           .filter((item) => item.id !== 1)
