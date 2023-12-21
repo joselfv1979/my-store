@@ -2,14 +2,13 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../assets/scss/LoginPage.module.scss";
 import { type AuthRequest } from "../types/User";
-import { GoogleLogin } from "@react-oauth/google";
-import { googleLogin } from "services/userService";
 
 type Props = {
-  loginUser: (userData: AuthRequest) => void;
+  loginUser: (userData: AuthRequest) => Promise<void>;
+  setShowPasswordResetModal: (show: boolean) => void;
 };
 
-const LoginForm = ({ loginUser }: Props) => {
+const LoginForm = ({ loginUser, setShowPasswordResetModal }: Props) => {
   const initialState: AuthRequest = {
     username: "",
     password: "",
@@ -24,27 +23,10 @@ const LoginForm = ({ loginUser }: Props) => {
     });
   };
 
-  const handleLogin = (event: FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    loginUser(values);
+    await loginUser(values);
   };
-
-  const loginGoogle = async (res: any) => {
-    try {
-      console.log('google-res ',{res});
-      
-      const result = await googleLogin({ token: res?.credential });
-      console.log('result', result);
-      
-
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  const loginGoogleFail = () => {
-    console.log('Login fail');
-  }
 
   const [shown, setShown] = useState(false);
   const switchShown = () => setShown(!shown);
@@ -52,56 +34,61 @@ const LoginForm = ({ loginUser }: Props) => {
   const navigate = useNavigate();
 
   return (
-    <form className={styles.loginForm} onSubmit={handleLogin}>
-      <header>
-        <h2>Log In</h2>
-        <p>Login here using your username and password</p>
-      </header>
+      <form className={styles.loginForm} onSubmit={handleLogin}>
+        <header>
+          <h2>Log In</h2>
+          <p>Login here using your username and password</p>
+        </header>
 
-      <fieldset>
-        <div className={styles.user}>
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            autoComplete="off"
-            autoFocus
-            onChange={onChange}
-          />
+        <fieldset>
+          <div className={styles.user}>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              autoComplete="off"
+              autoFocus
+              onChange={onChange}
+            />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <div className={styles.pwd}>
+            <input
+              type={shown ? "text" : "password"}
+              name="password"
+              className="pwd"
+              placeholder="Password"
+              autoComplete="off"
+              onChange={onChange}
+            />
+          </div>
+          <button className={styles.eye} onClick={switchShown}></button>
+        </fieldset>
+
+        <div className={styles.buttonsContainer}>
+          <button
+            type="button"
+            className="btn btn-link link-info d-block mx-auto"
+            onClick={() => setShowPasswordResetModal(true)}
+          >
+            Forgot password?
+          </button>
+          <button id="form-login-button" className={styles.login}>
+            Log in
+          </button>
+          <span className="d-block">Have no account?</span>
+
+          <button
+            className={styles.signup}
+            onClick={() => navigate("/register")}
+          >
+            <span>Sign up</span>
+            <i className="fa fa-user-plus" aria-hidden="true"></i>
+          </button>
         </div>
-      </fieldset>
-
-      <fieldset>
-        <div className={styles.pwd}>
-          <input
-            type={shown ? "text" : "password"}
-            name="password"
-            className="pwd"
-            placeholder="Password"
-            onChange={onChange}
-          />
-        </div>
-        <button className={styles.eye} onClick={switchShown}></button>
-      </fieldset>
-
-      <div className={styles.buttonsContainer}>
-        <button id="form-login-button" className={styles.login}>
-          Log in
-        </button>
-
-        <p>Have no account?</p>
-
-        <button className={styles.signup} onClick={() => navigate("/register")}>
-          <span>Sign up</span>
-          <i className="fa fa-user-plus" aria-hidden="true"></i>
-        </button>
-        <div className="w-25 d-flex justify-content-center m-auto">
-        <GoogleLogin
-        onSuccess={loginGoogle}
-        onError={loginGoogleFail}></GoogleLogin>
-        </div>
-      </div>
-    </form>
+      </form>
   );
 };
 
