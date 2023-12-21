@@ -1,39 +1,35 @@
 export interface UserState {
   users: User[];
   user: User | null;
-  authUser?: AuthResponse;
+  authUser?: AuthUser;
   message?: string;
   error?: string;
   status: 'loading' | 'idle' | 'success' | 'fail';
 }
 
-export interface User {
-  id?: string;
-  username: string;
+export interface User extends AuthUser {
   fullname: string;
   password: string;
-  roles: string[];
   email: string;
-  token?: string;
   image?: string;
+}
+
+export interface AuthUser {
+  id?: string;
+  username: string;
+  role: string;
+  token?: string
 }
 
 export const initialUser: User = {
   username: "",
   fullname: "",
   password: "",
-  roles: ["user"],
+  role: "user",
   email: "",
 };
 
 export interface AuthRequest {
   username: string;
   password: string;
-}
-
-export interface AuthResponse {
-  id: string;
-  username: string;
-  roles: string[];
-  token: string
 }
