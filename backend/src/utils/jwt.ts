@@ -1,8 +1,10 @@
 import { sign, SignOptions } from 'jsonwebtoken';
+import { CustomJwt } from '../models/Jwt';
 
 // Generates a new token
-export function generateToken(id: string, username: string, role: string) {
+export function generateToken(data: CustomJwt) {
   // information to be encoded in the JWT
+  const { username, id, role } = data;
   const payload = {
     username,
     id,
