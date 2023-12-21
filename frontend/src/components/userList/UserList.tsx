@@ -1,7 +1,7 @@
-import { useAppSelector } from "../hooks/redux-hooks";
-import { getUsers } from "../store/user/userSlice";
+import { useAppSelector } from "../../hooks/redux-hooks";
+import { getUsers } from "../../store/user/userSlice";
 import { Col, Row } from "react-bootstrap";
-import UserCard from "./UserCard";
+import UserCard from "../userCard/UserCard";
 
 const UserList = () => {
   const users = useAppSelector(getUsers);

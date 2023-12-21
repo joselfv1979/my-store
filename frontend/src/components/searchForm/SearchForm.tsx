@@ -1,9 +1,9 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import styles from "../assets/scss/SearchForm.module.scss";
 import { Form, InputGroup } from "react-bootstrap";
-import { fetchProducts } from "../store/product/productActions";
-import { useAppDispatch } from "../hooks/redux-hooks";
-import { LensIcon } from "./Icons";
+import { fetchProducts } from "../../store/product/productActions";
+import { useAppDispatch } from "../../hooks/redux-hooks";
+import { LensIcon } from "../svgs/Icons";
 
 const SearchForm = () => {
 

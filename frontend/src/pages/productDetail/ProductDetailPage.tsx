@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { Card, Breadcrumb, Container, Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { AppMessage, AppWaiting } from "../components/appStatus/AppStatus";
-import StarRating from "../components/StarRating";
-import UserButtons from "../components/UserButtons";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
+import { AppMessage, AppWaiting } from "../../components/appStatus/AppStatus";
+import Rating from "../../components/rating/Rating";
+import UserButtons from "../../components/userButtons/UserButtons";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import {
   cancelProductMessage,
   fetchProduct,
-} from "../store/product/productActions";
-import { Message, Status } from "../types/Message";
+} from "../../store/product/productActions";
+import { Message, Status } from "../../types/Message";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -61,7 +61,7 @@ const ProductDetailPage = () => {
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>
                   <Card.Title>Price: {product.price} €</Card.Title>
-                  <StarRating stars={product.rating} />
+                  <Rating stars={product.rating} />
                   <Card.Text>
                     {product.description}. Lorem ipsum dolor, sit amet
                     consectetur adipisicing elit. Officiis praesentium eveniet

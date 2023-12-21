@@ -1,8 +1,8 @@
-import { Product } from "../types/Product";
-import { useAppSelector } from "../hooks/redux-hooks";
-import AdminButtons from "./adminButtons/AdminButtons";
-import { isAdmin } from "../store/user/userSlice";
-import UserButtons from "./UserButtons";
+import { Product } from "../../types/Product";
+import { useAppSelector } from "../../hooks/redux-hooks";
+import AdminButtons from "../adminButtons/AdminButtons";
+import { isAdmin } from "../../store/user/userSlice";
+import UserButtons from "../userButtons/UserButtons";
 
 type Props = {
   product: Product;

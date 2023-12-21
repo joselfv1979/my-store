@@ -1,4 +1,4 @@
-import ProductCard from "../ProductCard";
+import ProductCard from "../productCard/ProductCard";
 import styles from "../../assets/scss/ProductListPage.module.scss";
 import { useAppSelector } from "../../hooks/redux-hooks";
 import { storedProductList } from "../../store/product/productSlice";

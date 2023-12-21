@@ -1,8 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { initialUser, type User } from "../types/User";
+import { type User } from "../../types/User";
 import styles from "../assets/scss/UserFormPage.module.scss";
-import { useAppSelector } from "../hooks/redux-hooks";
+import { useAppSelector } from "../../hooks/redux-hooks";
+import { initialUser } from "data/ConstantUtils";
 
 type Props = {
   saveUser: (data: User) => Promise<void>;

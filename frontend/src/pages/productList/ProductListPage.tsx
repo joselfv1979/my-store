@@ -1,15 +1,15 @@
-import ProductList from "../components/productList/ProductList";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { AppMessage, AppWaiting } from "../components/appStatus/AppStatus";
+import ProductList from "../../components/productList/ProductList";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { AppMessage, AppWaiting } from "../../components/appStatus/AppStatus";
 import {
   cancelProductMessage,
   fetchProducts,
-} from "../store/product/productActions";
-import { Message, Status } from "../types/Message";
-import { useDeleteModalContext } from "../context/deleteModal/DeleteModalContext";
-import DeleteModal from "../components/DeleteModal";
+} from "../../store/product/productActions";
+import { Message, Status } from "../../types/Message";
+import { useDeleteModalContext } from "../../context/deleteModal/DeleteModalContext";
+import DeleteModal from "../../components/deleteModal/DeleteModal";
 import { useEffect } from "react";
-import SearchForm from "../components/SearchForm";
+import SearchForm from "../../components/searchForm/SearchForm";
 
 const ProductListPage = () => {
   const dispatch = useAppDispatch();

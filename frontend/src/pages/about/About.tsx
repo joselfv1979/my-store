@@ -1,4 +1,4 @@
-import { GitHubIcon } from '../../components/Icons'
+import { GitHubIcon } from '../../components/svgs/Icons'
 import styles from "../../assets/scss/AboutPage.module.scss";
 
 const About = () => {

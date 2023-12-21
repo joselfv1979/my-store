@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { AppMessage, AppWaiting } from "../../components/appStatus/AppStatus";
-import LoginForm from "../../components/LoginForm";
+import LoginForm from "../../components/loginForm/LoginForm";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { Message, Status } from "../../types/Message";
 import { AuthRequest } from "../../types/User";

@@ -1,10 +1,10 @@
 import React from "react";
-import { AppWaiting, AppMessage } from "../components/appStatus/AppStatus";
-import UserForm from "../components/UserForm";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { addUser, cancelUserMessage } from "../store/user/userActions";
-import { Message, Status } from "../types/Message";
-import { User } from "../types/User";
+import { AppWaiting, AppMessage } from "../../components/appStatus/AppStatus";
+import UserForm from "../../components/userForm/UserForm";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { addUser, cancelUserMessage } from "../../store/user/userActions";
+import { Message, Status } from "../../types/Message";
+import { User } from "../../types/User";
 
 const UserAddPage = () => {
   const dispatch = useAppDispatch();

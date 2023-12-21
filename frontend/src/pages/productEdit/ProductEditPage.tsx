@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ProductForm from "../components/ProductForm";
-import { AppMessage, AppWaiting } from "../components/appStatus/AppStatus";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
+import ProductForm from "../../components/productForm/ProductForm";
+import { AppMessage, AppWaiting } from "../../components/appStatus/AppStatus";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import {
   cancelProductMessage,
   editProduct,
   fetchProduct,
-} from "../store/product/productActions";
-import { type Message, Status } from "../types/Message";
+} from "../../store/product/productActions";
+import { type Message, Status } from "../../types/Message";
 
 const ProductEditPage = () => {
   const { id } = useParams();

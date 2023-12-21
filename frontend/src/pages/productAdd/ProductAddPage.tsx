@@ -1,11 +1,11 @@
-import { AppWaiting, AppMessage } from "../components/appStatus/AppStatus";
-import ProductForm from "../components/ProductForm";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
+import { AppWaiting, AppMessage } from "../../components/appStatus/AppStatus";
+import ProductForm from "../../components/productForm/ProductForm";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import {
   addProduct,
   cancelProductMessage,
-} from "../store/product/productActions";
-import { Message, Status } from "../types/Message";
+} from "../../store/product/productActions";
+import { Message, Status } from "../../types/Message";
 
 const ProductFormPage = () => {
   const dispatch = useAppDispatch();

@@ -1,4 +1,4 @@
-import { PlusCircleIcon, MinusCircleIcon } from "../Icons";
+import { PlusCircleIcon, MinusCircleIcon } from "../svgs/Icons";
 import styles from "../../assets/scss/CartPage.module.scss";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { stateCart } from "../../store/cart/cartSlice";

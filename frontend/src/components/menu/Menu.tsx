@@ -1,12 +1,12 @@
-import { LogoutIcon } from "./Icons";
+import { LogoutIcon } from "../svgs/Icons";
 import styles from "../assets/scss/Menu.module.scss";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { logout } from "../store/user/userActions";
-import { isAdmin } from "../store/user/userSlice";
-import { totalItems } from "../store/cart/cartSlice";
-import { emptyCart } from "../store/cart/cartActions";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { logout } from "../../store/user/userActions";
+import { isAdmin } from "../../store/user/userSlice";
+import { totalItems } from "../../store/cart/cartSlice";
+import { emptyCart } from "../../store/cart/cartActions";
 
 const Menu = () => {
   const dispatch = useAppDispatch();

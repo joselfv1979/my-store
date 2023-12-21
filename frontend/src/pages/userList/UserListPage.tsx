@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { cancelUserMessage, fetchUsers } from "../store/user/userActions";
-import { Message, Status } from "../types/Message";
-import { AppMessage, AppWaiting } from "../components/appStatus/AppStatus";
-import UserList from "../components/UserList";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { cancelUserMessage, fetchUsers } from "../../store/user/userActions";
+import { Message, Status } from "../../types/Message";
+import { AppMessage, AppWaiting } from "../../components/appStatus/AppStatus";
+import UserList from "../../components/userList/UserList";
 
 const UserListPage = () => {
   const dispatch = useAppDispatch();

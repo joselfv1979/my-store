@@ -1,9 +1,9 @@
 import styles from "./../assets/scss/CartPage.module.scss";
-import { useAppSelector } from "../hooks/redux-hooks";
-import { totalItems } from "../store/cart/cartSlice";
-import Cart from "../components/cart/Cart";
+import { useAppSelector } from "../../hooks/redux-hooks";
+import { totalItems } from "../../store/cart/cartSlice";
+import Cart from "../../components/cart/Cart";
 import { Container, Stack } from "react-bootstrap";
-import Checkout from "../components/Checkout";
+import Checkout from "../../components/checkout/Checkout";
 
 const CartPage = () => {
   const items = useAppSelector(totalItems);

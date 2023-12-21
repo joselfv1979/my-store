@@ -1,8 +1,8 @@
 import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
-import { useDeleteModalContext } from "../context/deleteModal/DeleteModalContext";
-import { useAppDispatch } from "../hooks/redux-hooks";
-import { deleteProduct } from "../store/product/productActions";
+import { useDeleteModalContext } from "../../context/deleteModal/DeleteModalContext";
+import { useAppDispatch } from "../../hooks/redux-hooks";
+import { deleteProduct } from "../../store/product/productActions";
 
 const DeleteModal = () => {
   const { showDeleteModal, setShowDeleteModal, id } = useDeleteModalContext();

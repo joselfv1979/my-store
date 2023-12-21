@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
-import { useAppDispatch } from "../hooks/redux-hooks";
-import { addProduct } from "../store/cart/cartActions";
-import { type Product } from "../types/Product";
-import { type CartItem } from "../types/Cart";
+import { useAppDispatch } from "../../hooks/redux-hooks";
+import { addProduct } from "../../store/cart/cartActions";
+import { type Product } from "../../types/Product";
+import { type CartItem } from "../../types/Cart";
 import { useLocation, useNavigate } from "react-router-dom";
 
 type Props = {

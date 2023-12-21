@@ -5,7 +5,7 @@ type Props = {
   stars: number
 }
 
-const StarRating = ({ stars }: Props) => {
+const Rating = ({ stars }: Props) => {
   const totalStars = [1,2,3,4,5];
  
   return (
@@ -17,4 +17,4 @@ const StarRating = ({ stars }: Props) => {
   );
 };
 
-export default StarRating;
+export default Rating;

@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../hooks/redux-hooks";
-import { initialProduct, Product } from "../types/Product";
-import { castProductToFormData } from "../utils/castFormData";
-import { categories } from "../data/ConstantUtils";
-import ImageUpload from "./imageUpload/ImageUpload";
+import { useAppSelector } from "../../hooks/redux-hooks";
+import { Product } from "../../types/Product";
+import { castProductToFormData } from "../../utils/castFormData";
+import { categories, initialProduct } from "../../data/ConstantUtils";
+import ImageUpload from "../imageUpload/ImageUpload";
 
 type Props = {
   saveProduct: (data: FormData) => Promise<void>;

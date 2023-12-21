@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { Message, Status } from "../types/Message";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { Message, Status } from "../../types/Message";
 import {
   cancelUserMessage,
   editUser,
   fetchUser,
-} from "../store/user/userActions";
-import { User } from "../types/User";
-import { AppMessage, AppWaiting } from "../components/appStatus/AppStatus";
-import UserForm from "../components/UserForm";
+} from "../../store/user/userActions";
+import { User } from "../../types/User";
+import { AppMessage, AppWaiting } from "../../components/appStatus/AppStatus";
+import UserForm from "../../components/userForm/UserForm";
 
 const UserEdit = () => {
   const { id } = useParams();
