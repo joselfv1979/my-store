@@ -2,7 +2,6 @@ import {
   addNewUser,
   getUser,
   getUsers,
-  loginUser,
   removeUser,
   updateUser,
 } from "../../services/userService";
@@ -10,22 +9,62 @@ import { AuthRequest, User } from "../../types/User";
 import { validateUser } from "../../utils/validateUser";
 import { userSlice } from "./userSlice";
 import { AppThunk } from "../../types/AppThunk";
+import { googleLogin, loginUser } from "services/authService";
+import { CredentialResponse } from "@react-oauth/google";
 
 const { actions } = userSlice;
 
+export const login =
+  (user: AuthRequest): AppThunk =>
+  async (dispatch) => {
+    dispatch(actions.loginUserPending());
+    const response = await loginUser(user);
+
+    if (response.success) {
+      dispatch(actions.loginUserSuccess(response.value));
+      localStorage.setItem("token", JSON.stringify(response.value.token));
+    } else {
+      dispatch(actions.loginUserFail(response.message));
+    }
+  };
+
+export const loginGoogle =
+  (credential: CredentialResponse): AppThunk =>
+  async (dispatch) => {
+    dispatch(actions.loginUserPending());
+    const response = await googleLogin(credential);
+
+    if (response.success) {
+      dispatch(actions.loginUserSuccess(response.value));
+      localStorage.setItem("token", JSON.stringify(response.value.token));
+    } else {
+      dispatch(actions.loginUserFail(response.message));
+    }
+  };
+
+// Action to logout a user
+export const logout = (): AppThunk => async (dispatch) => {
+  localStorage.removeItem("token");
+  dispatch(actions.logoutUser());
+};
+
 // Action to fetch all users
 export const fetchUsers = (): AppThunk => async (dispatch) => {
+  dispatch(actions.setUsersPending());
   const response = await getUsers();
+
   response.success
     ? dispatch(actions.setUsersSuccess(response.value))
-    : dispatch(actions.setUserFail(response.message));
+    : dispatch(actions.setUsersFail(response.message));
 };
 
 // Action to fetch one user by id
 export const fetchUser =
   (id: string): AppThunk =>
   async (dispatch) => {
+    dispatch(actions.setUserPending());
     const response = await getUser(id);
+
     response.success
       ? dispatch(actions.setUserSuccess(response.value))
       : dispatch(actions.setUserFail(response.message));
@@ -35,6 +74,7 @@ export const fetchUser =
 export const addUser =
   (user: User): AppThunk =>
   async (dispatch) => {
+    dispatch(actions.createUserPending());
     const validUser = validateUser(user, false);
 
     if (!validUser.success) {
@@ -52,7 +92,9 @@ export const addUser =
 export const deleteUser =
   (id: string): AppThunk =>
   async (dispatch) => {
+    dispatch(actions.eliminateUserPending);
     const response = await removeUser(id);
+
     response.success
       ? dispatch(actions.eliminateUserSuccess(id))
       : dispatch(actions.eliminateUserFail(response.message));
@@ -62,6 +104,7 @@ export const deleteUser =
 export const editUser =
   (user: User): AppThunk =>
   async (dispatch) => {
+    dispatch(actions.modifyUserPending());
     const validUser = validateUser(user, true);
 
     if (!validUser.success) {
@@ -74,27 +117,6 @@ export const editUser =
       ? dispatch(actions.modifyUserSuccess(response.value))
       : dispatch(actions.modifyUserFail(response.message));
   };
-
-// Action to login a user
-export const login =
-  (user: AuthRequest): AppThunk =>
-  async (dispatch) => {
-    dispatch(actions.userPending());
-    const response = await loginUser(user);
-
-    if (response.success) {
-      dispatch(actions.loginUserSuccess(response.value));
-      localStorage.setItem("token", JSON.stringify(response.value.token));
-    } else {
-      dispatch(actions.loginUserFail(response.message));
-    }
-  };
-
-// Action to logout a user
-export const logout = (): AppThunk => async (dispatch) => {
-  localStorage.removeItem("token");
-  dispatch(actions.logoutUser());
-};
 
 // Action to remove any message from UserState
 export const cancelUserMessage = (): AppThunk => (dispatch) => {
