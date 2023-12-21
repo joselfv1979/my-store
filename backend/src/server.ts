@@ -4,8 +4,9 @@ import cors from "cors";
 import path from "path";
 import helmet from "helmet";
 import morgan from "morgan";
-import usersRouter from "./routes/userRoutes"; // variables que almacenan los módulos de los endpoint enrutados
+import usersRouter from "./routes/userRoutes"; 
 import productRouter from "./routes/productRoutes";
+import authRouter from "./routes/authRoutes";
 import { errorHandler } from "./middlewares/errorHandler";
 import { connect } from "./utils/database";
 
@@ -40,7 +41,7 @@ app.use(
 );
 
 // Routes
-app.use("/auth", usersRouter);
+app.use("/auth", authRouter);
 app.use("/users", usersRouter);
 app.use("/products", productRouter);
 
