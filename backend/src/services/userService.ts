@@ -8,23 +8,20 @@ export const getAllUsers = async () => {
   return rows;
 };
 
-export const getUserDataById = async (id: string) => {
+export const getUserDataById = async (id: string): Promise<IUser> => {
   const sql = "select * from users where id = ?";
   const [rows] = await pool.query<RowDataPacket[]>(sql, [id]);
-  return rows[0];
+  return rows[0] as IUser;
 };
 
 export const loginUser = async (username: string, password: string) => {
   const sql = "select * from users where username = ? and password = sha1(?)";
-  const [rows] = await pool.query<RowDataPacket[]>(sql, [
-    username,
-    password,
-  ]);
+  const [rows] = await pool.query<RowDataPacket[]>(sql, [username, password]);
   return rows[0];
 };
 
 export const addUser = async (user: UserWithoutId) => {
-  const { fullname, username, email, password, roles, image } = user;
+  const { fullname, username, email, password, role, image } = user;
   const sql =
     "insert into users (fullname, username, email, password, role, image) values (?, ?, ?, sha1(?), ?, ?)";
 
@@ -33,11 +30,11 @@ export const addUser = async (user: UserWithoutId) => {
     username,
     email,
     password,
-    roles[0],
+    role,
     image,
   ]);
 
-  return { ...user, id: String(insertId)};
+  return { ...user, id: String(insertId) };
 };
 
 export const updateUser = async (id: string, user: IUser) => {
@@ -57,9 +54,7 @@ export const updateUser = async (id: string, user: IUser) => {
 
 export const deleteUser = async (id: string) => {
   const sql = "delete from users where id = ?";
-  const [{ affectedRows }] = await pool.query<ResultSetHeader>(sql, [
-    id,
-  ]);
+  const [{ affectedRows }] = await pool.query<ResultSetHeader>(sql, [id]);
   return affectedRows;
 };
 
@@ -79,10 +74,20 @@ export const deleteAllUsers = async () => {
   const sql = "delete from users";
 
   await pool.query<ResultSetHeader>(sql);
-}
+};
 
-export const getUserByEmail = async (email?: string) => {
+export const getUserByEmail = async (email?: string): Promise<IUser> => {
   const sql = "SELECT * FROM users WHERE email = ?";
   const [rows] = await pool.query<RowDataPacket[]>(sql, [email]);
-  return rows[0];
+  return rows[0] as IUser;
+};
+
+export const updatePassword = async (id: string, password: string) => {
+  const sql = "update users set password = sha1(?) where id = ?";
+
+  const [{ affectedRows }] = await pool.query<ResultSetHeader>(sql, [
+    password,
+    id,
+  ]);
+  return affectedRows;
 };
