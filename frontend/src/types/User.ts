@@ -21,14 +21,6 @@ export interface AuthUser {
   token?: string
 }
 
-export const initialUser: User = {
-  username: "",
-  fullname: "",
-  password: "",
-  role: "user",
-  email: "",
-};
-
 export interface AuthRequest {
   username: string;
   password: string;

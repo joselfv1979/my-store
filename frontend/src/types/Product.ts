@@ -17,12 +17,10 @@ export interface Product {
   rating: number;
 }
 
-export const initialProduct: Product = {
-  name: "",
-  category: "",
-  description: "",
-  price: 0,
-  imagePath: "",
-  rating: 0,
+export type productCategory = {
+  id: number;
+  label: string;
+  value: string;
+  image: string;
 };
 

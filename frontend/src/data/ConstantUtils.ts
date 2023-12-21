@@ -2,13 +2,8 @@ import toys from '../assets/img/toys.svg'
 import drinks from '../assets/img/drinks.svg'
 import food from '../assets/img/food.svg'
 import cloth from '../assets/img/cloth.svg'
-
-type productCategory = {
-  id: number;
-  label: string;
-  value: string;
-  image: string;
-};
+import { Product, productCategory } from 'types/Product';
+import { User } from 'types/User';
 
 export const categories: productCategory[] = [
   {
@@ -42,3 +37,20 @@ export const categories: productCategory[] = [
     image: toys,
   },
 ];
+
+export const initialProduct: Product = {
+  name: "",
+  category: "",
+  description: "",
+  price: 0,
+  imagePath: "",
+  rating: 0,
+};
+
+export const initialUser: User = {
+  username: "",
+  fullname: "",
+  password: "",
+  role: "user",
+  email: "",
+};

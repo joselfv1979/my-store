@@ -10,8 +10,3 @@ export interface CartState {
 export interface CartItem extends Product { 
     quantity: number
 }; 
-
-export const initialCart: CartState = {
-    items: [],
-    totalPrice: 0
-}
