@@ -17,6 +17,7 @@ import About from "./pages/about/About";
 import styles from "./App.module.scss";
 import { useAppDispatch } from "./hooks/redux-hooks";
 import { cancelProductMessage } from "./store/product/productActions";
+import PasswordResetPage from "pages/passwordReset/PasswordResetPage";
 
 function App() {
   const { pathname } = useLocation();
@@ -42,6 +43,7 @@ function App() {
           <Route path="/register" element={<UserAddPage />} />
           <Route path="/users" element={<UserListPage />} />
           <Route path="/edit-profile/:id" element={<UserEdit />} />
+          <Route path="/password-reset" element={<PasswordResetPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<ErrorPage />} />
