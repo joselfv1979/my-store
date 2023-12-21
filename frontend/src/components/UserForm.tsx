@@ -10,41 +10,33 @@ type Props = {
 };
 
 const UserForm = ({ saveUser, editing = false }: Props) => {
-  const { user, status }  = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.user);
 
   const currentUser = user ?? initialUser;
 
   const [userData, setUserData] = useState<User>(currentUser);
-  
+
   const [shown, setShown] = useState(false);
   const switchShown = () => setShown(!shown);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setUserData({ ...userData, [event.target.name]: event.target.value });
+    setUserData((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
   };
 
-  const submit = async (event: FormEvent<HTMLFormElement>) => {
+  const sendDataUser = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('before');
     await saveUser(userData);
-    
-    
-    if(status === "success"){
-      console.log('yyyyea');
-      
-      setUserData(initialUser);
-    }else{
-      console.log('nnnnnnnnooooooo');
-    }
-    console.log('after');
   };
 
   const navigate = useNavigate();
 
   return (
-    <form className={styles.userForm} onSubmit={submit}>
+    <form className={styles.userForm} onSubmit={sendDataUser}>
       <header>
-        {editing ? <h2>Edit Profile</h2> : <h2>Register</h2>}
+        <h2>{editing ? "Edit Profile" : "Register"}</h2>
         <p>Please fill in this form</p>
       </header>
 
@@ -59,7 +51,7 @@ const UserForm = ({ saveUser, editing = false }: Props) => {
             required
             autoFocus
             onChange={onChange}
-            defaultValue={userData.username}
+            value={userData.username}
           />
         </div>
       </fieldset>
@@ -108,21 +100,25 @@ const UserForm = ({ saveUser, editing = false }: Props) => {
               onChange={onChange}
             />
           </div>
-          <div className={styles.eye} onClick={switchShown}></div>
+          <button className={styles.eye} onClick={switchShown}></button>
         </fieldset>
       )}
 
       <div className={styles.buttonsContainer}>
         <button className={styles.login}>Save</button>
 
-        {!editing && (
+        {editing ? (
+          <button className={styles.cancel} onClick={() => navigate("/")}>
+            Cancel
+          </button>
+        ) : (
           <>
             <p>Have an account?</p>
             <button
-              className={styles.signin}
+              className={styles.signup}
               onClick={() => navigate("/login")}
             >
-              Sign in
+              <span>Sign in</span>
               <i className="fas fa-user"></i>
             </button>
           </>

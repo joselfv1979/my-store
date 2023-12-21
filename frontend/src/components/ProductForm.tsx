@@ -14,18 +14,20 @@ type Props = {
 type InputType = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
 const ProductForm = ({ saveProduct, editing = false }: Props) => {
+ 
   const { product } = useAppSelector((state) => state.product);
 
-  const currentProduct = editing ? product!! : initialProduct;
+  const currentProduct = editing && product ? product : initialProduct;
 
   const [productData, setProductData] = useState<Product>(currentProduct);
-
-  const formTitle = editing ? "Edit Product" : "New Product";
 
   const navigate = useNavigate();
 
   const handleInputEvent = (e: ChangeEvent<InputType>) => {
-    setProductData(prevState => ({...prevState, [e.target.name]: e.target.value}));
+    setProductData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const sendDataProduct = async (event: FormEvent<HTMLFormElement>) => {
@@ -40,9 +42,13 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
         className="w-50 border border-light rounded p-4"
         onSubmit={sendDataProduct}
       >
-        <h4 className="text-center text-light">{formTitle}</h4>
+        <h4 className="text-center text-light">
+          {editing ? "Edit Product" : "New Product"}
+        </h4>
         <div className="mb-3">
-          <label className="form-label text-light">Product Name:</label>
+          <label htmlFor="name" className="form-label text-light">
+            Product Name:
+          </label>
           <input
             type="text"
             className="form-control"
@@ -54,7 +60,9 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
         </div>
         <div className="row g-2 mb-3">
           <div className="col me-4">
-            <label className="form-label text-light">Category:</label>
+            <label htmlFor="category" className="form-label text-light">
+              Category:
+            </label>
             <select
               className="form-select"
               onChange={handleInputEvent}
@@ -70,7 +78,9 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
             </select>
           </div>
           <div className="col ms-4">
-            <label className="form-label text-light">Price:</label>
+            <label htmlFor="price" className="form-label text-light">
+              Price:
+            </label>
             <input
               type="number"
               className="form-control"
@@ -81,7 +91,9 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
           </div>
         </div>
         <div className="mb-3">
-          <label className="form-label text-light">Description:</label>
+          <label htmlFor="description" className="form-label text-light">
+            Description:
+          </label>
           <textarea
             className="form-control"
             placeholder="add some comment"
