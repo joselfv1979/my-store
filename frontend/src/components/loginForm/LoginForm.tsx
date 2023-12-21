@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../assets/scss/LoginPage.module.scss";
 import { type AuthRequest } from "../../types/User";
+import styles from "../../assets/scss/LoginPage.module.scss";
 
 type Props = {
   loginUser: (userData: AuthRequest) => Promise<void>;

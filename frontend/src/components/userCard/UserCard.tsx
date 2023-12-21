@@ -1,8 +1,8 @@
 import { Button, Card } from 'react-bootstrap'
 import { User } from '../../types/User'
-import styles from "../assets/scss/UserListPage.module.scss";
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { deleteUser } from "../../store/user/userActions";
+import styles from "../../assets/scss/UserListPage.module.scss";
 
 type Props = {
     user: User;

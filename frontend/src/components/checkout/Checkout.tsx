@@ -1,9 +1,9 @@
-import styles from "./../assets/scss/CartPage.module.scss";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { totalItems, totalPrice } from "../../store/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, Stack } from "react-bootstrap";
 import { emptyCart } from "../../store/cart/cartActions";
+import styles from "../../assets/scss/CartPage.module.scss";
 
 export const Checkout = () => {
   const items = useAppSelector(totalItems);
