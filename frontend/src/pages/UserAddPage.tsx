@@ -26,9 +26,8 @@ const UserAddPage = () => {
 
   return (
     <>
-      {status === 'loading' && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
-      <UserForm saveUser={saveUser} />
+      {status === 'loading' ? <AppWaiting /> : <UserForm saveUser={saveUser} />}
     </>
   );
 };
