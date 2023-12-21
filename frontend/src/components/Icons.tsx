@@ -1,6 +1,5 @@
 type Props = {
   width: string;
-  fill?: string;
 };
 
 export const HomeIcon = ({ width }: Props) => (
