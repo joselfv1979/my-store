@@ -9,12 +9,12 @@ const About = () => {
           <h1>My Tools:</h1>
           <li>
             <h3>
-              <span> Backend:</span> Javascript, Node.js, Express.js, JSON Web Token, Mysql
+              <span> Backend:</span> Typescript, Node.js, Express.js, Jwt, Mysql
             </h3>
           </li>
           <li>
             <h3>
-              <span> Frontend:</span> Javascript, React, Redux, Html, Css, Sass
+              <span> Frontend:</span> Typescript, React, Redux, Bootstrap, Sass
             </h3>
           </li>
         </ul>
