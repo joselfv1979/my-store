@@ -29,6 +29,7 @@ export const userSlice = createSlice({
     },
     logoutUser: (state) => {
       state.authUser = undefined;
+      state.user = null;
       state.status = "success";
     },
     setUsersPending: (state) => {
