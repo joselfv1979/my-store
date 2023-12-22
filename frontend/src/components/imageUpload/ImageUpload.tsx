@@ -27,7 +27,7 @@ const ImageUpload = ({ productData, setProductData }: Props) => {
   return (
     <div className="row g-2 my-5">
       <div className="col me-4">
-        <label className="form-label text-light">Product image</label>
+        <label htmlFor="image" className="form-label text-light">Product image</label>
         <input
           type="file"
           className="form-control"
@@ -43,7 +43,7 @@ const ImageUpload = ({ productData, setProductData }: Props) => {
       >
         <img
           src={url}
-          className="img-fluid rounded"
+          className="img-fluid rounded-1"
           alt="File Preview"
           width={100}
         />

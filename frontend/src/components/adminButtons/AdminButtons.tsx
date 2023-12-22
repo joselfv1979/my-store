@@ -20,14 +20,14 @@ const AdminButtons = ({ id }: Props) => {
   return (
     <>
       <button
-        className="btn btn-success py-3 px-5"
+        className="btn btn-success py-2 px-5"
         data-testid="edit-button"
         onClick={() => navigate(`/edit-product/${id}`)}
       >
         <i className="fas fa-pencil-alt" />
       </button>
       <button
-        className="btn btn-danger py-3 px-5"
+        className="btn btn-danger py-2 px-5"
         data-testid="trash-button"
         onClick={removeProduct}
       >

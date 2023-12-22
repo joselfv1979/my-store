@@ -39,7 +39,7 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
   return (
     <div className="container mt-5 d-flex justify-content-center">
       <form
-        className="w-50 border border-light rounded p-4"
+        className="w-50 border border-light rounded-1 p-4"
         onSubmit={sendDataProduct}
       >
         <h4 className="text-center text-light">
@@ -107,12 +107,12 @@ const ProductForm = ({ saveProduct, editing = false }: Props) => {
           setProductData={setProductData}
         />
         <div className="m-2">
-          <button type="submit" className="btn btn-primary me-3">
+          <button type="submit" className="btn btn-primary py-2 px-3 me-3">
             Submit
           </button>
           <button
             type="button"
-            className="btn btn-secondary ms-3"
+            className="btn btn-secondary py-2 px-3 ms-3"
             onClick={() => navigate("/")}
           >
             cancel

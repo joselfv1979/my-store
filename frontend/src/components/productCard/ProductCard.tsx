@@ -14,8 +14,8 @@ const ProductCard = ({ product }: Props) => {
   const image = `${process.env.REACT_APP_API_IMAGES}/${product.imagePath}`;
 
   return (
-    <div className="card">
-      <img src={image} className="card-img-top" alt={product.name} />
+    <div className="card rounded-1 mx-0">
+      <img src={image} className="card-img-top rounded-top-1" alt={product.name} />
       <div className="card-body">
         <h5 className="card-title">{product.name}</h5>
         <p className="card-text">Price: {product.price} €</p>

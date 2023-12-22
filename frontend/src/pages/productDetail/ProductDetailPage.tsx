@@ -47,22 +47,22 @@ const ProductDetailPage = () => {
       {product && (
         <Container>
           <Breadcrumb>
-            <Breadcrumb.Item href="/">Products</Breadcrumb.Item>
-            <Breadcrumb.Item active>{product.category}</Breadcrumb.Item>
+            <Breadcrumb.Item className="fs-5" href="/">Products</Breadcrumb.Item>
+            <Breadcrumb.Item active className="fs-5 text-white text-capitalize">{product.category}</Breadcrumb.Item>
           </Breadcrumb>
           <Row>
             <Col>
-              <div className="card">
+              <div className="card rounded-1">
                 <Card.Img variant="top" src={image} alt={product.name} />
               </div>
             </Col>
             <Col>
-              <div className="card">
+              <div className="card rounded-1">
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>
-                  <Card.Title>Price: {product.price} €</Card.Title>
+                  <Card.Text className="fs-5 mt-2">Price: {product.price} €</Card.Text>
                   <Rating stars={product.rating} />
-                  <Card.Text>
+                  <Card.Text className="mt-2">
                     {product.description}. Lorem ipsum dolor, sit amet
                     consectetur adipisicing elit. Officiis praesentium eveniet
                     consequatur provident aut dolorem? Asperiores corrupti

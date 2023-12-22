@@ -29,19 +29,19 @@ const UserButtons = ({ product }: Props) => {
   return (
     <>
       <button
-        className="btn btn-primary py-3 px-5"
+        className="btn btn-primary py-2 px-3"
         data-testid="more-button"
         onClick={handleOnClick}
       >
         <span className="m-3">{isProductListLocation ? "View" : "Back"}</span>
       </button>
       <button
-        className="btn btn-success py-3 px-5"
+        className="btn btn-success py-2 px-3"
         data-testid="cart-button"
         onClick={() => dispatch(addProduct(newItem))}
       >
         <FontAwesomeIcon icon={faCartPlus} size="lg" />
-        <span className="m-3">Add</span>
+        <span className="m-2">Add</span>
       </button>
     </>
   );
