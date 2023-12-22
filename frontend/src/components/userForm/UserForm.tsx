@@ -66,7 +66,6 @@ const UserForm = ({ saveUser, editing = false }: Props) => {
             placeholder="Full name"
             autoComplete="off"
             required
-            autoFocus
             onChange={onChange}
             value={userData.fullname}
           />
