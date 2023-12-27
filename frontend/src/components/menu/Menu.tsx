@@ -54,9 +54,9 @@ const Menu = () => {
           <Nav.Item className="ms-auto">
             <Nav.Link href={`/edit-profile/${authUser.id}`}>
               {authUser.username}
-              <span className={styles.logout} onClick={logoutUser}>
+              <button className={styles.logout} onClick={logoutUser}>
                 <LogoutIcon width="1.5rem" />
-              </span>
+              </button>
             </Nav.Link>
           </Nav.Item>
         ) : (
