@@ -17,7 +17,7 @@ export const Checkout = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="card rounded-1 mx-0" style={{ width: "20rem" }}>
+    <div className="card rounded-1 mx-0" style={{ width: "22rem" }}>
       <h4 className="card-header text-center">Checkout</h4>
       <div className="card-body">
         <h5 className="card-title row p-1">
