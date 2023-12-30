@@ -6,8 +6,8 @@ import {
   updateProduct,
 } from "../../services/productService";
 import { productSlice } from "./productSlice";
-import { AppThunk } from "../../types/AppThunk";
 import { validateProduct } from "./../../utils/validateProduct";
+import { AppThunk } from "store";
 
 const { actions } = productSlice;
 

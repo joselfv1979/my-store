@@ -8,12 +8,13 @@ import {
 import { AuthRequest, User } from "../../types/User";
 import { validateUser } from "../../utils/validateUser";
 import { userSlice } from "./userSlice";
-import { AppThunk } from "../../types/AppThunk";
 import { googleLogin, loginUser } from "services/authService";
 import { CredentialResponse } from "@react-oauth/google";
+import { AppThunk } from "store";
 
 const { actions } = userSlice;
 
+// Action to sign in one user
 export const login =
   (user: AuthRequest): AppThunk =>
   async (dispatch) => {
@@ -28,6 +29,7 @@ export const login =
     }
   };
 
+// Action to sign in or sing up one user with Google API
 export const loginGoogle =
   (credential: CredentialResponse): AppThunk =>
   async (dispatch) => {
@@ -88,7 +90,7 @@ export const addUser =
       : dispatch(actions.createUserFail(response.message));
   };
 
-// Action to delete one user by id,
+// Action to delete one user by id
 export const deleteUser =
   (id: string): AppThunk =>
   async (dispatch) => {

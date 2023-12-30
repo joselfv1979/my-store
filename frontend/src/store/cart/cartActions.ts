@@ -1,6 +1,6 @@
 import { cartSlice } from "./cartSlice";
 import { type CartItem } from "../../types/Cart";
-import { AppThunk } from "../../types/AppThunk";
+import { AppThunk } from "store";
 
 const { actions } = cartSlice;
 
