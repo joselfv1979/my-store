@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { cancelUserMessage, fetchUsers } from "../../store/user/userActions";
-import { Message, Status } from "../../types/Message";
 import { AppMessage, AppWaiting } from "../../components/appStatus/AppStatus";
 import UserList from "../../components/userList/UserList";
+import { getMessage } from "utils/handleMessage";
 
+// Displays a list of users
 const UserListPage = () => {
   const dispatch = useAppDispatch();
 
@@ -16,10 +17,7 @@ const UserListPage = () => {
     dispatch(fetchUsers());
   }, [dispatch]);
 
-  const note: Message = {
-    type: error ? Status.DANGER : Status.SUCCESS,
-    text: error ?? message,
-  };  
+  const note = getMessage(error, message);
 
   const cancelMessage = () => {
     dispatch(cancelUserMessage());

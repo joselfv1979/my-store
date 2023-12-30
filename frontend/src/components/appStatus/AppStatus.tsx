@@ -7,7 +7,7 @@ type Props = {
   note: Message,
   cancelMessage?: () => void
 }
-
+// Component for notifications and alerts
 const AppMessage = ({ note, cancelMessage }: Props) => {
 
   const removeMessage = () => {
@@ -15,12 +15,13 @@ const AppMessage = ({ note, cancelMessage }: Props) => {
   }
 
   return (
+    // Note type danger colour red, type success colour green
     <Alert variant={note.type} style={{width: "60%", textAlign: 'center'}} onClose={removeMessage} dismissible>
           {note.text}
     </Alert>
   )
 }
-
+// Component for displaying a loader
 const AppWaiting = () => {
   return (
     <div id="loader" className={styles.loader}>

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styles from "../../assets/scss/ErrorPage.module.scss";
 
+// Displays an error view if the path is unknown
 const ErrorPage = () => {
   const navigate = useNavigate();
 

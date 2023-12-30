@@ -1,6 +1,7 @@
 import { type Result } from '../types/Result';
 import { type User } from '../types/User';
 
+// Validate user function
 export const validateUser = (user: User, editing?: boolean): Result<User, string> => {
 
     const { fullname, username, email, password } = user;    

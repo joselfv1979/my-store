@@ -7,7 +7,7 @@ import styles from "../../assets/scss/UserListPage.module.scss";
 type Props = {
     user: User;
 }
-
+// Component for displaying a user
 const UserCard = ({ user }: Props) => {
   const dispatch = useAppDispatch();;
 

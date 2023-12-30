@@ -5,6 +5,7 @@ import { useAppDispatch } from "../../hooks/redux-hooks";
 import { LensIcon } from "../svgs/Icons";
 import styles from "../../assets/scss/SearchForm.module.scss";
 
+// Component for handling filtered product requests
 const SearchForm = () => {
 
   const dispatch = useAppDispatch();

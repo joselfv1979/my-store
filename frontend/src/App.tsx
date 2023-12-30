@@ -18,16 +18,19 @@ import styles from "./App.module.scss";
 import { useAppDispatch } from "./hooks/redux-hooks";
 import { cancelProductMessage } from "./store/product/productActions";
 import PasswordResetPage from "pages/passwordReset/PasswordResetPage";
+import { cancelUserMessage } from "store/user/userActions";
 
 function App() {
   const { pathname } = useLocation();
 
   const dispatch = useAppDispatch();
 
+  // Removes messages when view is changed
   useEffect(() => {
     dispatch(cancelProductMessage());
+    dispatch(cancelUserMessage());
   }, [dispatch, pathname]);
-  
+
   return (
     <div className={styles.App}>
       <Menu />

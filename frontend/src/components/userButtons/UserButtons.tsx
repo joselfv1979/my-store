@@ -10,6 +10,7 @@ type Props = {
   product: Product;
 };
 
+// Component used in ProductList and ProductDetail views 
 const UserButtons = ({ product }: Props) => {
   const dispatch = useAppDispatch();
 
@@ -19,7 +20,7 @@ const UserButtons = ({ product }: Props) => {
   const isProductListLocation = location.pathname === "/products";
 
   const navigate = useNavigate();
-
+  // Navigation based on view path
   const handleOnClick = () => {
     isProductListLocation
       ? navigate(`/product-detail/${product.id}`)

@@ -10,13 +10,17 @@ type Props = {
   editing?: boolean;
 };
 
+// Form component used for create and edit users
 const UserForm = ({ saveUser, editing = false }: Props) => {
+  // UserEdit view gets the user from the store
   const { user } = useAppSelector((state) => state.user);
 
+  // UserAdd view uses an empty User object (initialUser)
   const currentUser = user ?? initialUser;
 
   const [userData, setUserData] = useState<User>(currentUser);
 
+  // UseState to hide password characters
   const [shown, setShown] = useState(false);
   const switchShown = () => setShown(!shown);
 

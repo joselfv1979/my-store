@@ -1,5 +1,4 @@
-//loading token from localStorage
-
+// Loading token from localStorage
 export const getHeaders = () => {
   const storedToken = localStorage.getItem("token");
 

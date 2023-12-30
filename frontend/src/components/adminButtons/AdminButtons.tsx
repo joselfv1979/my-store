@@ -7,9 +7,10 @@ type Props = {
 
 const AdminButtons = ({ id }: Props) => {
   const navigate = useNavigate();
-
+  // UseContext to share functions to delete a product
   const { setShowDeleteModal, setId } = useDeleteModalContext();
 
+  // Displays a modal to delete a product
   const removeProduct = () => {
     setShowDeleteModal(true);
     if (id) {

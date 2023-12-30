@@ -7,6 +7,7 @@ type Props = {
   setShowPasswordResetModal: (show: boolean) => void;
 };
 
+// Modal for requesting a password reset
 const RequestPasswordResetModal = ({
   showPasswordResetModal,
   setShowPasswordResetModal,

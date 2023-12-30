@@ -8,8 +8,9 @@ import {
   editProduct,
   fetchProduct,
 } from "../../store/product/productActions";
-import { type Message, Status } from "../../types/Message";
+import { getMessage } from "utils/handleMessage";
 
+// Displays the form to edit an existing product
 const ProductEditPage = () => {
   const { id } = useParams();
 
@@ -19,15 +20,7 @@ const ProductEditPage = () => {
     (state) => state.product
   );
 
-  const note: Message = error
-    ? {
-        type: Status.DANGER,
-        text: error,
-      }
-    : {
-        type: Status.SUCCESS,
-        text: message,
-      };
+  const note = getMessage(error, message);
 
   useEffect(() => {
     if (id) dispatch(fetchProduct(id));

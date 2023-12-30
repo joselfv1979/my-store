@@ -15,11 +15,13 @@ const ImageUpload = ({ productData, setProductData }: Props) => {
       setProductData({ ...productData, image: event.target.files[0] });
   };
 
+  // If there is no image stored no_image file is used
   const imagePath =
     productData.imagePath.length > 0
       ? `${process.env.REACT_APP_API_IMAGES}/${productData.imagePath}`
       : noImage;
 
+  // Image preview path
   const url = productData.image
     ? URL.createObjectURL(productData.image)
     : imagePath;

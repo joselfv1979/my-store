@@ -1,5 +1,6 @@
 import { type Result } from "../types/Result";
 
+// Validate product function
 export const validateProduct = (product: FormData): Result<FormData, string> => {
   
   const data = Object.fromEntries(product.entries());

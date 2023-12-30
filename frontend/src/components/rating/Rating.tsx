@@ -5,6 +5,7 @@ type Props = {
   stars: number
 }
 
+// Component for displaying the product rating 
 const Rating = ({ stars }: Props) => {
   const totalStars = [1,2,3,4,5];
  

@@ -9,6 +9,7 @@ type Props = {
 };
 
 const ProductCard = ({ product }: Props) => {
+  // ProductCard buttons depending on user's role
   const admin = useAppSelector(isAdmin);
 
   const image = `${process.env.REACT_APP_API_IMAGES}/${product.imagePath}`;

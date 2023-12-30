@@ -13,10 +13,12 @@ type Props = {
 
 type InputType = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
+// Form component used for create and edit products
 const ProductForm = ({ saveProduct, editing = false }: Props) => {
- 
+  // ProductEdit view gets the user from the store
   const { product } = useAppSelector((state) => state.product);
 
+  // ProductAdd view uses an empty Product object (initialUser)
   const currentProduct = editing && product ? product : initialProduct;
 
   const [productData, setProductData] = useState<Product>(currentProduct);

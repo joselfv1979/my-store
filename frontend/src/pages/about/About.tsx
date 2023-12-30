@@ -1,6 +1,7 @@
 import { GitHubIcon } from '../../components/svgs/Icons'
 import styles from "../../assets/scss/AboutPage.module.scss";
 
+// Describes the tools used in the application
 const About = () => {
   return (
     <div className={styles.container}>

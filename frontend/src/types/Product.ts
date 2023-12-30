@@ -1,11 +1,14 @@
+/* The `ProductState` interface is defining the shape of the state object for managing products in an
+application. */
 export interface ProductState {
-    products: Product[];
-    product: Product | null;
-    message?: string;
-    error?: string;
-    status: 'loading' | 'idle' | 'success' | 'fail';
-  }
+  products: Product[];
+  product: Product | null;
+  message?: string;
+  error?: string;
+  status: "loading" | "idle" | "success" | "fail";
+}
 
+/* The `export interface Product` is defining the shape of a single product object.*/
 export interface Product {
   id?: string;
   name: string;
@@ -17,10 +20,12 @@ export interface Product {
   rating: number;
 }
 
-export type productCategory = {
+/**
+ * Represents a product category with an id, label, value, and image.
+ */
+export type ProductCategory = {
   id: number;
   label: string;
   value: string;
   image: string;
 };
-

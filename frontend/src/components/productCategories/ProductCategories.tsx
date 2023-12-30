@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "hooks/redux-hooks";
 import { fetchProducts } from "store/product/productActions";
 
+// Displays product categories and handles product requests filtering by category
 const ProductCategories = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

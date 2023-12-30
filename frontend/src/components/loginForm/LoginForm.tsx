@@ -27,7 +27,7 @@ const LoginForm = ({ loginUser, setShowPasswordResetModal }: Props) => {
     event.preventDefault();
     await loginUser(values);
   };
-
+  // UseState to hide password characters
   const [shown, setShown] = useState(false);
   const switchShown = () => setShown(!shown);
 

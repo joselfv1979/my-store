@@ -5,6 +5,7 @@ import { Container, Stack } from "react-bootstrap";
 import Checkout from "../../components/checkout/Checkout";
 import styles from "../../assets/scss/CartPage.module.scss";
 
+// Displays the shopping cart
 const CartPage = () => {
   const items = useAppSelector(totalItems);
 

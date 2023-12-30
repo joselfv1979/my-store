@@ -5,7 +5,9 @@ import { useAppDispatch } from "../../hooks/redux-hooks";
 import { deleteProduct } from "../../store/product/productActions";
 
 const DeleteModal = () => {
+  // UseContext to share functions to delete a product
   const { showDeleteModal, setShowDeleteModal, id } = useDeleteModalContext();
+  
   const handleClose = () => setShowDeleteModal(false);
 
   const dispatch = useAppDispatch();

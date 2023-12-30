@@ -25,6 +25,7 @@ export const loginUser = async (
   }
 };
 
+// Allows users to sign in or sign up for a Google account
 export const googleLogin = async (
   credential: CredentialResponse
 ): Promise<Result<AuthUser, string>> => {
@@ -37,15 +38,16 @@ export const googleLogin = async (
   }
 };
 
+// Password reset request
 export const requestPasswordReset = async (body: { email: string }) => {
   try {
     await api.post("/request-password-reset", body);
   } catch (error) {
-    console.log({ error });
     return { success: false, message: handleError(error) };
   }
 };
 
+// Sends new password
 export const passwordReset = async (
   body: { password: string },
   token: string
@@ -58,7 +60,6 @@ export const passwordReset = async (
       },
     });
   } catch (error) {
-    console.log({ error });
     return { success: false, message: handleError(error) };
   }
 };

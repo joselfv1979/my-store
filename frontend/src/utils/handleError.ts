@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Error handling function
 export const handleError = (error: unknown): string => {
   if (axios.isAxiosError(error) && error.response?.data) {
     console.log(error.response?.data);

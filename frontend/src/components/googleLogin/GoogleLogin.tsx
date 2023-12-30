@@ -5,7 +5,7 @@ import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 type Props = {
   loginGoogleUser: (credentialResponse: CredentialResponse) => Promise<void>
 }
-
+// Component for signing in or registering with the Google API
 const GoogleLoginComponent = ({ loginGoogleUser }: Props) => {
   const [showGoogleLogin, setShowGoogleLogin] = useState(true);
 

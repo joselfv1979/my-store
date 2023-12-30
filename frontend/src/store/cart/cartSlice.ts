@@ -7,6 +7,7 @@ const initialCartState: CartState = {
   totalPrice: 0,
 };
 
+// Reducer functions of cart state
 export const cartSlice = createSlice({
   name: "cart",
   initialState: initialCartState,
@@ -55,10 +56,8 @@ export const cartSlice = createSlice({
   },
 });
 
-export default cartSlice.reducer;
-
 export const stateCart = (state: RootState) => state.cart.items;
-export const checkItem = (state: RootState, id: string) => state.cart.items.find((i: CartItem) => i.id === id);
 export const totalPrice = (state: RootState) => state.cart.items.reduce((acc, item) => acc + item.price * item.quantity, 0)
 .toFixed(2);
 export const totalItems = (state: RootState) => state.cart.items.reduce((acc, item) => acc + item.quantity, 0);
+export default cartSlice.reducer;

@@ -11,6 +11,7 @@ import { User } from "../../types/User";
 import { AppMessage, AppWaiting } from "../../components/appStatus/AppStatus";
 import UserForm from "../../components/userForm/UserForm";
 
+// Displays the form to edit an existing user
 const UserEdit = () => {
   const { id } = useParams();
 

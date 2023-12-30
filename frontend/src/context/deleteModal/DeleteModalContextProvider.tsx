@@ -14,7 +14,7 @@ export const DeleteModalContextProvider = ({ children }: Props) => {
       showDeleteModal,
       setShowDeleteModal,
       id,
-      setId
+      setId,
     }),
     [id, showDeleteModal]
   );

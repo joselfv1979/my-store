@@ -11,6 +11,7 @@ import {
 } from "../../store/product/productActions";
 import { Message, Status } from "../../types/Message";
 
+// Displays a product detail view
 const ProductDetailPage = () => {
   const { id } = useParams();
 

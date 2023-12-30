@@ -4,7 +4,9 @@ import { useAppSelector } from "../../hooks/redux-hooks";
 import { storedProductList } from "../../store/product/productSlice";
 
 const ProductList = () => {
+  // Gets product list from store
   const products = useAppSelector(storedProductList);
+  // Checks product list is empty
   const hasProducts = () => products && products.length > 0;
 
   return (

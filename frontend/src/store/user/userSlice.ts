@@ -12,6 +12,7 @@ const initialUserState: UserState = {
   status: "idle",
 };
 
+// Reducer functions of user state
 export const userSlice = createSlice({
   name: "user",
   initialState: initialUserState,
@@ -111,14 +112,7 @@ export const userSlice = createSlice({
 });
 
 export const getUsers = (state: RootState) => state.user.users;
-
 export const getUser = (state: RootState, id: string) =>
   state.user.users.find((user: User) => user.id === id);
-
 export const isAdmin = (state: RootState) => state.user.authUser?.username === "admin";
-
-export const getMessage = (state: RootState) => state.user.message;
-
-export const getError = (state: RootState) => state.user.error;
-
 export default userSlice.reducer;

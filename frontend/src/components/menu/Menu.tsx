@@ -8,6 +8,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import styles from "../../assets/scss/Menu.module.scss";
 
+// Nav component displays menu options depending on authentication and user's role
 const Menu = () => {
   const dispatch = useAppDispatch();
 

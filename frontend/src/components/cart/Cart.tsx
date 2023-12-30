@@ -7,13 +7,15 @@ import { addProduct, substractProduct } from "../../store/cart/cartActions";
 import { CartItem } from "../../types/Cart";
 
 const Cart = () => {
+
   const cart = useAppSelector(stateCart);
   const dispatch = useAppDispatch();
 
+  // Add a product unit to cart
   const subtractItem = (item: CartItem) => {
     dispatch(substractProduct(item));
   };
-
+  // Substract a product unit to cart
   const addItem = (item: CartItem) => {
     dispatch(addProduct(item));
   };

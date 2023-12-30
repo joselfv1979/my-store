@@ -8,10 +8,7 @@ const api = axios.create({
   baseURL: process.env.REACT_APP_API_USERS,
 });
 
-/**
- * Returns all users
- * @returns {Result<User[], string>} All user or an error messsage
- */
+// Request to get all users
 export const getUsers = async (): Promise<Result<User[], string>> => {
   try {
     const { data } = await api.get("/", {
@@ -23,11 +20,7 @@ export const getUsers = async (): Promise<Result<User[], string>> => {
   }
 };
 
-/**
- * Returns one user
- * @param {string} id - The user id.
- * @returns {Result<User, string>} User or an error messsage
- */
+// Request to get a user
 export const getUser = async (id: string): Promise<Result<User, string>> => {
   try {
     console.log("id", id);
@@ -42,11 +35,7 @@ export const getUser = async (id: string): Promise<Result<User, string>> => {
   }
 };
 
-/**
- * Returns one user
- * @param {User} user - Object of type User.
- * @returns {Result<User, string>} User or an error messsage
- */
+// Request to create a user
 export const addNewUser = async (user: User): Promise<Result<User, string>> => {
   try {
     const { data } = await api.post(`/sign-up/`, user);
@@ -56,11 +45,7 @@ export const addNewUser = async (user: User): Promise<Result<User, string>> => {
   }
 };
 
-/**
- * Returns one user
- * @param {string} id - The user id.
- * @returns {Result<string, string>} User or an error messsage
- */
+// Request to delete a user
 export const removeUser = async (
   id: string
 ): Promise<Result<string, string>> => {
@@ -74,6 +59,7 @@ export const removeUser = async (
   }
 };
 
+// Request to update a user
 export const updateUser = async (user: User): Promise<Result<User, string>> => {
   try {
     const { data } = await api.put(`/user-edit/${user.id}`, user, {

@@ -8,6 +8,7 @@ const initialProductState: ProductState = {
   status: "idle",
 };
 
+// Reducer functions of product state
 export const productSlice = createSlice({
   name: "product",
   initialState: initialProductState,

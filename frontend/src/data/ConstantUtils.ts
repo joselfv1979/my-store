@@ -2,10 +2,11 @@ import toys from '../assets/img/toys.svg'
 import drinks from '../assets/img/drinks.svg'
 import food from '../assets/img/food.svg'
 import cloth from '../assets/img/cloth.svg'
-import { Product, productCategory } from 'types/Product';
+import { Product, ProductCategory } from 'types/Product';
 import { User } from 'types/User';
 
-export const categories: productCategory[] = [
+// Product categories 
+export const categories: ProductCategory[] = [
   {
     id: 1,
     label: "Choose",
@@ -38,6 +39,7 @@ export const categories: productCategory[] = [
   },
 ];
 
+// Product empty object
 export const initialProduct: Product = {
   name: "",
   category: "",
@@ -47,6 +49,7 @@ export const initialProduct: Product = {
   rating: 0,
 };
 
+// User empty object
 export const initialUser: User = {
   username: "",
   fullname: "",
