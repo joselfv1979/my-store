@@ -1,149 +1,153 @@
-@import url('https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur');
+@import url("https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur");
+
+@mixin formButton {
+  color: #252537;
+  padding: 0 20px;
+  border-radius: 5px;
+  height: 2.5rem;
+  letter-spacing: 0.05em;
+  margin: 1rem auto;
+  transition: all 0.2s linear;
+  width: 15rem;
+
+  &:hover {
+    transform: translatey(3px);
+    animation: 0.4s ease-in-out infinite alternate;
+  }
+
+  i {
+    margin-left: 10px;
+  }
+}
 
 .userForm {
-    color: #fafbfd;
+  color: #fafbfd;
+  display: flex;
+  font-family: "Abel", sans-serif;
+  flex-direction: column;
+  height: 32rem;
+  margin-top: 1rem;
+  text-align: center;
+  width: 100%;
+
+  header {
+    h2 {
+      font: {
+        family: "Playfair Display", serif;
+        size: 200%;
+      }
+
+      margin-top: 1rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+      margin: 0.5rem;
+    }
+  }
+
+  fieldset {
+    background-color: #fafbfd;
+    border-radius: 5px;
     display: flex;
-    font-family: 'Abel', sans-serif;
-    flex-direction: column;
-    height: 32rem;
-    margin-top: 1rem;
-    text-align: center;
-    width: 100%;
+    margin: 1rem auto;
+    width: 15rem;
+  }
 
-    header {
-        h2 {
-            font: {
-                family: 'Playfair Display', serif;
-                size: 200%;
-            }
+  input {
+    border: none;
 
-            margin-top: 1rem;
-        }
-
-        p {
-            font-size: .8rem;
-            margin: .5rem;
-        }
+    font: {
+      family: "Abel", sans-serif;
+      size: 1rem;
     }
 
-    fieldset {
-        background-color: #fafbfd;
-        border-radius: 5px;
-        display: flex;
-        margin: 1rem auto;
-        width: 15rem;
+    height: 2.5rem;
+    transition: 0.2s linear;
+    width: 9rem;
+
+    &:focus {
+      outline: none;
+      transform: translateX(-4px);
     }
+  }
 
-    input {
-        border: none;
+  .login {
+    @include formButton;
+    background: #0093af;
+  }
 
-        font: {
-            family: 'Abel', sans-serif;
-            size: 1rem;
-        }
-
-        height: 2.5rem;
-        transition: 0.2s linear;
-        width: 9rem;
-
-        &:focus {
-            outline: none;
-            transform: translateX(-4px);
-        }
-    }
-
-    button {
-        color: #252537;
-        padding: 0 20px;
-        border-radius: 5px;
-        height: 2.5rem;
-        letter-spacing: 0.05em;
-        margin: 1rem auto;
-        transition: all 0.2s linear;
-        width: 15rem;
-
-        &.login {
-            background: #0093AF;
-        }
-
-        &.signin {
-            background: #d15849;
-        }
-
-        &:hover {
-            transform: translatey(3px);
-            animation: 0.4s ease-in-out infinite alternate;
-        }
-
-        i {
-            margin-left: 10px;
-        }
-    }
+  .signup, .cancel {
+    @include formButton;
+    background: #d15849;
+  }
 }
 
 .user,
 .pwd,
 .email {
-    background-position: 1rem center;
-    background-repeat: no-repeat;
-    background-size: 1.4rem;
+  background-position: 1rem center;
+  background-repeat: no-repeat;
+  background-size: 1.4rem;
 }
 
 .user {
-    background-image: url('./../img/user.svg');
-    padding-left: 3rem;
+  background-image: url("./../img/user.svg");
+  padding-left: 3rem;
 }
 
 .pwd {
-    background-image: url('./../img/key.svg');
-    padding-left: 3rem;
+  background-image: url("./../img/key.svg");
+  padding-left: 3rem;
 }
 
 .eye {
-    background-image: url('./../img/eye.svg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 1.7rem;
-    cursor: pointer;
-    width: 3rem;
+  background-image: url("./../img/eye.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1.7rem;
+  background-color: transparent;
+  width: 3rem;
 }
 
 .email {
-    background-image: url('./../img/envelope.svg');
-    padding-left: 3rem;
+  background-image: url("./../img/envelope.svg");
+  padding-left: 3rem;
 }
 
 .buttonsContainer {
-    p {
-        font-size: .8rem;
-    }
+  display: flex;
+  flex-direction: column;
+  p {
+    font-size: 0.8rem;
+  }
 }
 
-@media screen and (max-width:480px) {
-    .userForm {
-        margin-top: 1rem;
-        width: 85%;
+@media screen and (max-width: 480px) {
+  .userForm {
+    margin-top: 1rem;
+    width: 85%;
 
-        fieldset {
-            margin: 1rem 0;
-            width: 100%;
-        }
-
-        input {
-            height: 3rem;
-            width: 95%;
-        }
-
-        button {
-            height: 3rem;
-            width: 100%;
-        }
-
-        .user,
-        .pwd,
-        .email {
-            height: 3rem;
-            width: 100%;
-        }
+    fieldset {
+      margin: 1rem 0;
+      width: 100%;
     }
+
+    input {
+      height: 3rem;
+      width: 95%;
+    }
+
+    button {
+      height: 3rem;
+      width: 100%;
+    }
+
+    .user,
+    .pwd,
+    .email {
+      height: 3rem;
+      width: 100%;
+    }
+  }
 }
