@@ -9,7 +9,7 @@ import { getMessage } from "utils/handleMessage";
 const UserListPage = () => {
   const dispatch = useAppDispatch();
 
-  const { status, users, message, error } = useAppSelector(
+  const { loading, users, message, error } = useAppSelector(
     (state) => state.user
   );
 
@@ -25,7 +25,7 @@ const UserListPage = () => {
 
   return (
     <>
-      {status === 'loading' && <AppWaiting />}
+      {loading && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
       {users && <UserList />}
     </>

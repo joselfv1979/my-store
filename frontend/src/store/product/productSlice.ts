@@ -5,7 +5,7 @@ import { type Product, type ProductState } from "../../types/Product";
 const initialProductState: ProductState = {
   products: [],
   product: null,
-  status: "idle",
+  loading: false,
 };
 
 // Reducer functions of product state
@@ -16,47 +16,47 @@ export const productSlice = createSlice({
     productsPending: (state) => {
       state.products = [];
       state.product = null;
-      state.status = "loading";
+      state.loading = true;
       state.message = undefined;
       state.error = undefined;
     },
     productPending: (state) => {
       state.product = null;
-      state.status = "loading";
+      state.loading = true;
       state.message = undefined;
       state.error = undefined;
     },
     setProductsSuccess: (state, action: PayloadAction<Product[]>) => {
       state.products = action.payload;
-      state.status = "success";
+      state.loading = false;
     },
     setProductSuccess: (state, action: PayloadAction<Product>) => {
       state.product = action.payload;
-      state.status = "success";
+      state.loading = false;
     },
     setProductFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
-      state.status = "fail";
+      state.loading = false;
     },
     createProductSuccess: (state, action: PayloadAction<Product>) => {
       state.products = [...state.products, action.payload];
       state.message = "Product created successfully";
-      state.status = "success";
+      state.loading = false;
     },
     createProductFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
-      state.status = "fail";
+      state.loading = false;
     },
     eliminateProductSuccess: (state, action: PayloadAction<string>) => {
       state.products = state.products.filter(
         (item: Product) => item.id !== action.payload
       ); // filter out all items with a given value. In this case the action.payload is the id of the product.
       state.message = "Product deleted successfully";
-      state.status = "success";
+      state.loading = false;
     },
     eliminateProductFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
-      state.status = "fail";
+      state.loading = false;
     },
     modifyProductSuccess: (state, action: PayloadAction<Product>) => {
       state.products = state.products.map((item: Product) =>
@@ -65,11 +65,11 @@ export const productSlice = createSlice({
       // map over the array and if the id matches, replace the item with the new value. In this case the action.payload is the new value
       state.product = action.payload;
       state.message = "Product updated successfully";
-      state.status = "success";
+      state.loading = false;
     },
     modifyProductFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
-      state.status = "fail";
+      state.loading = false;
     },
     eliminateProductMessage: (state) => {
       state.message = undefined;

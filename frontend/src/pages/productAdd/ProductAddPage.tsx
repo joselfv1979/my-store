@@ -11,7 +11,7 @@ import {
 const ProductFormPage = () => {
   const dispatch = useAppDispatch();
 
-  const { status, message, error } = useAppSelector((state) => state.product);
+  const { loading, message, error } = useAppSelector((state) => state.product);
 
   const note = getMessage(error, message);
 
@@ -26,7 +26,7 @@ const ProductFormPage = () => {
   return (
     <>
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} /> }
-      {status === 'loading' ? <AppWaiting /> : <ProductForm saveProduct={saveProduct} />}
+      {loading ? <AppWaiting /> : <ProductForm saveProduct={saveProduct} />}
     </>
   );
 };

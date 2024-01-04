@@ -5,7 +5,7 @@ export interface ProductState {
   product: Product | null;
   message?: string;
   error?: string;
-  status: "loading" | "idle" | "success" | "fail";
+  loading: boolean;
 }
 
 /* The `export interface Product` is defining the shape of a single product object.*/

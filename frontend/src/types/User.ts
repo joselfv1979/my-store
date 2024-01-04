@@ -6,7 +6,7 @@ export interface UserState {
   authUser?: AuthUser;
   message?: string;
   error?: string;
-  status: 'loading' | 'idle' | 'success' | 'fail';
+  loading: boolean;
 }
 
 /* The `AuthUser` interface is defining the shape of an authenticated user object in the application.

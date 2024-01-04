@@ -14,11 +14,11 @@ import { getMessage } from "utils/handleMessage";
 // Displays a list of products
 const ProductListPage = () => {
   const dispatch = useAppDispatch();
-  const { status, message, error } = useAppSelector((state) => state.product);
+  const { loading, message, error } = useAppSelector((state) => state.product);
 
   useEffect(() => {
-    if (status === "idle") dispatch(fetchProducts());
-  }, [dispatch, status]);
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   const { showDeleteModal } = useDeleteModalContext();
 
@@ -31,7 +31,7 @@ const ProductListPage = () => {
   return (
     <>
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
-      {status === "loading" ? (
+      {loading ? (
         <AppWaiting />
       ) : (
         <>

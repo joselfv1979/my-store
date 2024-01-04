@@ -9,12 +9,12 @@ import { User } from "../../types/User";
 const UserAddPage = () => {
   const dispatch = useAppDispatch();
 
-  const { error, message, status } = useAppSelector((state) => state.user);
+  const { error, message, loading } = useAppSelector((state) => state.user);
 
   const note = getMessage(error, message);
-  
+
   const saveUser = async (data: User) => {
-    dispatch(addUser(data))
+    dispatch(addUser(data));
   };
 
   const cancelMessage = () => {
@@ -24,7 +24,7 @@ const UserAddPage = () => {
   return (
     <>
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
-      {status === 'loading' ? <AppWaiting /> : <UserForm saveUser={saveUser} />}
+      {loading ? <AppWaiting /> : <UserForm saveUser={saveUser} />}
     </>
   );
 };

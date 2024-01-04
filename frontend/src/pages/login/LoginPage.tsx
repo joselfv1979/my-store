@@ -14,7 +14,7 @@ import { getMessage } from "utils/handleMessage";
 const LoginPage = () => {
   const dispatch = useAppDispatch();
 
-  const { authUser, error, message, status } = useAppSelector(
+  const { authUser, error, message, loading } = useAppSelector(
     (state) => state.user
   );
   const [showPasswordResetModal, setShowPasswordResetModal] =
@@ -39,7 +39,7 @@ const LoginPage = () => {
   return (
     <>
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
-      {status === "loading" ? (
+      {loading ? (
         <AppWaiting />
       ) : (
         <>

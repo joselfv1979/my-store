@@ -1,15 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
-import {
-  AuthUser,
-  type User,
-  type UserState,
-} from "../../types/User";
+import { AuthUser, type User, type UserState } from "../../types/User";
 
 const initialUserState: UserState = {
   users: [],
   user: null,
-  status: "idle",
+  loading: false,
 };
 
 // Reducer functions of user state
@@ -18,76 +14,75 @@ export const userSlice = createSlice({
   initialState: initialUserState,
   reducers: {
     loginUserPending: (state) => {
-      state.status = "loading";
+      state.loading = true;
     },
     loginUserSuccess: (state, action: PayloadAction<AuthUser>) => {
       state.authUser = action.payload;
-      state.status = "success";
+      state.loading = false;
     },
     loginUserFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
-      state.status = "fail";
+      state.loading = false;
     },
     logoutUser: (state) => {
       state.authUser = undefined;
       state.user = null;
-      state.status = "success";
     },
     setUsersPending: (state) => {
-      state.status = "loading";
+      state.loading = true;
       state.users = [];
       state.message = undefined;
       state.error = undefined;
     },
     setUsersSuccess: (state, action: PayloadAction<User[]>) => {
       state.users = action.payload;
-      state.status = "success";
+      state.loading = false;
     },
     setUsersFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
-      state.status = "fail";
+      state.loading = false;
     },
     setUserPending: (state) => {
-      state.status = "loading";
+      state.loading = true;
     },
     setUserSuccess: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
-      state.status = "success";
+      state.loading = false;
     },
     setUserFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
-      state.status = "fail";
+      state.loading = false;
     },
     createUserPending: (state) => {
-      state.status = "loading";
+      state.loading = true;
     },
     createUserSuccess: (state, action: PayloadAction<User>) => {
       state.users = [...state.users, action.payload];
       state.message = "User created succesfully";
-      state.status = "success";
+      state.loading = false;
     },
     createUserFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
-      state.status = "fail";
+      state.loading = false;
     },
     eliminateUserPending: (state) => {
-      state.status = "loading";
+      state.loading = true;
     },
     eliminateUserSuccess: (state, action: PayloadAction<string>) => {
       state.users = state.users.filter(
         (item: User) => item.id !== action.payload
       );
       state.message = "User deleted succesfully";
-      state.status = "success";
+      state.loading = false;
     },
     eliminateUserFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
-      state.status = "fail";
+      state.loading = false;
     },
     modifyUserPending: (state) => {
-      state.status = "loading";
+      state.loading = true;
     },
-    modifyUserSuccess: (state, action: PayloadAction<User>) => {      
+    modifyUserSuccess: (state, action: PayloadAction<User>) => {
       state.users = state.users.map((item: User) =>
         item.id === action.payload.id ? action.payload : item
       );
@@ -98,11 +93,11 @@ export const userSlice = createSlice({
         role: action.payload.role,
       };
       state.message = "User updated successfully";
-      state.status = "success";
+      state.loading = false;
     },
     modifyUserFail: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
-      state.status = "fail";
+      state.loading = false;
     },
     eliminateUserMessage: (state) => {
       state.message = undefined;
@@ -114,5 +109,6 @@ export const userSlice = createSlice({
 export const getUsers = (state: RootState) => state.user.users;
 export const getUser = (state: RootState, id: string) =>
   state.user.users.find((user: User) => user.id === id);
-export const isAdmin = (state: RootState) => state.user.authUser?.username === "admin";
+export const isAdmin = (state: RootState) =>
+  state.user.authUser?.username === "admin";
 export default userSlice.reducer;

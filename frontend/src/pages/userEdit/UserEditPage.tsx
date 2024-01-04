@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
-import { Message, Status } from "../../types/Message";
 import {
   cancelUserMessage,
   editUser,
@@ -10,6 +9,7 @@ import {
 import { User } from "../../types/User";
 import { AppMessage, AppWaiting } from "../../components/appStatus/AppStatus";
 import UserForm from "../../components/userForm/UserForm";
+import { getMessage } from "utils/handleMessage";
 
 // Displays the form to edit an existing user
 const UserEdit = () => {
@@ -17,7 +17,7 @@ const UserEdit = () => {
 
   const dispatch = useAppDispatch();
 
-  const { status, user, message, error } = useAppSelector(
+  const { loading, user, message, error } = useAppSelector(
     (state) => state.user
   );
 
@@ -25,10 +25,7 @@ const UserEdit = () => {
     if (id) dispatch(fetchUser(id));
   }, [dispatch, id]);
 
-  const note: Message = {
-    type: error ? Status.DANGER : Status.SUCCESS,
-    text: error ?? message,
-  };
+  const note = getMessage(error, message);
 
   const saveUser = async (data: User) => {
     dispatch(editUser(data));
@@ -40,7 +37,7 @@ const UserEdit = () => {
 
   return (
     <>
-      {status === "loading" && <AppWaiting />}
+      {loading && <AppWaiting />}
       {note.text && <AppMessage note={note} cancelMessage={cancelMessage} />}
       {user && <UserForm saveUser={saveUser} editing={true} />}
     </>
