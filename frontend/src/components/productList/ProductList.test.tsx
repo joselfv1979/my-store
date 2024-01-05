@@ -17,7 +17,7 @@ const productList: Product[] = [
 const initialProductState: ProductState = {
   products: productList,
   product: null,
-  status: 'success',
+  loading: false,
 };
 
 jest.mock("../../store/product/productActions", () => ({
