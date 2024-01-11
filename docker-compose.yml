@@ -1,6 +1,6 @@
 version: '2.23'
 services:
-  db:
+  mysqldb:
     image: mysql:8.0
     ports:
       - 6603:3306
@@ -16,36 +16,34 @@ services:
       timeout: 45s
       retries: 10
     volumes:
+      - db:/var/lib/mysql
       - ./db/entrypoint.sql:/docker-entrypoint-initdb.d/entrypoint.sql
     networks:
       - backend
 
   api:
-    image: joselfv/mystore_api:v1
+    image: joselfv/mystore-api:v3
     depends_on:
-      db:
+      mysqldb:
         condition: service_healthy
     restart: always
     ports:
       - 7000:7000
+    env_file:
+      - ./backend/.env
     environment:
-      NODE_ENV: production
-      DB_HOST: db
-      DB_USER: admin
-      DB_PASSWORD: 1234
-      DB_NAME: store
-      DB_PORT: 3306
+      SECRET: 1234
     networks:
       - backend
       - frontend
 
   client:
-    image: joselfv/mystore_app:v1
-    ports:
+     image: joselfv/mystore-app:v3
+     ports:
       - 3050:80
-    environment:
-      DOMAIN: http://api:7000
-    networks:
+     env_file:
+      - ./frontend/.env
+     networks:
       - frontend
 
   adminer:
@@ -54,6 +52,9 @@ services:
       - 8081:8080
     networks:
       - backend
+volumes:
+  db:
+
 networks:
   backend:
   frontend:
