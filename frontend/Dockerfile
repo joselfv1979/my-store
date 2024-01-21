@@ -1,12 +1,13 @@
 # building
 
 FROM node:18-alpine AS builder
-WORKDIR /app
+WORKDIR /usr/app
 # Cache and Install dependencies
 COPY package.json .
 RUN npm install
 # Copy app files
-COPY . .
+COPY . /usr/app
+RUN npm ci
 RUN npm run build
 
 # hosting
@@ -14,7 +15,7 @@ RUN npm run build
 # Bundle static assets with nginx
 FROM nginx:alpine
 # Copy built assets from builder
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=builder /usr/app/build /usr/share/nginx/html
 # Add your nginx.conf
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Expose port

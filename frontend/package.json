@@ -78,8 +78,9 @@
     "build": "react-scripts build",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
+    "dev": "react-scripts start",
     "eject": "react-scripts eject",
-    "start": "react-scripts start",
+    "start": "npx http-server ./build",
     "test": "jest --watchAll --detectOpenHandles --verbose --coverage"
   },
   "version": "0.1.0"
