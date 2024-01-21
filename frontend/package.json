@@ -32,6 +32,7 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
+    "serve": "^14.2.1",
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
@@ -80,7 +81,7 @@
     "cy:run": "cypress run",
     "dev": "react-scripts start",
     "eject": "react-scripts eject",
-    "start": "npx http-server ./build",
+    "start": "serve build -s -n -L -p $PORT",
     "test": "jest --watchAll --detectOpenHandles --verbose --coverage"
   },
   "version": "0.1.0"
