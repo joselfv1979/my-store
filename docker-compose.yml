@@ -22,7 +22,7 @@ services:
       - backend
 
   api:
-    image: joselfv/mystore-api:v3
+    image: joselfv/mystore-api:v4
     depends_on:
       mysqldb:
         condition: service_healthy
@@ -38,7 +38,7 @@ services:
       - frontend
 
   client:
-     image: joselfv/mystore-app:v3
+     image: joselfv/mystore-client:v4
      ports:
       - 3050:80
      env_file:
